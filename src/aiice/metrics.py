@@ -4,7 +4,20 @@ from typing import Sequence
 import pytorch_msssim
 import torch
 
-from aiice.constants import DEFAULT_SSIM_KERNEL_WINDOW_SIZE
+from aiice.constants import (
+    BIN_ACCURACY_METRIC,
+    COUNT_STAT,
+    DEFAULT_SSIM_KERNEL_WINDOW_SIZE,
+    LAST_STAT,
+    MAE_METRIC,
+    MAX_STAT,
+    MEAN_STAT,
+    MIN_STAT,
+    MSE_METRIC,
+    PSNR_METRIC,
+    RMSE_METRIC,
+    SSIM_METRIC,
+)
 from aiice.preprocess import apply_threshold
 
 
@@ -70,11 +83,10 @@ def ssim(y_true: Sequence, y_pred: Sequence) -> float:
     """
     SSIM (structural similarity index measure) - determines spatial patterns coincidence on predicted and target images
 
-    Raises
-    ------
-    ValueError
-        If input tensors are not 4D ([N, C, H, W]) or 5D ([N, C, D, H, W]).
-        If input spatial/temporal dimensions are smaller than 11 (SSIM kernel window size).
+    Raises:
+        ValueError:
+            - If input tensors are not 4D ([N, C, H, W]) or 5D ([N, C, D, H, W]).
+            - If any spatial or temporal dimension is smaller than 11 (minimum SSIM kernel window size)
     """
     spatial_dims = y_true.shape[2:]
     if any(dim < DEFAULT_SSIM_KERNEL_WINDOW_SIZE for dim in spatial_dims):
@@ -91,19 +103,24 @@ MetricFn = Callable[[Sequence, Sequence], float]
 
 class Evaluator:
     """
-    Computes and aggregates evaluation metrics over multiple evaluation steps.
+    Compute and aggregate evaluation metrics over multiple evaluation steps.
 
-    Parameters
-    ----------
-    metrics : dict[str, MetricFn] or list[str] or None, optional
-        Metrics to use. If a list of strings is provided, metrics are resolved
-        from the built-in registry. If None, default metrics are used.
-
-    accumulate : bool, default=True
-        Whether to accumulate metric values across multiple ``eval`` calls.
+    Args:
+        metrics (dict[str, MetricFn] | list[str] | None, optional):
+            Metrics to use. If a list of strings is provided, metrics are resolved
+            from the built-in registry. If None, default metrics are used.
+        accumulate (bool, optional):
+            Whether to accumulate metric values across multiple `eval` calls. Defaults to True.
     """
 
-    _default_metrics: list[str] = ["mae", "mse", "rmse", "psnr", "bin_accuracy", "ssim"]
+    _metrics_registry: dict[str, MetricFn] = {
+        MAE_METRIC: mae,
+        MSE_METRIC: mse,
+        RMSE_METRIC: rmse,
+        PSNR_METRIC: psnr,
+        BIN_ACCURACY_METRIC: bin_accuracy,
+        SSIM_METRIC: ssim,
+    }
 
     def __init__(
         self,
@@ -111,7 +128,7 @@ class Evaluator:
         accumulate: bool = True,
     ):
         if metrics is None:
-            self._metrics = self._init_metrics(self._default_metrics)
+            self._metrics = self._metrics_registry
         elif isinstance(metrics, list):
             self._metrics = self._init_metrics(metrics)
         else:
@@ -121,24 +138,19 @@ class Evaluator:
         self._report: dict[str, list[float]] = {k: [] for k in self._metrics}
 
     def _init_metrics(self, metrics: list[str]) -> dict[str, MetricFn]:
-        registry: dict[str, MetricFn] = {
-            "mae": mae,
-            "mse": mse,
-            "rmse": rmse,
-            "psnr": psnr,
-            "bin_accuracy": bin_accuracy,
-            "ssim": ssim,
-        }
-
-        result = {}
+        result: dict[str, MetricFn] = {}
         for name in metrics:
             try:
-                result[name] = registry[name]
+                result[name] = self._metrics_registry[name]
             except KeyError:
                 raise ValueError(
-                    f"Unknown metric '{name}', choose from {list(registry)}"
+                    f"Unknown metric '{name}', choose from {list(self._metrics_registry.keys())}"
                 )
         return result
+
+    @property
+    def metrics(self) -> list[str]:
+        return list(self._metrics.keys())
 
     def eval(self, y_true: Sequence, y_pred: Sequence) -> dict[str, float]:
         """
@@ -162,16 +174,16 @@ class Evaluator:
         """
         Return aggregated statistics for all evaluated metrics.
         """
-        summary = {}
+        summary: dict[str, dict[str, float]] = {}
         for name, values in self._report.items():
             if not values:
                 continue
 
             summary[name] = {
-                "mean": sum(values) / len(values),
-                "last": values[-1],
-                "count": len(values),
-                "min": min(values),
-                "max": max(values),
+                MEAN_STAT: sum(values) / len(values),
+                LAST_STAT: values[-1],
+                COUNT_STAT: len(values),
+                MIN_STAT: min(values),
+                MAX_STAT: max(values),
             }
         return summary

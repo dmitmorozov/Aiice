@@ -3,6 +3,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, timedelta
 from functools import lru_cache
 from io import BytesIO
+from pathlib import Path
 
 import requests
 from huggingface_hub import HfApi
@@ -17,6 +18,7 @@ from aiice.constants import (
     DEFAULT_RETRIES,
     HF_BASE_URL,
     HF_DATASET_REPO,
+    HF_PACKAGE_NAME,
     HF_REPO_TYPE,
     KEY_DATASET_END,
     KEY_DATASET_START,
@@ -27,19 +29,19 @@ from aiice.constants import (
     KEY_SIZE_MB,
     MAX_DATASET_END,
     MIN_DATASET_START,
-    PACKAGE_NAME,
     YEAR_STATS_CACHE_SIZE,
 )
 from aiice.core.utils import retry_on_network_errors
 
 
 class HfDatasetClient:
+    """
+    Client for accessing the AIICE Hugging Face dataset.
+    """
+
     def __init__(self):
-        """
-        Client for accessing the AIICE Hugging Face dataset.
-        """
         self._api_base_url = HF_BASE_URL
-        self._api = HfApi(endpoint=self._api_base_url, library_name=PACKAGE_NAME)
+        self._api = HfApi(endpoint=self._api_base_url, library_name=HF_PACKAGE_NAME)
 
         self._dataset_repo = HF_DATASET_REPO
         self._dataset_repo_type = HF_REPO_TYPE
@@ -76,15 +78,11 @@ class HfDatasetClient:
         """
         Collect dataset size statistics.
 
-        Parameters
-        ----------
-        per_year : bool, optional
-            If True, include per-year file and size statistics.
-        threads : int, optional
-            Number of threads used for parallel HTTP requests.
+        Args:
+            per_year (bool, optional): If True, include per-year file and size statistics. Defaults to False.
+            threads (int, optional): Number of threads used for parallel HTTP requests. Defaults to 24.
         """
-        total_files = 0
-        total_size = 0
+        total_files, total_size = 0, 0
         per_year_result = defaultdict(
             lambda: {
                 KEY_FILES: 0,
@@ -135,14 +133,10 @@ class HfDatasetClient:
         """
         Generate dataset filenames for a date range.
 
-        Parameters
-        ----------
-        start : date, optional
-            Start date (inclusive).
-        end : date, optional
-            End date (inclusive).
-        step : int, optional
-            Step in days between files.
+        Args:
+            start (date, optional): Start date (inclusive). Defaults to dataset start.
+            end (date, optional): End date (inclusive). Defaults to dataset end.
+            step (int, optional): Step in days between files. Defaults to 1.
         """
         start = start or self.dataset_start
         end = end or self.dataset_end
@@ -171,10 +165,8 @@ class HfDatasetClient:
         """
         Load a dataset file from Hugging Face into memory.
 
-        Parameters
-        ----------
-        filename : str
-            Relative path to the dataset file.
+        Args:
+            filename (str): Relative path to the dataset file.
         """
         url = f"{self._api_base_url}/datasets/{self._dataset_repo}/resolve/main/{filename}"
         buffer = BytesIO()
@@ -198,12 +190,9 @@ class HfDatasetClient:
         """
         Download a dataset file to a local directory.
 
-        Parameters
-        ----------
-        filename : str
-            Dataset file path.
-        local_dir : str
-            Target directory for download.
+        Args:
+            filename (str): Dataset file path.
+            local_dir (str): Target directory for download.
         """
         try:
             return self._api.hf_hub_download(
@@ -227,9 +216,7 @@ class HfDatasetClient:
         resp = requests.get(url, timeout=DEFAULT_REQUEST_TIMEOUT)
         resp.raise_for_status()
 
-        files = 0
-        size = 0
-
+        files, size = 0, 0
         for item in resp.json():
             if item.get("type") != "file":
                 continue
@@ -240,10 +227,12 @@ class HfDatasetClient:
         return year, files, size
 
     def _get_filename_template(self, d: date) -> str:
+        # filename looks like: global_series/1999/osisaf_19991101.npy
         return f"global_series/{d.year}/osisaf_{d.year}{d.month:02d}{d.day:02d}.npy"
 
-    def _get_date_from_filename_template(self, f: str) -> str:
-        name = f.split("/")[-1]
+    def _get_date_from_filename_template(self, f: str) -> date:
+        # filename looks like: global_series/1999/osisaf_19991101.npy
+        name = Path(f).name
         date_part = name.removeprefix("osisaf_").removesuffix(".npy")
 
         year = int(date_part[0:4])
