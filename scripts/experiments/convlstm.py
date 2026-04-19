@@ -9,7 +9,6 @@ import yaml
 import math
 from config import Config
 from torch.utils.data import DataLoader
-from torchcnnbuilder.models import ForecasterBase
 from tqdm import tqdm
 
 class ConvLSTMCell(nn.Module):
@@ -18,22 +17,18 @@ class ConvLSTMCell(nn.Module):
         self.hidden_channels = hidden_channels
         padding = kernel_size // 2
 
-        # Входные ворота
         self.Wxi = nn.Conv2d(input_channels, hidden_channels, kernel_size, padding=padding)
         self.Whi = nn.Conv2d(hidden_channels, hidden_channels, kernel_size, padding=padding, bias=False)
         self.w_ci = nn.Parameter(torch.zeros(1, hidden_channels, 1, 1))
 
-        # Забывающие ворота
         self.Wxf = nn.Conv2d(input_channels, hidden_channels, kernel_size, padding=padding)
         self.Whf = nn.Conv2d(hidden_channels, hidden_channels, kernel_size, padding=padding, bias=False)
         self.w_cf = nn.Parameter(torch.zeros(1, hidden_channels, 1, 1))
 
-        # Выходные ворота
         self.Wxo = nn.Conv2d(input_channels, hidden_channels, kernel_size, padding=padding)
         self.Who = nn.Conv2d(hidden_channels, hidden_channels, kernel_size, padding=padding, bias=False)
         self.w_co = nn.Parameter(torch.zeros(1, hidden_channels, 1, 1))
 
-        # Ячейка памяти
         self.Wxc = nn.Conv2d(input_channels, hidden_channels, kernel_size, padding=padding)
         self.Whc = nn.Conv2d(hidden_channels, hidden_channels, kernel_size, padding=padding, bias=False)
     def forward(self, x, prev_state):
@@ -45,19 +40,14 @@ class ConvLSTMCell(nn.Module):
         else:
             h_prev, c_prev = prev_state
 
-        # Входные ворота
         i = torch.sigmoid(self.Wxi(x) + self.Whi(h_prev) + self.w_ci * c_prev)
 
-        # Забывающие ворота
         f = torch.sigmoid(self.Wxf(x) + self.Whf(h_prev) + self.w_cf * c_prev)
 
-        # Ячейка памяти
         c = f * c_prev + i * torch.tanh(self.Wxc(x) + self.Whc(h_prev))
 
-        # Выходные ворота
         o = torch.sigmoid(self.Wxo(x) + self.Who(h_prev) + self.w_co * c)
 
-        # Скрытое состояние
         h = o * torch.tanh(c)
 
         return h, (h, c)
@@ -81,7 +71,6 @@ class ConvLSTMEncoderDecoder(nn.Module):
         self.decoder_lstm1 = ConvLSTMCell(1, 16)
         self.decoder_lstm2 = ConvLSTMCell(16, 32)
 
-        # Output layers
         self.conv1 = nn.Conv2d(32, 16, 3, padding=1)
         self.conv2 = nn.Conv2d(16, 8, 3, padding=1)
         self.conv3 = nn.Conv2d(8, 1, 1, padding=0)
@@ -103,7 +92,6 @@ class ConvLSTMEncoderDecoder(nn.Module):
 
         h_enc1, c_enc1 = encoder_state1
         h_enc2, c_enc2 = encoder_state2
-        # Инициализируем состояния декодера в обратном порядке
         decoder_state1 = (h_enc2, c_enc2)
         decoder_state2 = (h_enc1, c_enc1)
 
@@ -114,7 +102,6 @@ class ConvLSTMEncoderDecoder(nn.Module):
             d1, decoder_state1 = self.decoder_lstm1(current_input, decoder_state1)
             d2, decoder_state2 = self.decoder_lstm2(d1, decoder_state2)
 
-            # Output layers
             out = self.relu(self.conv1(d2))
             out = self.relu(self.conv2(out))
             out = self.conv3(out)
@@ -153,8 +140,6 @@ def run(
             logger=logger,
             train_dataloader=train_dataloader,
             experiment_path=i_experiment_path,
-            data_shape=first_batch[0].shape[-2:],
-            in_time_points=cfg.aiice.pre_history_len,
             out_time_point=cfg.aiice.forecast_len,
             args=experiment,
             device=device,
@@ -177,8 +162,6 @@ def train(
     logger: logging.Logger,
     train_dataloader: DataLoader,
     experiment_path: str,
-    data_shape: int,
-    in_time_points: int,
     out_time_point: int,
     args: dict[str, any],
     device: str,
@@ -205,7 +188,7 @@ def train(
 
         loss = 0
         for x, y in tqdm(train_dataloader):
-            x = x.to(device) # мб надо перевести из float16 в 32 если не будет памяти хватать
+            x = x.to(device)
             y = y.to(device)
 
             optimizer.zero_grad()

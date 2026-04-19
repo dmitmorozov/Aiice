@@ -4,6 +4,7 @@ import logging
 import config
 import conv3d
 import conv2d
+import convlstm
 import torch
 import yaml
 from torch.utils.data import DataLoader
@@ -113,6 +114,15 @@ def main():
                 )
             case "conv3d":
                 conv3d.run(
+                    logger=logger,
+                    cfg=cfg,
+                    sea=sea,
+                    train_dataloader=train_dataloader,
+                    val_dataloader=val_dataloader,
+                    device=device,
+                )
+            case "convlstm":
+                convlstm.run(
                     logger=logger,
                     cfg=cfg,
                     sea=sea,
