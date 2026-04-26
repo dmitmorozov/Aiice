@@ -1,18 +1,18 @@
 import argparse
 import os
+import glob
 
 import pandas as pd
 import yaml
 
-METRIC_BETTER = {
-    "mae": "min",
-    "mse": "min",
-    "rmse": "min",
-    "psnr": "max",
-    "ssim": "max",
-    "iou": "max",
-    "bin_accuracy": "max",
-}
+METRICS = [
+    "mae",
+    "rmse",
+    "psnr",
+    "ssim",
+    "iou",
+    "bin_accuracy",
+]
 
 
 def load_report(path: str):
@@ -23,7 +23,7 @@ def load_report(path: str):
 def extract_mean_metrics(report: dict):
     rows = []
 
-    for metric in METRIC_BETTER.keys():
+    for metric in METRICS:
         if metric in report:
             value = report[metric]["mean"]
             rows.append((metric, float(value)))
@@ -31,13 +31,49 @@ def extract_mean_metrics(report: dict):
     return rows
 
 
-def append_to_csv(csv_path, model, sea, rows):
+def find_yaml_in_dir(dir_path: str):
+    """Find first .yaml or .yml file in directory."""
+    for ext in ["*.yaml", "*.yml"]:
+        matches = glob.glob(os.path.join(dir_path, ext))
+        if matches:
+            return matches[0]
+    return None
+
+
+def process_single_report(report_path, model, sea, forecast_len, step, csv_path):
+    report = load_report(report_path)
+    rows = extract_mean_metrics(report)
+    if rows:
+        append_to_csv(csv_path, model, sea, forecast_len, step, rows)
+        print(f"  - {sea}: {len(rows)} metrics")
+    else:
+        print(f"  - {sea}: no metrics found")
+
+
+def process_directory(dir_path, model, forecast_len, step, csv_path):
+    """Walk subdirectories, treat each as a sea, find yaml inside."""
+    for entry in sorted(os.listdir(dir_path)):
+        sea_dir = os.path.join(dir_path, entry)
+        if not os.path.isdir(sea_dir):
+            continue
+
+        yaml_path = find_yaml_in_dir(sea_dir)
+        if yaml_path is None:
+            print(f"  - {entry}: no yaml file found, skipping")
+            continue
+
+        process_single_report(yaml_path, model, entry, forecast_len, step, csv_path)
+
+
+def append_to_csv(csv_path, model, sea, forecast_len, step, rows):
     new_rows = [
         {
             "model": model,
             "sea": sea,
             "metric": metric,
             "value": value,
+            "forecast_len": forecast_len,
+            "step": step,
         }
         for metric, value in rows
     ]
@@ -50,96 +86,45 @@ def append_to_csv(csv_path, model, sea, rows):
     else:
         df = df_new
 
-    df = df.drop_duplicates(subset=["model", "sea", "metric"], keep="last")
-
-    df.to_csv(csv_path, index=False)
-
-
-def build_bold_pivot(df: pd.DataFrame):
-    pivot = (
-        df.pivot_table(index=["sea", "metric"], columns="model", values="value")
-        .sort_index()
-        .astype(object)
+    df = df.drop_duplicates(
+        subset=["model", "sea", "metric", "forecast_len", "step"],
+        keep="last",
     )
 
-    for (sea, metric), row in pivot.iterrows():
-        mode = METRIC_BETTER.get(metric, "max")
-
-        values = row.astype(float)
-        valid = values.notna()
-
-        if not valid.any():
-            continue
-
-        best = values[valid].max() if mode == "max" else values[valid].min()
-
-        for col in pivot.columns:
-            val = values[col]
-
-            if valid[col] and val == best:
-                pivot.loc[(sea, metric), col] = f"<b>{val:.6f}</b>"
-            else:
-                pivot.loc[(sea, metric), col] = f"{val:.6f}" if valid[col] else ""
-
-    return pivot
-
-
-def save_html(df: pd.DataFrame, html_path: str):
-    pivot = build_bold_pivot(df)
-
-    pivot.columns.name = None
-    pivot.index.names = [None, None]
-
-    html = pivot.to_html(escape=False)
-
-    with open(html_path, "w") as f:
-        f.write(html)
-
-    return html
-
-
-def inject_into_readme(readme_path: str, html: str):
-    with open(readme_path, "r", encoding="utf-8") as f:
-        content = f.read()
-
-    start = "<!-- benchmark -->"
-    end = "<!-- benchmark -->"
-
-    if start not in content or end not in content:
-        raise ValueError("README must contain <!-- benchmark --> markers")
-
-    before = content.split(start)[0]
-    after = content.split(end)[-1]
-
-    new_content = before + start + "\n" + html + "\n" + end + after
-
-    with open(readme_path, "w", encoding="utf-8") as f:
-        f.write(new_content)
+    df.to_csv(csv_path, index=False)
 
 
 def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--model", required=True)
-    parser.add_argument("--sea", required=True)
+    parser.add_argument("--sea", default=None)
+    parser.add_argument("--forecast_len", type=int, required=True)
+    parser.add_argument("--step", required=True)
     parser.add_argument("--report", required=True)
     parser.add_argument("--csv", required=True)
-    parser.add_argument("--html", required=True)
-    parser.add_argument("--readme", required=True)
 
     args = parser.parse_args()
 
-    report = load_report(args.report)
-    rows = extract_mean_metrics(report)
-    append_to_csv(args.csv, args.model, args.sea, rows)
+    if args.sea is None:
+        # --report is a directory containing subdirs named after seas
+        if not os.path.isdir(args.report):
+            print(f"Error: --sea not provided and --report is not a directory: {args.report}")
+            return
 
-    df = pd.read_csv(args.csv)
+        print(f"Processing directory: {args.report}")
+        process_directory(args.report, args.model, args.forecast_len, args.step, args.csv)
 
-    html = save_html(df, args.html)
-    inject_into_readme(args.readme, html)
+    else:
+        # --sea provided, --report is a single yaml file
+        if not os.path.isfile(args.report):
+            print(f"Error: --report is not a file: {args.report}")
+            return
+
+        print(f"Processing single report for: {args.sea}")
+        process_single_report(args.report, args.model, args.sea, args.forecast_len, args.step, args.csv)
 
     print(f"- updated CSV: {args.csv}")
-    print(f"- generated HTML: {args.html}")
 
 
 if __name__ == "__main__":

@@ -21,6 +21,7 @@ class AIICE:
     High-level interface for loading Arctic ice data, preparing datasets, and benchmarking models.
 
     This class provides a simple API to:
+
     1. Load historical ice data within a specified date range (see `aiice.loader.Loader`)
     2. Convert the data into sliding-window datasets (see `aiice.preprocess.SlidingWindowDataset`)
     3. Create a PyTorch DataLoader for batch processing
@@ -43,9 +44,11 @@ class AIICE:
         device (`str`, optional): Device to place tensors on ("cpu", "cuda", etc.). If None, uses PyTorch default device.
 
     Example:
-        >>> aiice = AIICE(pre_history_len=30, forecast_len=7, batch_size=32, start="2022-01-01", end="2022-12-31")
-        >>> model = MyModel()
-        >>> results = aiice.bench(model, metrics={"mae", "psnr"})
+        ```python
+        aiice = AIICE(pre_history_len=30, forecast_len=7, batch_size=32, start="2022-01-01", end="2022-12-31")
+        model = MyModel()
+        results = aiice.bench(model, metrics={"mae", "psnr"})
+        ```
     """
 
     def __init__(

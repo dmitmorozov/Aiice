@@ -31,6 +31,8 @@ def _as_tensor(y_true: Sequence, y_pred: Sequence, device=None):
 def mae(y_true: Sequence, y_pred: Sequence) -> float:
     """
     MAE (mean absolute error) - determines absolute values range coincidence with real data.
+
+    $$\\text{MAE} = \\frac{1}{N} \\sum_{i=1}^{N} |y_i - \\hat{y}_i|$$
     """
     y_true, y_pred = _as_tensor(y_true, y_pred)
     return torch.abs(y_true - y_pred).mean().item()
@@ -39,6 +41,8 @@ def mae(y_true: Sequence, y_pred: Sequence) -> float:
 def mse(y_true: Sequence, y_pred: Sequence) -> float:
     """
     MSE (mean squared error) - similar to MAE but emphasizes larger errors by squaring differences.
+
+    $$\\text{MSE} = \\frac{1}{N} \\sum_{i=1}^{N} (y_i - \\hat{y}_i)^2$$
     """
     y_true, y_pred = _as_tensor(y_true, y_pred)
     return ((y_true - y_pred) ** 2).mean().item()
@@ -48,6 +52,8 @@ def rmse(y_true: Sequence, y_pred: Sequence) -> float:
     """
     RMSE (root mean square error) - determines absolute values range coincidence as MAE
     but making emphasis on spatial error distribution of prediction.
+
+    $$\\text{RMSE} = \\sqrt{\\frac{1}{N} \\sum_{i=1}^{N} (y_i - \\hat{y}_i)^2}$$
     """
     y_true, y_pred = _as_tensor(y_true, y_pred)
     return torch.sqrt(((y_true - y_pred) ** 2).mean()).item()
@@ -56,6 +62,10 @@ def rmse(y_true: Sequence, y_pred: Sequence) -> float:
 def psnr(y_true: Sequence, y_pred: Sequence) -> float:
     """
     PSNR (peak signal-to-noise ratio) - reflects noise and distortion level on predicted images identifying artifacts.
+
+    $$\\text{PSNR} = 20 \\cdot \\log_{10}(\\text{MAX}) - 10 \\cdot \\log_{10}(\\text{MSE})$$
+
+    where $\\text{MAX}$ is the maximum value of the ground truth field.
     """
     y_true, y_pred = _as_tensor(y_true, y_pred)
 
@@ -71,6 +81,11 @@ def bin_accuracy(y_true: Sequence, y_pred: Sequence, threshold: float = 0.15) ->
     """
     Binary accuracy - binarization of ice concentration continuous field with threshold which causing the presence of an ice edge
     gives us possibility to compare binary masks of real ice extent and predicted one.
+
+    $$\\text{BinAcc} = \\frac{1}{N} \\sum_{i=1}^{N} \\mathbf{1}\\bigl[\\hat{b}_i = b_i\\bigr]$$
+
+    where $b_i = \\mathbf{1}[y_i > \\tau]$ and $\\hat{b}_i = \\mathbf{1}[\\hat{y}_i > \\tau]$ are binary masks
+    obtained by thresholding with $\\tau$.
     """
     y_true, y_pred = _as_tensor(y_true, y_pred)
 
@@ -83,6 +98,11 @@ def bin_accuracy(y_true: Sequence, y_pred: Sequence, threshold: float = 0.15) ->
 def ssim(y_true: Sequence, y_pred: Sequence) -> float:
     """
     SSIM (structural similarity index measure) - determines spatial patterns coincidence on predicted and target images
+
+    $$\\text{SSIM}(x, y) = \\frac{(2\\mu_x\\mu_y + c_1)(2\\sigma_{xy} + c_2)}{(\\mu_x^2 + \\mu_y^2 + c_1)(\\sigma_x^2 + \\sigma_y^2 + c_2)}$$
+
+    where $\\mu_x, \\mu_y$ are local means, $\\sigma_x^2, \\sigma_y^2$ are local variances,
+    $\\sigma_{xy}$ is cross-covariance, and $c_1, c_2$ are stabilization constants.
 
     Raises:
         ValueError:
@@ -105,6 +125,10 @@ def iou(y_true: Sequence, y_pred: Sequence, threshold: float = 0.15) -> float:
     of ground truth and prediction.
 
     Similar to bin_accuracy but focuses on overlap quality instead of per-pixel equality.
+
+    $$\\text{IoU} = \\frac{|B \\cap \\hat{B}|}{|B \\cup \\hat{B}|} = \\frac{|B \\cap \\hat{B}|}{|B| + |\\hat{B}| - |B \\cap \\hat{B}|}$$
+
+    where $B = \\mathbf{1}[y > \\tau]$ and $\\hat{B} = \\mathbf{1}[\\hat{y} > \\tau]$ are binary ice extent masks.
     """
     y_true, y_pred = _as_tensor(y_true, y_pred)
 

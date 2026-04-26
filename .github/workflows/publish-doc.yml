@@ -28,12 +28,12 @@ jobs:
 
       - name: Build doc
         run: |
-          uv run pdoc --math -d google --no-include-undocumented -t .doc/ -o docs/ aiice
+          uv run mkdocs build --site-dir site
 
       - name: Load doc
         uses: actions/upload-pages-artifact@v4
         with:
-          path: docs/
+          path: site/
     
   deploy:
     needs: build

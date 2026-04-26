@@ -19,18 +19,28 @@ This will execute the selected model configuration and produce evaluation report
 After an experiment is completed, you can add its results for a specific sea to the global leaderboard using:
 
 ```bash
-uv run scripts/experiments/convert.py \
+uv run --project=scripts scripts/experiments/convert.py \
     --model baseline_mean \
     --sea "Kara Sea" \
+    --forecast_len 54 \
+    --step 1w \
     --report "outputs/baseline_mean/Kara Sea/report.yaml" \
-    --csv .doc/leaderboard/table.csv \
-    --html .doc/leaderboard/leaderboard.html \
-    --readme README.md
+    --csv docs/assets/leaderboard.csv
+```
+
+To add results for all seas at once, point `--report` to the output directory (subdirectories are treated as sea names, each should contain a YAML file):
+
+```bash
+uv run --project=scripts scripts/experiments/convert.py \
+    --model baseline_mean \
+    --forecast_len 54 \
+    --step 1w \
+    --report outputs/baseline_mean \
+    --csv docs/assets/leaderboard.csv
 ```
 
 This command:
 
-* extracts metrics from the YAML report
-* updates the central CSV leaderboard
-* regenerates the HTML leaderboard for visualization
-* inject the HTML leaderboard to the main README.md
+* extracts metrics from the YAML report(s)
+* associates the results with the given forecast length and step
+* updates (or creates) the central CSV leaderboard, deduplicating by model, sea, metric, forecast length, and step
