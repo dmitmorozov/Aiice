@@ -39,6 +39,7 @@ def run(
         step=cfg.aiice.step,
         sea=sea,
         device=cfg.device,
+        threads=cfg.aiice.threads
     )
     report = aiice.bench(
         model=model,

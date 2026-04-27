@@ -11,6 +11,7 @@ class Aiice(BaseModel):
     forecast_len: int
     step: int | str
     batch_size: int
+    threads: int = 16
 
 
 class Run(BaseModel):

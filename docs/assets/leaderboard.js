@@ -231,6 +231,24 @@ function renderAllTables(rows) {
   `;
 }
 
+function renderSnippet(state) {
+  const code = `\
+aiice = AIICE(
+    sea="${state.sea}",
+    forecast_len=${state.forecast_len},
+    step="${state.step}",
+    start="2020-01-01"
+)`.trim();
+
+  document.getElementById("snippet").innerHTML = `
+    <div class="admonition example">
+      <p class="admonition-title">AIICE experiment config</p>
+      <div class="highlight">
+        <pre><code class="language-python">${code}</code></pre>
+      </div>
+    </div>`;
+}
+
 function renderRadar(rows, state, models) {
   const canvas = document.getElementById("radar");
   if (!canvas) return;
@@ -244,6 +262,7 @@ function renderRadar(rows, state, models) {
 
   const datasets = models.map((model, i) => {
     const color = RADAR_COLORS[i % RADAR_COLORS.length];
+
     const data = metrics.map(metric => {
       const r = normalized.find(x =>
         x.model === model &&
@@ -255,9 +274,21 @@ function renderRadar(rows, state, models) {
       return r ? r.norm : 0;
     });
 
+    const realValues = metrics.map(metric => {
+      const r = normalized.find(x =>
+        x.model === model &&
+        x.sea === state.sea &&
+        x.forecast_len === state.forecast_len &&
+        x.step === state.step &&
+        x.metric === metric
+      );
+      return r ? r.value : null;
+    });
+
     return {
       label: model,
       data,
+      realValues,
       backgroundColor: color + '20',
       borderColor: color,
       borderWidth: 2,
@@ -287,9 +318,23 @@ function renderRadar(rows, state, models) {
             usePointStyle: true,
             boxWidth: 8
           }
+        },
+        tooltip: {
+          callbacks: {
+            label(context) {
+              const real = context.dataset.realValues?.[context.dataIndex];
+              const label = context.dataset.label ?? '';
+              if (real == null) return label;
+              const formatted = +real.toPrecision(4);
+              return `${label}: ${formatted}`;
+            }
+          }
         }
       },
       elements: {
+        line: {
+          tension: -0.05
+        },
         point: {
           radius: 3,
           borderWidth: 1
@@ -299,35 +344,36 @@ function renderRadar(rows, state, models) {
   });
 }
 
-function renderSnippet(state) {
-  const code = `\
-aiice = AIICE(
-    sea="${state.sea}",
-    forecast_len=${state.forecast_len},
-    step="${state.step}",
-    start="2020-01-01"
-)`.trim();
-
-  document.getElementById("snippet").innerHTML = `
-    <div class="admonition example">
-      <p class="admonition-title">AIICE experiment config</p>
-      <div class="highlight">
-        <pre><code class="language-python">${code}</code></pre>
-      </div>
-    </div>`;
-}
-
 function normalize(rows) {
-  const values = rows.map(r => r.value);
-  const min = Math.min(...values);
-  const max = Math.max(...values);
-  const range = max - min + 1e-9;
+  const byMetric = new Map();
+  for (const row of rows) {
+    if (!byMetric.has(row.metric)) byMetric.set(row.metric, []);
+    byMetric.get(row.metric).push(row);
+  }
 
-  return rows.map(r => {
-    let v = (r.value - min) / range;
-    if (LOWER_BETTER.has(r.metric.toLowerCase())) v = 1 - v;
-    return { ...r, norm: v };
-  });
+  const result = [];
+  for (const [metric, metricRows] of byMetric) {
+    const values = metricRows.map(r => r.value);
+    const mn = Math.min(...values);
+    const mx = Math.max(...values);
+    const range = mx - mn;
+
+    for (const row of metricRows) {
+      let norm;
+      if (range < 1e-9) {
+        norm = 0.5; // all the same
+      } else {
+        // liner normalization 0..1
+        let v = (row.value - mn) / range;
+        // invert fro LOWER_BETTER
+        if (LOWER_BETTER.has(metric)) v = 1 - v;
+        // scale interval to [0.1, 1.0], in order to escape zeros
+        norm = 0.1 + v * 0.9;
+      }
+      result.push({ ...row, norm });
+    }
+  }
+  return result;
 }
 
 function sort(data, metric) {
