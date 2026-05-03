@@ -47,7 +47,7 @@ function renderLayout(seas, pairs) {
       <div class="lb-field">
         <label for="settings-select">Forecast length / Step</label>
         <select id="settings-select">
-          ${pairs.map(p => `<option value="${p.forecast_len}|${p.step}">${p.forecast_len}d / ${p.step}</option>`).join("")}
+          ${pairs.map(p => `<option value="${p.forecast_len}|${p.step}">${p.forecast_len}${p.step} / ${p.step}</option>`).join("")}
         </select>
       </div>
     </div>

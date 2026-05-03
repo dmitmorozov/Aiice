@@ -43,4 +43,4 @@ report = aiice.bench(model)
 print(report)
 ```
 
-Check **[package doc](https://itmo-nss-team.github.io/Aiice/aiice.html)** and see more **[usage examples](https://github.com/ITMO-NSS-team/Aiice/tree/main/scripts/examples)**. You can also explore the **[raw dataset](https://huggingface.co/datasets/ITMO-NSS/Aiice)** and work with it independently via Hugging Face
+Check [package doc](https://itmo-nss-team.github.io/Aiice/) and see more [usage examples](https://github.com/ITMO-NSS-team/Aiice/tree/main/scripts/examples). You can also explore the [raw dataset](https://huggingface.co/datasets/ITMO-NSS/Aiice) and work with it independently via Hugging Face
