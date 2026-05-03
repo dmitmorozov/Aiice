@@ -1,9 +1,11 @@
 from pathlib import Path
 
 REPLACEMENTS = {
-    "https://github.com/ITMO-NSS-team": "https://anonymous.4open.science/r/Aiice-0BF8",
-    "https://itmo-nss-team.github.io": "https://prismatic-baklava-6691d5.netlify.app",
+    "github.com/ITMO-NSS-team/Aiice/tree/main": "anonymous.4open.science/r/Aiice-0BF8",
+    "github.com/ITMO-NSS-team": "anonymous.4open.science/r/Aiice-0BF8",
+    "itmo-nss-team.github.io/Aiice": "prismatic-baklava-6691d5.netlify.app",
     "ITMO-NSS/Aiice": "anon-aiice/Aiice",
+    "ITMO-NSS-team/Aiice": "anon-aiice/Aiice",
 
     "kdduha": "Anonymous Author",
     "just.andrew.kd@gmail.com": "anonymous@anonymous.com",
