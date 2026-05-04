@@ -1,5 +1,5 @@
 The leaderboard compares model performance on the AIICE evaluation dataset across multiple metrics and sea regions.
-You can explore model configurations in [examples](https://github.com/ITMO-NSS-team/Aiice/tree/main/scripts/experiments).
+You can explore model configurations in [examples](https://github.com/ITMO-NSS-team/Aiice/tree/main/scripts/experiments/README.md).
 
 ![Benchmark coverage](media/map.png){ width=600, style="display:block;margin:0 auto;" }
 
