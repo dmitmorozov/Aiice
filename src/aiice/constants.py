@@ -10,7 +10,7 @@ HF_PACKAGE_NAME: str = "aiice"
 # dataset constants
 
 MIN_DATASET_START: date = date(1980, 1, 1)
-MAX_DATASET_END: date = date(2025, 7, 1)
+MAX_DATASET_END: date = date(2026, 4, 18)
 DATASET_SHAPE: tuple[int, int] = (432, 432)
 
 MASK_SEA_DATA_PATH: str = "mask_data/seas_mask_IHO.npy"

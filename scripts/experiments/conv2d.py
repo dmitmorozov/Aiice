@@ -1,3 +1,4 @@
+import copy
 import logging
 import math
 import os
@@ -111,6 +112,8 @@ def train(
 
     criterion = nn.L1Loss()
     loss_history = []
+    best_loss_value = math.inf
+    best_state_dict = copy.deepcopy(model.state_dict())
     epochs_no_improve = 0
 
     for epoch in range(args["max_epoch"]):
@@ -137,6 +140,10 @@ def train(
             f'-- epoch : {epoch + 1}/{args["max_epoch"]}, {loss=}, {current_lr=}'
         )
 
+        if loss < best_loss_value:
+            best_loss_value = loss
+            best_state_dict = copy.deepcopy(model.state_dict())
+
         # early stopping if loss do not change
         if epoch != 0:
             relative_change = abs(loss_history[-2] - loss) / max(loss_history[-2], 1e-8)
@@ -149,8 +156,16 @@ def train(
             logger.warning("EARLY STOPPING TRIGGERED")
             break
 
+        if epoch + 1 >= args["initial_patience"] and not loss < args["target_loss"]:
+            logger.warning(
+                f"EARLY ABORT: loss did not go below {args['target_loss']} "
+                f"in first {args['initial_patience']} epochs"
+            )
+            break
+
     logger.info("- End of training")
 
+    model.load_state_dict(best_state_dict)
     torch.save(model.state_dict(), f"{experiment_path}/model.pt")
     utils.plot_history(loss_history, f"{experiment_path}/loss_history.png", logger)
 

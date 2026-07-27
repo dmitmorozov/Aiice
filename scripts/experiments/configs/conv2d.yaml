@@ -8,15 +8,17 @@ aiice:
   pre_history_len: 104
   forecast_len: 52
   step: 7
-  batch_size: 1
+  batch_size: 256
+  threads: 4
 
 run:
   model_name: conv2d
 
   experiments:
-
     - kernel_size: [3, 3]
       lr: 0.0001
-      max_epoch: 450
+      max_epoch: 400
       patience: 50
       min_delta: 0.001
+      initial_patience: 20
+      target_loss: 0.3
