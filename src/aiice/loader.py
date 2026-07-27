@@ -1,9 +1,11 @@
 import csv
 import functools
 import io
+import re
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from datetime import date, datetime
 from io import BytesIO
+from pathlib import Path
 from typing import TypeAlias
 
 import numpy as np
@@ -18,7 +20,7 @@ from aiice.constants import (
     MASK_SEA_NAME_ID,
 )
 from aiice.core.huggingface import HfDatasetClient
-from aiice.core.utils import get_date_from_filename_template
+from aiice.core.utils import convert_step_to_delta, get_date_from_filename_template
 
 NpWithIdx: TypeAlias = tuple[list[date], np.ndarray]
 TorchWithIdx: TypeAlias = tuple[list[date], torch.Tensor]
@@ -211,6 +213,128 @@ class Loader:
         return matrix
 
     def _convert_date(self, d: str | date) -> date:
+        if isinstance(d, str):
+            return datetime.strptime(d, "%Y-%m-%d").date()
+        return d
+
+
+class LocalLoader:
+    """
+    Load a local daily dataset stored as ``YYYYMMDD.npy`` files.
+
+    Each file must contain a finite two-dimensional concentration matrix.
+    Values are expected in the range 0 to 1. Small floating-point deviations
+    from that range are clipped.
+    """
+
+    _FILENAME_RE = re.compile(r"^(\d{8})\.npy$")
+    _RANGE_TOLERANCE = 1e-6
+
+    def __init__(self, local_dir: str | Path):
+        self._local_dir = Path(local_dir)
+        if not self._local_dir.is_dir():
+            raise ValueError(f"Local dataset directory not found: {self._local_dir}")
+
+        self._files: dict[date, Path] = {}
+        for path in self._local_dir.iterdir():
+            match = self._FILENAME_RE.match(path.name)
+            if path.is_file() and match:
+                file_date = datetime.strptime(match.group(1), "%Y%m%d").date()
+                self._files[file_date] = path
+
+        if not self._files:
+            raise ValueError(
+                f"No YYYYMMDD.npy files found in local dataset directory: {self._local_dir}"
+            )
+
+        self._dates = sorted(self._files)
+        self._shape = tuple(self._load_matrix(self._files[self._dates[0]]).shape)
+
+    @property
+    def seas(self) -> tuple[str, ...]:
+        return ()
+
+    @property
+    def shape(self) -> tuple[int, ...]:
+        return self._shape
+
+    @property
+    def dataset_start(self) -> date:
+        return self._dates[0]
+
+    @property
+    def dataset_end(self) -> date:
+        return self._dates[-1]
+
+    def get(
+        self,
+        start: date | str | None = None,
+        end: date | str | None = None,
+        step: int | str | None = None,
+        sea: str | None = None,
+        tensor_out: bool = False,
+        idx_out: bool = False,
+        threads: int = 16,
+        processes: int | None = None,
+    ) -> np.ndarray | torch.Tensor | NpWithIdx | TorchWithIdx:
+        if sea is not None:
+            raise ValueError("Local dataset does not provide sea masks; use sea=None")
+
+        start = self._convert_date(start) or self.dataset_start
+        end = self._convert_date(end) or self.dataset_end
+        if start < self.dataset_start:
+            raise ValueError(f"date start value should be >= {self.dataset_start}")
+        if end > self.dataset_end:
+            raise ValueError(f"date end value should be <= {self.dataset_end}")
+        if start > end:
+            raise ValueError("start date must be <= date end")
+
+        dates: list[date] = []
+        current = start
+        delta = convert_step_to_delta(step)
+        while current <= end:
+            if current not in self._files:
+                raise ValueError(f"Local dataset file not found for date {current}")
+            dates.append(current)
+            current += delta
+
+        with ThreadPoolExecutor(max_workers=threads) as pool:
+            arrays = list(pool.map(lambda d: self._load_matrix(self._files[d]), dates))
+
+        result: np.ndarray | torch.Tensor = np.stack(arrays).astype(
+            np.float32, copy=False
+        )
+        if tensor_out:
+            result = torch.from_numpy(result)
+        if idx_out:
+            return dates, result
+        return result
+
+    def _load_matrix(self, path: Path) -> np.ndarray:
+        matrix = np.load(path, allow_pickle=False)
+        if matrix.ndim != 2:
+            raise ValueError(
+                f"Matrix in {path} must be two-dimensional, got shape {matrix.shape}"
+            )
+        if hasattr(self, "_shape") and tuple(matrix.shape) != self._shape:
+            raise ValueError(
+                f"Matrix shape {matrix.shape} in {path} does not match {self._shape}"
+            )
+        if not np.isfinite(matrix).all():
+            raise ValueError(f"Matrix in {path} contains NaN or infinite values")
+
+        matrix_min = float(matrix.min())
+        matrix_max = float(matrix.max())
+        tolerance = self._RANGE_TOLERANCE
+        if matrix_min < -tolerance or matrix_max > 1.0 + tolerance:
+            raise ValueError(
+                f"Matrix values in {path} are outside expected range 0..1: "
+                f"min={matrix_min}, max={matrix_max}"
+            )
+        return np.clip(matrix, 0.0, 1.0).astype(np.float32, copy=False)
+
+    @staticmethod
+    def _convert_date(d: str | date | None) -> date | None:
         if isinstance(d, str):
             return datetime.strptime(d, "%Y-%m-%d").date()
         return d

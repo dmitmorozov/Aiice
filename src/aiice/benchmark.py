@@ -11,7 +11,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from aiice.loader import Loader
+from aiice.loader import Loader, LocalLoader
 from aiice.metrics import Evaluator, MetricFn
 from aiice.preprocess import SlidingWindowDataset
 
@@ -42,6 +42,9 @@ class AIICE:
         x_binarize (`bool`, optional): Whether to apply the same threshold binarization to input X. Defaults to False.
         threads (`int`, optional): Number of parallel download threads. You can reduce this value in case of rate limiting HuggingFace API errors. Defaults to 16.
         device (`str`, optional): Device to place tensors on ("cpu", "cuda", etc.). If None, uses PyTorch default device.
+        data_dir (`str`, optional): Local directory containing daily
+            ``YYYYMMDD.npy`` files. If omitted, OSI-SAF data is loaded from
+            Hugging Face. Defaults to None.
 
     Example:
         ```python
@@ -64,11 +67,13 @@ class AIICE:
         x_binarize: bool = False,
         threads: int = 16,
         device: str | None = None,
+        data_dir: str | None = None,
     ):
         self._device = device
         self._sea = sea
 
-        raw_data = Loader().get(
+        loader = LocalLoader(data_dir) if data_dir is not None else Loader()
+        raw_data = loader.get(
             start=start,
             end=end,
             step=step,

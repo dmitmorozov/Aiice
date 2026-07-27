@@ -12,7 +12,7 @@ import unet
 import yaml
 from torch.utils.data import DataLoader
 
-from aiice.loader import Loader
+from aiice.loader import Loader, LocalLoader
 from aiice.preprocess import SlidingWindowDataset
 
 
@@ -46,13 +46,14 @@ def init_train(
     device: str,
     sea: str | None,
 ) -> DataLoader:
-    loader = Loader()
+    loader = LocalLoader(cfg.data_dir) if cfg.data_dir is not None else Loader()
     train_data = loader.get(
         start=cfg.start_date,
         end=cfg.end_date,
         sea=sea,
         step=cfg.step,
         tensor_out=True,
+        threads=cfg.threads,
     )
     train_dataset = SlidingWindowDataset(
         data=train_data,

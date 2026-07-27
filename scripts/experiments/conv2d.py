@@ -61,7 +61,8 @@ def run(
         step=cfg.aiice.step,
         sea=sea,
         device=cfg.device,
-        threads=cfg.aiice.threads
+        threads=cfg.aiice.threads,
+        data_dir=cfg.aiice.data_dir,
     )
     report = aiice.bench(
         model=best_model,

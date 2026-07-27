@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 class Aiice(BaseModel):
     sea: str | list | None = None
+    data_dir: str | None = None
     start_date: str  # YYYY-mm-dd
     end_date: str  # YYYY-mm-dd
     pre_history_len: int
