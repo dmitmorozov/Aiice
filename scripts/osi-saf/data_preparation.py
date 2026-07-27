@@ -7,19 +7,45 @@ from matplotlib import pyplot as plt
 
 
 def save_osisaf():
-    nc_path = 'D:/Aiice'
-    save_path = 'D:/Aiice/osisaf'
+    nc_path = 'D:/Aiice/osisaf_raw'
+    save_path = 'D:/Aiice/global_series'
+    preview_path = 'D:/Aiice/osisaf_preview'
+
+    os.makedirs(save_path, exist_ok=True)
+    os.makedirs(preview_path, exist_ok=True)
+
     for file in os.listdir(nc_path):
+        if not file.endswith('.nc'):
+            continue
+
         date = datetime.datetime.strptime(file.split('_')[-1], '%Y%m%d1200.nc')
         new_file_name = f'osisaf_{date.strftime("%Y%m%d")}.npy'
+        preview_file_name = f'osisaf_{date.strftime("%Y%m%d")}.npy.png'
+
+        year_folder = os.path.join(save_path, str(date.year))
+        os.makedirs(year_folder, exist_ok=True)
+
+        matrix_path = os.path.join(year_folder, new_file_name)
+        preview_full_path = os.path.join(preview_path, preview_file_name)
+
+        if os.path.exists(matrix_path) and os.path.exists(preview_full_path):
+            continue
+
         ds = nc.Dataset(f'{nc_path}/{file}')
         matrix = np.array(ds.variables['ice_conc'])[0]
         matrix[matrix < 0] = 0
         matrix = matrix.astype(int)
-        #plt.imshow(matrix)
-        #plt.colorbar()
-        #plt.show()
-        np.save(f'{save_path}/{new_file_name}', matrix)
+        ds.close()
+
+        np.save(matrix_path, matrix)
+
+        plt.figure(figsize=(10, 8))
+        plt.imshow(matrix, cmap='Blues_r', vmin=0, vmax=100)
+        plt.colorbar(label='Ice Concentration (%)')
+        plt.title(f'{date.strftime("%Y-%m-%d")}')
+        plt.axis('off')
+        plt.savefig(preview_full_path, dpi=50, bbox_inches='tight')
+        plt.close()
 
 def correct_missings_files_with_interpolation(matrices_path, times, format):
     for i, time in enumerate(times):
@@ -47,7 +73,7 @@ def correct_missings_files_with_interpolation(matrices_path, times, format):
                 np.save(f'{matrices_path}/{times[i + m].strftime(format)}', missing_matrix[m+1])
 
 def correct_osisaf_gaps():
-    matrices_path = 'D:/Aiice/osisaf'
+    matrices_path = 'D:/Aiice/global_series'
     start_date = os.listdir(f'{matrices_path}')[0][-12:-4]
     end_date = os.listdir(f'{matrices_path}')[-1][-12:-4]
     dateRange = pd.date_range(start_date, end_date)
@@ -66,4 +92,3 @@ def land_mask_save():
     plt.show()
     np.save('land_mask.npy', mask)
 
-land_mask_save()

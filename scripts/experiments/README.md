@@ -44,3 +44,47 @@ This command:
 * extracts metrics from the YAML report(s)
 * associates the results with the given forecast length and step
 * updates (or creates) the central CSV leaderboard, deduplicating by model, sea, metric, forecast length, and step
+
+## Explanations
+
+Here you can find some models' setup explanations
+
+---
+
+### FNO baseline
+
+A Fourier Neural Operator (FNO) baseline is provided via `fno.py`, with one
+config per scenario from Table 1 of the AIICE paper. The model wraps
+`neuralop.models.FNO` as a "time-as-channel" forecaster
+(`(B, T_in, H, W) -> (B, T_out, H, W)`) and is trained per sea.
+
+Unlike the convolutional baselines, FNO uses an internal train/val split for
+early stopping. The last `val_years` of the configured `start_date .. end_date`
+window are held out for validation; the benchmark window itself
+(`end_date .. dataset_end`) is unchanged.
+
+To run all seven paper scenarios on the five leaderboard seas:
+
+```bash
+for sc in L1 L2 L3 L4 S1 S2 S3; do
+    uv run --project=scripts scripts/experiments/cli.py \
+        --config scripts/experiments/configs/fno_${sc}.yaml
+done
+```
+
+The reproducibility of the published numbers relies on three pinned settings
+inside each config: `seed: 42`, `target_modes: 16`, and `val_years: 4`. The
+spectral mode count is automatically clamped to the Nyquist limit
+`spatial_dim // 2` for narrow sea crops (Sea of Japan, Chukchi Sea).
+
+--
+
+### HF-Mamba baseline
+
+See scripts [here](./FH-Mamba/Dockerfile). This environment was tested on NVIDIA Tesla V100 GPUs.
+
+The causal-conv1d and mamba-ssm extensions are compiled for compute capability sm_70; if you use a different GPU, rebuild the image with `TORCH_CUDA_ARCH_LIST` set to your architecture.
+If training fails with a `CUDNN_STATUS_NOT_INITIALIZED` error, comment out the `total_flops = flops.total()` line in `trainer.py` to disable FLOPs estimation. This does not affect training results.
+In our experiments, we increased `hid_S` to 32 and `hid_T_channels` to 24 in `config.py`. 
+
+Sea ice concentration images were resized to 56x56, and the temporal-spatial patch was set to (1, 2, 2) in the `HilbertScan3DMambaBlock` initialization within `FH_Mamba.py`.

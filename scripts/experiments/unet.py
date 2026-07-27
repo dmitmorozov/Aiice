@@ -162,7 +162,6 @@ def run(
     best_model: nn.Module | None = None
 
     for i, experiment in enumerate(cfg.run.experiments):
-        
         i_experiment_path = f"{experiment_path}/{i}"
         os.makedirs(i_experiment_path, exist_ok=True)
 
@@ -214,7 +213,6 @@ def train(
     args: dict[str, Any],
     device: str,
 ) -> tuple[float, nn.Module]:
-    
     model = UNetForecast(
         in_channels=in_channels,
         out_channels=out_channels,
@@ -224,7 +222,9 @@ def train(
     ).to(device)
     model.train()
 
-    optimizer = optim.AdamW(model.parameters(), lr=args["lr"], weight_decay=args.get("weight_decay", 0.0))
+    optimizer = optim.AdamW(
+        model.parameters(), lr=args["lr"], weight_decay=args.get("weight_decay", 0.0)
+    )
     scheduler = optim.lr_scheduler.CyclicLR(
         optimizer,
         base_lr=args["lr"],
