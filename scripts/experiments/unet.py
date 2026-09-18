@@ -213,6 +213,9 @@ def train(
     args: dict[str, Any],
     device: str,
 ) -> tuple[float, nn.Module]:
+    if torch.cuda.is_available():
+        torch.cuda.reset_peak_memory_stats(device)
+
     model = UNetForecast(
         in_channels=in_channels,
         out_channels=out_channels,
@@ -279,6 +282,16 @@ def train(
         if epochs_no_improve >= args["patience"]:
             logger.warning("EARLY STOPPING TRIGGERED")
             break
+
+    if torch.cuda.is_available():
+        torch.cuda.synchronize(device)
+        peak_allocated_gib = torch.cuda.max_memory_allocated(device) / 1024**3
+        peak_reserved_gib = torch.cuda.max_memory_reserved(device) / 1024**3
+        logger.info(
+            "-- peak GPU memory: "
+            f"allocated={peak_allocated_gib:.2f} GiB, "
+            f"reserved={peak_reserved_gib:.2f} GiB"
+        )
 
     logger.info("- End of training")
 

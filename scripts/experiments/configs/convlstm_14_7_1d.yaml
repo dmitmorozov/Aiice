@@ -1,0 +1,20 @@
+output_path: ./outputs
+
+aiice:
+  sea: null
+  start_date: "1980-01-01"
+  end_date: "2020-01-01"
+  pre_history_len: 14
+  forecast_len: 7
+  step: 1d
+  batch_size: 1
+  threads: 4
+
+run:
+  model_name: convlstm
+  experiments:
+    - lr: 0.0001
+      max_epoch: 200
+      patience: 10
+      min_delta: 0.001
+      accumulate_steps: 8

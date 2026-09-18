@@ -1,3 +1,4 @@
+import copy
 import logging
 import math
 import os
@@ -211,6 +212,9 @@ def train(
     device: str,
 ) -> tuple[float, nn.Module]:
 
+    if torch.cuda.is_available():
+        torch.cuda.reset_peak_memory_stats(device)
+
     model = ConvLSTMEncoderDecoder(num_prediction_steps=out_time_point).to(device)
     model.train()
 
@@ -226,21 +230,38 @@ def train(
 
     criterion = nn.L1Loss()
     loss_history = []
+    best_loss_value = math.inf
+    best_state_dict = copy.deepcopy(model.state_dict())
     epochs_no_improve = 0
+    accumulate_steps = int(args.get("accumulate_steps", 1))
+    if accumulate_steps < 1:
+        raise ValueError("accumulate_steps must be at least 1")
 
     for epoch in range(args["max_epoch"]):
 
         loss = 0
-        for x, y in tqdm(train_dataloader):
+        num_batches = len(train_dataloader)
+        optimizer.zero_grad(set_to_none=True)
+
+        for batch_index, (x, y) in enumerate(tqdm(train_dataloader)):
+            if batch_index % accumulate_steps == 0:
+                current_group_size = min(
+                    accumulate_steps, num_batches - batch_index
+                )
+
             x = x.to(device)
             y = y.to(device)
 
-            optimizer.zero_grad()
-
             outputs = model(x)
             train_loss = criterion(outputs, y)
-            train_loss.backward()
-            optimizer.step()
+            (train_loss / current_group_size).backward()
+
+            is_group_end = (batch_index + 1) % accumulate_steps == 0
+            is_last_batch = batch_index + 1 == num_batches
+            if is_group_end or is_last_batch:
+                optimizer.step()
+                optimizer.zero_grad(set_to_none=True)
+
             loss += train_loss.item()
 
         loss = loss / len(train_dataloader)
@@ -253,6 +274,10 @@ def train(
         )
 
         # early stopping if loss do not change
+        if loss < best_loss_value:
+            best_loss_value = loss
+            best_state_dict = copy.deepcopy(model.state_dict())
+
         if epoch != 0:
             relative_change = abs(loss_history[-2] - loss) / max(loss_history[-2], 1e-8)
             if relative_change < args["min_delta"]:
@@ -264,10 +289,21 @@ def train(
             logger.warning("EARLY STOPPING TRIGGERED")
             break
 
+    if torch.cuda.is_available():
+        torch.cuda.synchronize(device)
+        peak_allocated_gib = torch.cuda.max_memory_allocated(device) / 1024**3
+        peak_reserved_gib = torch.cuda.max_memory_reserved(device) / 1024**3
+        logger.info(
+            "-- peak GPU memory: "
+            f"allocated={peak_allocated_gib:.2f} GiB, "
+            f"reserved={peak_reserved_gib:.2f} GiB"
+        )
+
     logger.info("- End of training")
 
+    model.load_state_dict(best_state_dict)
     torch.save(model.state_dict(), f"{experiment_path}/model.pt")
     utils.plot_history(loss_history, f"{experiment_path}/loss_history.png", logger)
 
     logger.info("- All savings are done!")
-    return loss, model
+    return best_loss_value, model

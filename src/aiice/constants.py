@@ -4,7 +4,8 @@ from datetime import date
 
 HF_BASE_URL: str = "https://huggingface.co"
 HF_REPO_TYPE: str = "dataset"
-HF_DATASET_REPO: str = "ITMO-NSS/Aiice"
+# The public mirror is used by the containerized training pipeline.
+HF_DATASET_REPO: str = "anon-aiice/Aiice"
 HF_PACKAGE_NAME: str = "aiice"
 
 # dataset constants
