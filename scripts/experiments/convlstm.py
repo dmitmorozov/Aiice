@@ -2,6 +2,7 @@ import copy
 import logging
 import math
 import os
+import time
 
 import torch
 import torch.nn as nn
@@ -212,7 +213,8 @@ def train(
     device: str,
 ) -> tuple[float, nn.Module]:
 
-    if torch.cuda.is_available():
+    cuda_active = torch.cuda.is_available() and torch.device(device).type == "cuda"
+    if cuda_active:
         torch.cuda.reset_peak_memory_stats(device)
 
     model = ConvLSTMEncoderDecoder(num_prediction_steps=out_time_point).to(device)
@@ -230,6 +232,7 @@ def train(
 
     criterion = nn.L1Loss()
     loss_history = []
+    epoch_seconds = []
     best_loss_value = math.inf
     best_state_dict = copy.deepcopy(model.state_dict())
     epochs_no_improve = 0
@@ -237,7 +240,12 @@ def train(
     if accumulate_steps < 1:
         raise ValueError("accumulate_steps must be at least 1")
 
+    if cuda_active:
+        torch.cuda.synchronize(device)
+    training_started = time.perf_counter()
+
     for epoch in range(args["max_epoch"]):
+        epoch_started = time.perf_counter()
 
         loss = 0
         num_batches = len(train_dataloader)
@@ -285,12 +293,21 @@ def train(
             else:
                 epochs_no_improve = 0
 
-        if epochs_no_improve >= args["patience"]:
+        should_stop = epochs_no_improve >= args["patience"]
+        if should_stop:
             logger.warning("EARLY STOPPING TRIGGERED")
+
+        if cuda_active:
+            torch.cuda.synchronize(device)
+        epoch_seconds.append(time.perf_counter() - epoch_started)
+
+        if should_stop:
             break
 
-    if torch.cuda.is_available():
-        torch.cuda.synchronize(device)
+    training_seconds = time.perf_counter() - training_started
+    peak_allocated_gib = None
+    peak_reserved_gib = None
+    if cuda_active:
         peak_allocated_gib = torch.cuda.max_memory_allocated(device) / 1024**3
         peak_reserved_gib = torch.cuda.max_memory_reserved(device) / 1024**3
         logger.info(
@@ -304,6 +321,25 @@ def train(
     model.load_state_dict(best_state_dict)
     torch.save(model.state_dict(), f"{experiment_path}/model.pt")
     utils.plot_history(loss_history, f"{experiment_path}/loss_history.png", logger)
+
+    epochs_completed = len(epoch_seconds)
+    training_summary = {
+        "epochs_completed": epochs_completed,
+        "training_seconds": round(training_seconds, 3),
+        "mean_epoch_seconds": round(training_seconds / epochs_completed, 3)
+        if epochs_completed
+        else None,
+        "epoch_seconds": [round(seconds, 3) for seconds in epoch_seconds],
+        "best_train_loss": best_loss_value,
+        "peak_gpu_allocated_gib": round(peak_allocated_gib, 2)
+        if peak_allocated_gib is not None
+        else None,
+        "peak_gpu_reserved_gib": round(peak_reserved_gib, 2)
+        if peak_reserved_gib is not None
+        else None,
+    }
+    with open(f"{experiment_path}/training-summary.yaml", "w", encoding="utf-8") as f:
+        yaml.safe_dump(training_summary, f, sort_keys=False)
 
     logger.info("- All savings are done!")
     return best_loss_value, model
