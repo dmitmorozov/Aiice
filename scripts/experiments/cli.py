@@ -7,7 +7,9 @@ import config
 import conv2d
 import conv3d
 import convlstm
+import fno
 import torch
+import unet
 import yaml
 from torch.utils.data import DataLoader
 
@@ -52,7 +54,7 @@ def init_train(
         sea=sea,
         step=cfg.step,
         tensor_out=True,
-        threads=8,
+        threads=cfg.threads,
     )
     train_dataset = SlidingWindowDataset(
         data=train_data,
@@ -114,6 +116,27 @@ def main():
                 )
 
                 convlstm.run(
+                    logger=logger,
+                    cfg=cfg,
+                    sea=sea,
+                    train_dataloader=train_dataloader,
+                )
+            case "fno":
+                # FNO builds its own train/val split from cfg.aiice.start_date
+                # .. end_date, so it does not use init_train.
+                fno.run(
+                    logger=logger,
+                    cfg=cfg,
+                    sea=sea,
+                )
+            case "unet":
+                train_dataloader = init_train(
+                    cfg.aiice,
+                    device=cfg.device,
+                    sea=sea,
+                )
+
+                unet.run(
                     logger=logger,
                     cfg=cfg,
                     sea=sea,

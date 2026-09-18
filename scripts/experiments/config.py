@@ -9,8 +9,9 @@ class Aiice(BaseModel):
     end_date: str  # YYYY-mm-dd
     pre_history_len: int
     forecast_len: int
-    step: int
+    step: int | str
     batch_size: int
+    threads: int = 16
 
 
 class Run(BaseModel):

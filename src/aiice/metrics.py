@@ -1,3 +1,4 @@
+import math
 from collections.abc import Callable, Sequence
 from typing import Sequence
 
@@ -31,6 +32,8 @@ def _as_tensor(y_true: Sequence, y_pred: Sequence, device=None):
 def mae(y_true: Sequence, y_pred: Sequence) -> float:
     """
     MAE (mean absolute error) - determines absolute values range coincidence with real data.
+
+    $$\\text{MAE} = \\frac{1}{N} \\sum_{i=1}^{N} |y_i - \\hat{y}_i|$$
     """
     y_true, y_pred = _as_tensor(y_true, y_pred)
     return torch.abs(y_true - y_pred).mean().item()
@@ -39,6 +42,8 @@ def mae(y_true: Sequence, y_pred: Sequence) -> float:
 def mse(y_true: Sequence, y_pred: Sequence) -> float:
     """
     MSE (mean squared error) - similar to MAE but emphasizes larger errors by squaring differences.
+
+    $$\\text{MSE} = \\frac{1}{N} \\sum_{i=1}^{N} (y_i - \\hat{y}_i)^2$$
     """
     y_true, y_pred = _as_tensor(y_true, y_pred)
     return ((y_true - y_pred) ** 2).mean().item()
@@ -48,6 +53,8 @@ def rmse(y_true: Sequence, y_pred: Sequence) -> float:
     """
     RMSE (root mean square error) - determines absolute values range coincidence as MAE
     but making emphasis on spatial error distribution of prediction.
+
+    $$\\text{RMSE} = \\sqrt{\\frac{1}{N} \\sum_{i=1}^{N} (y_i - \\hat{y}_i)^2}$$
     """
     y_true, y_pred = _as_tensor(y_true, y_pred)
     return torch.sqrt(((y_true - y_pred) ** 2).mean()).item()
@@ -56,6 +63,10 @@ def rmse(y_true: Sequence, y_pred: Sequence) -> float:
 def psnr(y_true: Sequence, y_pred: Sequence) -> float:
     """
     PSNR (peak signal-to-noise ratio) - reflects noise and distortion level on predicted images identifying artifacts.
+
+    $$\\text{PSNR} = 20 \\cdot \\log_{10}(\\text{MAX}) - 10 \\cdot \\log_{10}(\\text{MSE})$$
+
+    where $\\text{MAX}$ is the maximum value of the ground truth field.
     """
     y_true, y_pred = _as_tensor(y_true, y_pred)
 
@@ -63,14 +74,25 @@ def psnr(y_true: Sequence, y_pred: Sequence) -> float:
     if mse_val == 0:
         return float("inf")
 
+    # MAX = 0 means the ground truth field is entirely ice-free.
+    # PSNR is undefined in this case — return nan so the Evaluator
+    # can exclude this sample from aggregation rather than corrupting the mean.
+    if torch.max(y_true) == 0:
+        return float("nan")
+
     max_val = torch.max(y_true)
     return (20 * torch.log10(max_val) - 10 * torch.log10(mse_val)).item()
 
 
-def bin_accuracy(y_true: Sequence, y_pred: Sequence, threshold: float = 0.7) -> float:
+def bin_accuracy(y_true: Sequence, y_pred: Sequence, threshold: float = 0.15) -> float:
     """
     Binary accuracy - binarization of ice concentration continuous field with threshold which causing the presence of an ice edge
     gives us possibility to compare binary masks of real ice extent and predicted one.
+
+    $$\\text{BinAcc} = \\frac{1}{N} \\sum_{i=1}^{N} \\mathbf{1}\\bigl[\\hat{b}_i = b_i\\bigr]$$
+
+    where $b_i = \\mathbf{1}[y_i > \\tau]$ and $\\hat{b}_i = \\mathbf{1}[\\hat{y}_i > \\tau]$ are binary masks
+    obtained by thresholding with $\\tau$.
     """
     y_true, y_pred = _as_tensor(y_true, y_pred)
 
@@ -83,6 +105,11 @@ def bin_accuracy(y_true: Sequence, y_pred: Sequence, threshold: float = 0.7) -> 
 def ssim(y_true: Sequence, y_pred: Sequence) -> float:
     """
     SSIM (structural similarity index measure) - determines spatial patterns coincidence on predicted and target images
+
+    $$\\text{SSIM}(x, y) = \\frac{(2\\mu_x\\mu_y + c_1)(2\\sigma_{xy} + c_2)}{(\\mu_x^2 + \\mu_y^2 + c_1)(\\sigma_x^2 + \\sigma_y^2 + c_2)}$$
+
+    where $\\mu_x, \\mu_y$ are local means, $\\sigma_x^2, \\sigma_y^2$ are local variances,
+    $\\sigma_{xy}$ is cross-covariance, and $c_1, c_2$ are stabilization constants.
 
     Raises:
         ValueError:
@@ -99,12 +126,16 @@ def ssim(y_true: Sequence, y_pred: Sequence) -> float:
     return float(pytorch_msssim.ssim(y_true, y_pred, data_range=1.0))
 
 
-def iou(y_true: Sequence, y_pred: Sequence, threshold: float = 0.7) -> float:
+def iou(y_true: Sequence, y_pred: Sequence, threshold: float = 0.15) -> float:
     """
     IoU (Intersection over Union) - measures overlap between binary masks
     of ground truth and prediction.
 
     Similar to bin_accuracy but focuses on overlap quality instead of per-pixel equality.
+
+    $$\\text{IoU} = \\frac{|B \\cap \\hat{B}|}{|B \\cup \\hat{B}|} = \\frac{|B \\cap \\hat{B}|}{|B| + |\\hat{B}| - |B \\cap \\hat{B}|}$$
+
+    where $B = \\mathbf{1}[y > \\tau]$ and $\\hat{B} = \\mathbf{1}[\\hat{y} > \\tau]$ are binary ice extent masks.
     """
     y_true, y_pred = _as_tensor(y_true, y_pred)
 
@@ -131,10 +162,10 @@ class Evaluator:
     Compute and aggregate evaluation metrics over multiple evaluation steps.
 
     Args:
-        metrics (dict[str, MetricFn] | list[str] | None, optional):
+        metrics (`dict[str, MetricFn]`, `list[str]`, optional):
             Metrics to use. If a list of strings is provided, metrics are resolved
             from the built-in registry. If None, default metrics are used.
-        accumulate (bool, optional):
+        accumulate (`bool`, optional):
             Whether to accumulate metric values across multiple `eval` calls. Defaults to True.
     """
 
@@ -201,7 +232,7 @@ class Evaluator:
         Return aggregated statistics for all evaluated metrics.
 
         Args:
-            detailed (bool, optional):
+            detailed (`bool`, optional):
                 If True, returns full statistics for each metric including:
                 mean, last value, count, min, and max.
                 If False, returns only the mean value per metric.
@@ -211,15 +242,22 @@ class Evaluator:
             if not values:
                 continue
 
+            # Filter out nan and inf before aggregation — these indicate samples
+            # where the metric is undefined (e.g. PSNR on an all-zero ground truth).
+            # Raw values are still preserved in _report for debugging.
+            clean = [v for v in values if not math.isnan(v) and not math.isinf(v)]
+
             if detailed:
                 summary[name] = {
-                    MEAN_STAT: sum(values) / len(values),
+                    MEAN_STAT: sum(clean) / len(clean) if clean else float("nan"),
                     LAST_STAT: values[-1],
+                    # COUNT_STAT reflects total samples evaluated, including skipped ones,
+                    # so you can detect how many were undefined (len(values) - len(clean))
                     COUNT_STAT: len(values),
-                    MIN_STAT: min(values),
-                    MAX_STAT: max(values),
+                    MIN_STAT: min(clean) if clean else float("nan"),
+                    MAX_STAT: max(clean) if clean else float("nan"),
                 }
             else:
-                summary[name] = sum(values) / len(values)
+                summary[name] = sum(clean) / len(clean) if clean else float("nan")
 
         return summary

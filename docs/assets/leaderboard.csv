@@ -1,0 +1,1681 @@
+model,sea,metric,value,forecast_len,step
+baseline_mean,Barents Sea,mae,0.1294334232807159,32,1w
+baseline_mean,Barents Sea,rmse,0.2301083654165268,32,1w
+baseline_mean,Barents Sea,psnr,12.7613525390625,32,1w
+baseline_mean,Barents Sea,ssim,0.5429860353469849,32,1w
+baseline_mean,Barents Sea,iou,0.5582687854766846,32,1w
+baseline_mean,Barents Sea,bin_accuracy,0.8341481685638428,32,1w
+baseline_mean,Chukchi Sea,mae,0.2581827342510223,32,1w
+baseline_mean,Chukchi Sea,rmse,0.3370486795902252,32,1w
+baseline_mean,Chukchi Sea,psnr,9.446147918701172,32,1w
+baseline_mean,Chukchi Sea,ssim,0.4077340960502624,32,1w
+baseline_mean,Chukchi Sea,iou,0.6680479049682617,32,1w
+baseline_mean,Chukchi Sea,bin_accuracy,0.7744428515434265,32,1w
+baseline_mean,Kara Sea,mae,0.1594896167516708,32,1w
+baseline_mean,Kara Sea,rmse,0.2599667310714721,32,1w
+baseline_mean,Kara Sea,psnr,11.701645851135254,32,1w
+baseline_mean,Kara Sea,ssim,0.6076769828796387,32,1w
+baseline_mean,Kara Sea,iou,0.6776387095451355,32,1w
+baseline_mean,Kara Sea,bin_accuracy,0.8498700261116028,32,1w
+baseline_mean,Laptev Sea,mae,0.1140159666538238,32,1w
+baseline_mean,Laptev Sea,rmse,0.2239810675382614,32,1w
+baseline_mean,Laptev Sea,psnr,12.99577522277832,32,1w
+baseline_mean,Laptev Sea,ssim,0.7814051508903503,32,1w
+baseline_mean,Laptev Sea,iou,0.7839978337287903,32,1w
+baseline_mean,Laptev Sea,bin_accuracy,0.9255748987197876,32,1w
+baseline_mean,Sea of Japan,mae,0.0133159710094332,32,1w
+baseline_mean,Sea of Japan,rmse,0.0635895356535911,32,1w
+baseline_mean,Sea of Japan,psnr,23.932287216186523,32,1w
+baseline_mean,Sea of Japan,ssim,0.8461165428161621,32,1w
+baseline_mean,Sea of Japan,iou,0.2510354816913605,32,1w
+baseline_mean,Sea of Japan,bin_accuracy,0.9753540754318236,32,1w
+baseline_repeat,Barents Sea,mae,0.1613715142011642,32,1w
+baseline_repeat,Barents Sea,rmse,0.34190234541893,32,1w
+baseline_repeat,Barents Sea,psnr,9.321958541870115,32,1w
+baseline_repeat,Barents Sea,ssim,0.5968913435935974,32,1w
+baseline_repeat,Barents Sea,iou,0.4000269472599029,32,1w
+baseline_repeat,Barents Sea,bin_accuracy,0.8134722709655762,32,1w
+baseline_repeat,Chukchi Sea,mae,0.3466096520423889,32,1w
+baseline_repeat,Chukchi Sea,rmse,0.5377108454704285,32,1w
+baseline_repeat,Chukchi Sea,psnr,5.389023780822754,32,1w
+baseline_repeat,Chukchi Sea,ssim,0.3138458728790283,32,1w
+baseline_repeat,Chukchi Sea,iou,0.4478608667850494,32,1w
+baseline_repeat,Chukchi Sea,bin_accuracy,0.6779071688652039,32,1w
+baseline_repeat,Kara Sea,mae,0.2093221247196197,32,1w
+baseline_repeat,Kara Sea,rmse,0.399667352437973,32,1w
+baseline_repeat,Kara Sea,psnr,7.966026782989502,32,1w
+baseline_repeat,Kara Sea,ssim,0.556012749671936,32,1w
+baseline_repeat,Kara Sea,iou,0.5103371739387512,32,1w
+baseline_repeat,Kara Sea,bin_accuracy,0.7994791269302368,32,1w
+baseline_repeat,Laptev Sea,mae,0.1497280150651931,32,1w
+baseline_repeat,Laptev Sea,rmse,0.3476250171661377,32,1w
+baseline_repeat,Laptev Sea,psnr,9.177779197692873,32,1w
+baseline_repeat,Laptev Sea,ssim,0.7062179446220398,32,1w
+baseline_repeat,Laptev Sea,iou,0.6122429370880127,32,1w
+baseline_repeat,Laptev Sea,bin_accuracy,0.8779292106628418,32,1w
+baseline_repeat,Sea of Japan,mae,0.0145378895103931,32,1w
+baseline_repeat,Sea of Japan,rmse,0.0915960669517517,32,1w
+baseline_repeat,Sea of Japan,psnr,20.76246452331543,32,1w
+baseline_repeat,Sea of Japan,ssim,0.8809113502502441,32,1w
+baseline_repeat,Sea of Japan,iou,0.1052423939108848,32,1w
+baseline_repeat,Sea of Japan,bin_accuracy,0.9741171002388,32,1w
+baseline_repeat,Barents Sea,mae,0.1462396085262298,12,1m
+baseline_repeat,Barents Sea,rmse,0.3182434439659118,12,1m
+baseline_repeat,Barents Sea,psnr,9.944809913635254,12,1m
+baseline_repeat,Barents Sea,ssim,0.6129549741744995,12,1m
+baseline_repeat,Barents Sea,iou,0.4565520584583282,12,1m
+baseline_repeat,Barents Sea,bin_accuracy,0.8323178291320801,12,1m
+baseline_repeat,Chukchi Sea,mae,0.2998673319816589,12,1m
+baseline_repeat,Chukchi Sea,rmse,0.4968844354152679,12,1m
+baseline_repeat,Chukchi Sea,psnr,6.074892044067383,12,1m
+baseline_repeat,Chukchi Sea,ssim,0.3826450109481811,12,1m
+baseline_repeat,Chukchi Sea,iou,0.5081495642662048,12,1m
+baseline_repeat,Chukchi Sea,bin_accuracy,0.7210431098937988,12,1m
+baseline_repeat,Kara Sea,mae,0.1819166243076324,12,1m
+baseline_repeat,Kara Sea,rmse,0.3623699843883514,12,1m
+baseline_repeat,Kara Sea,psnr,8.81695556640625,12,1m
+baseline_repeat,Kara Sea,ssim,0.5890540480613708,12,1m
+baseline_repeat,Kara Sea,iou,0.5795478820800781,12,1m
+baseline_repeat,Kara Sea,bin_accuracy,0.8283083438873291,12,1m
+baseline_repeat,Laptev Sea,mae,0.120707169175148,12,1m
+baseline_repeat,Laptev Sea,rmse,0.3050132095813751,12,1m
+baseline_repeat,Laptev Sea,psnr,10.313627243041992,12,1m
+baseline_repeat,Laptev Sea,ssim,0.7499550580978394,12,1m
+baseline_repeat,Laptev Sea,iou,0.7033711671829224,12,1m
+baseline_repeat,Laptev Sea,bin_accuracy,0.9057306051254272,12,1m
+baseline_repeat,Sea of Japan,mae,0.0160116087645292,12,1m
+baseline_repeat,Sea of Japan,rmse,0.0956189930438995,12,1m
+baseline_repeat,Sea of Japan,psnr,20.0345401763916,12,1m
+baseline_repeat,Sea of Japan,ssim,0.8774825930595398,12,1m
+baseline_repeat,Sea of Japan,iou,0.1234565526247024,12,1m
+baseline_repeat,Sea of Japan,bin_accuracy,0.9720237851142884,12,1m
+baseline_mean,Barents Sea,mae,0.1244106739759445,12,1m
+baseline_mean,Barents Sea,rmse,0.2225165665149688,12,1m
+baseline_mean,Barents Sea,psnr,13.052753448486328,12,1m
+baseline_mean,Barents Sea,ssim,0.5447447299957275,12,1m
+baseline_mean,Barents Sea,iou,0.5541498064994812,12,1m
+baseline_mean,Barents Sea,bin_accuracy,0.8363208770751953,12,1m
+baseline_mean,Chukchi Sea,mae,0.2669135928153991,12,1m
+baseline_mean,Chukchi Sea,rmse,0.3486365377902984,12,1m
+baseline_mean,Chukchi Sea,psnr,9.152541160583496,12,1m
+baseline_mean,Chukchi Sea,ssim,0.414526492357254,12,1m
+baseline_mean,Chukchi Sea,iou,0.6700685620307922,12,1m
+baseline_mean,Chukchi Sea,bin_accuracy,0.7758158445358276,12,1m
+baseline_mean,Kara Sea,mae,0.1558632254600525,12,1m
+baseline_mean,Kara Sea,rmse,0.2573328018188476,12,1m
+baseline_mean,Kara Sea,psnr,11.790098190307615,12,1m
+baseline_mean,Kara Sea,ssim,0.6060751080513,12,1m
+baseline_mean,Kara Sea,iou,0.6814166307449341,12,1m
+baseline_mean,Kara Sea,bin_accuracy,0.8531712889671326,12,1m
+baseline_mean,Laptev Sea,mae,0.1107854396104812,12,1m
+baseline_mean,Laptev Sea,rmse,0.2218612432479858,12,1m
+baseline_mean,Laptev Sea,psnr,13.078371047973633,12,1m
+baseline_mean,Laptev Sea,ssim,0.7885993123054504,12,1m
+baseline_mean,Laptev Sea,iou,0.8029459118843079,12,1m
+baseline_mean,Laptev Sea,bin_accuracy,0.9321035742759703,12,1m
+baseline_mean,Sea of Japan,mae,0.0133729446679353,12,1m
+baseline_mean,Sea of Japan,rmse,0.0643704906105995,12,1m
+baseline_mean,Sea of Japan,psnr,23.47168731689453,12,1m
+baseline_mean,Sea of Japan,ssim,0.8466627597808838,12,1m
+baseline_mean,Sea of Japan,iou,0.2633891403675079,12,1m
+baseline_mean,Sea of Japan,bin_accuracy,0.9763928055763244,12,1m
+baseline_mean,Barents Sea,mae,0.135349154472351,6,1m
+baseline_mean,Barents Sea,rmse,0.2452735751867294,6,1m
+baseline_mean,Barents Sea,psnr,12.206984519958496,6,1m
+baseline_mean,Barents Sea,ssim,0.5397641658782959,6,1m
+baseline_mean,Barents Sea,iou,0.5558596849441528,6,1m
+baseline_mean,Barents Sea,bin_accuracy,0.835991382598877,6,1m
+baseline_mean,Chukchi Sea,mae,0.2847922146320343,6,1m
+baseline_mean,Chukchi Sea,rmse,0.3755598366260528,6,1m
+baseline_mean,Chukchi Sea,psnr,8.506418228149414,6,1m
+baseline_mean,Chukchi Sea,ssim,0.3817836046218872,6,1m
+baseline_mean,Chukchi Sea,iou,0.6798356771469116,6,1m
+baseline_mean,Chukchi Sea,bin_accuracy,0.7824530601501465,6,1m
+baseline_mean,Kara Sea,mae,0.1696608662605285,6,1m
+baseline_mean,Kara Sea,rmse,0.2807948291301727,6,1m
+baseline_mean,Kara Sea,psnr,11.032217979431152,6,1m
+baseline_mean,Kara Sea,ssim,0.5933207869529724,6,1m
+baseline_mean,Kara Sea,iou,0.6824002861976624,6,1m
+baseline_mean,Kara Sea,bin_accuracy,0.8531931638717651,6,1m
+baseline_mean,Laptev Sea,mae,0.1197230294346809,6,1m
+baseline_mean,Laptev Sea,rmse,0.2392944991588592,6,1m
+baseline_mean,Laptev Sea,psnr,12.421345710754396,6,1m
+baseline_mean,Laptev Sea,ssim,0.7732496857643127,6,1m
+baseline_mean,Laptev Sea,iou,0.7919095158576965,6,1m
+baseline_mean,Laptev Sea,bin_accuracy,0.92830091714859,6,1m
+baseline_mean,Sea of Japan,mae,0.0134923113510012,6,1m
+baseline_mean,Sea of Japan,rmse,0.0652664303779602,6,1m
+baseline_mean,Sea of Japan,psnr,23.618907928466797,6,1m
+baseline_mean,Sea of Japan,ssim,0.8459055423736572,6,1m
+baseline_mean,Sea of Japan,iou,0.2145944684743881,6,1m
+baseline_mean,Sea of Japan,bin_accuracy,0.9729105830192566,6,1m
+baseline_repeat,Barents Sea,mae,0.1553906947374344,6,1m
+baseline_repeat,Barents Sea,rmse,0.3318745195865631,6,1m
+baseline_repeat,Barents Sea,psnr,9.580522537231444,6,1m
+baseline_repeat,Barents Sea,ssim,0.5987361073493958,6,1m
+baseline_repeat,Barents Sea,iou,0.417553961277008,6,1m
+baseline_repeat,Barents Sea,bin_accuracy,0.8202377557754517,6,1m
+baseline_repeat,Chukchi Sea,mae,0.3307717144489288,6,1m
+baseline_repeat,Chukchi Sea,rmse,0.5255559682846069,6,1m
+baseline_repeat,Chukchi Sea,psnr,5.587620735168457,6,1m
+baseline_repeat,Chukchi Sea,ssim,0.3363824784755707,6,1m
+baseline_repeat,Chukchi Sea,iou,0.4790151119232178,6,1m
+baseline_repeat,Chukchi Sea,bin_accuracy,0.6957557797431946,6,1m
+baseline_repeat,Kara Sea,mae,0.1982604563236236,6,1m
+baseline_repeat,Kara Sea,rmse,0.3855544626712799,6,1m
+baseline_repeat,Kara Sea,psnr,8.27828598022461,6,1m
+baseline_repeat,Kara Sea,ssim,0.5681912899017334,6,1m
+baseline_repeat,Kara Sea,iou,0.5356402397155762,6,1m
+baseline_repeat,Kara Sea,bin_accuracy,0.8102729320526123,6,1m
+baseline_repeat,Laptev Sea,mae,0.1425438225269317,6,1m
+baseline_repeat,Laptev Sea,rmse,0.3387036621570587,6,1m
+baseline_repeat,Laptev Sea,psnr,9.40360164642334,6,1m
+baseline_repeat,Laptev Sea,ssim,0.7195879220962524,6,1m
+baseline_repeat,Laptev Sea,iou,0.6347249150276184,6,1m
+baseline_repeat,Laptev Sea,bin_accuracy,0.8831778764724731,6,1m
+baseline_repeat,Sea of Japan,mae,0.0156414359807968,6,1m
+baseline_repeat,Sea of Japan,rmse,0.0942912027239799,6,1m
+baseline_repeat,Sea of Japan,psnr,20.423282623291016,6,1m
+baseline_repeat,Sea of Japan,ssim,0.8744771480560303,6,1m
+baseline_repeat,Sea of Japan,iou,0.1158093214035034,6,1m
+baseline_repeat,Sea of Japan,bin_accuracy,0.972167670726776,6,1m
+baseline_mean,Barents Sea,mae,0.1302360892295837,52,1w
+baseline_mean,Barents Sea,rmse,0.2314176857471466,52,1w
+baseline_mean,Barents Sea,psnr,12.712069511413574,52,1w
+baseline_mean,Barents Sea,ssim,0.5404643416404724,52,1w
+baseline_mean,Barents Sea,iou,0.5628436803817749,52,1w
+baseline_mean,Barents Sea,bin_accuracy,0.8370286226272583,52,1w
+baseline_mean,Chukchi Sea,mae,0.269925981760025,52,1w
+baseline_mean,Chukchi Sea,rmse,0.3525709509849548,52,1w
+baseline_mean,Chukchi Sea,psnr,9.055068969726562,52,1w
+baseline_mean,Chukchi Sea,ssim,0.4057977795600891,52,1w
+baseline_mean,Chukchi Sea,iou,0.6684993505477905,52,1w
+baseline_mean,Chukchi Sea,bin_accuracy,0.7747495174407959,52,1w
+baseline_mean,Kara Sea,mae,0.1627847701311111,52,1w
+baseline_mean,Kara Sea,rmse,0.2659385800361633,52,1w
+baseline_mean,Kara Sea,psnr,11.504372596740724,52,1w
+baseline_mean,Kara Sea,ssim,0.6040797233581543,52,1w
+baseline_mean,Kara Sea,iou,0.6841198801994324,52,1w
+baseline_mean,Kara Sea,bin_accuracy,0.8531004786491394,52,1w
+baseline_mean,Laptev Sea,mae,0.1151105388998985,52,1w
+baseline_mean,Laptev Sea,rmse,0.2275294661521911,52,1w
+baseline_mean,Laptev Sea,psnr,12.859248161315918,52,1w
+baseline_mean,Laptev Sea,ssim,0.7820727229118347,52,1w
+baseline_mean,Laptev Sea,iou,0.7988459467887878,52,1w
+baseline_mean,Laptev Sea,bin_accuracy,0.9306908845901488,52,1w
+baseline_mean,Sea of Japan,mae,0.013823889195919,52,1w
+baseline_mean,Sea of Japan,rmse,0.0668348520994186,52,1w
+baseline_mean,Sea of Japan,psnr,23.499942779541016,52,1w
+baseline_mean,Sea of Japan,ssim,0.8418471217155457,52,1w
+baseline_mean,Sea of Japan,iou,0.2421168386936187,52,1w
+baseline_mean,Sea of Japan,bin_accuracy,0.9754427671432496,52,1w
+baseline_repeat,Barents Sea,mae,0.1513772755861282,52,1w
+baseline_repeat,Barents Sea,rmse,0.3262377381324768,52,1w
+baseline_repeat,Barents Sea,psnr,9.72931671142578,52,1w
+baseline_repeat,Barents Sea,ssim,0.6091956496238708,52,1w
+baseline_repeat,Barents Sea,iou,0.4599545300006866,52,1w
+baseline_repeat,Barents Sea,bin_accuracy,0.8292797207832336,52,1w
+baseline_repeat,Chukchi Sea,mae,0.300753653049469,52,1w
+baseline_repeat,Chukchi Sea,rmse,0.4960219264030456,52,1w
+baseline_repeat,Chukchi Sea,psnr,6.089982986450195,52,1w
+baseline_repeat,Chukchi Sea,ssim,0.3851614594459533,52,1w
+baseline_repeat,Chukchi Sea,iou,0.504592776298523,52,1w
+baseline_repeat,Chukchi Sea,bin_accuracy,0.7199469804763794,52,1w
+baseline_repeat,Kara Sea,mae,0.1859201490879058,52,1w
+baseline_repeat,Kara Sea,rmse,0.3700914084911346,52,1w
+baseline_repeat,Kara Sea,psnr,8.633820533752441,52,1w
+baseline_repeat,Kara Sea,ssim,0.5905424952507019,52,1w
+baseline_repeat,Kara Sea,iou,0.5757994055747986,52,1w
+baseline_repeat,Kara Sea,bin_accuracy,0.8255965709686279,52,1w
+baseline_repeat,Laptev Sea,mae,0.1222370937466621,52,1w
+baseline_repeat,Laptev Sea,rmse,0.3072079420089721,52,1w
+baseline_repeat,Laptev Sea,psnr,10.251351356506348,52,1w
+baseline_repeat,Laptev Sea,ssim,0.7468234896659851,52,1w
+baseline_repeat,Laptev Sea,iou,0.7018144130706787,52,1w
+baseline_repeat,Laptev Sea,bin_accuracy,0.9052383303642272,52,1w
+baseline_repeat,Sea of Japan,mae,0.0163323637098073,52,1w
+baseline_repeat,Sea of Japan,rmse,0.0978645756840705,52,1w
+baseline_repeat,Sea of Japan,psnr,20.187490463256836,52,1w
+baseline_repeat,Sea of Japan,ssim,0.8790640234947205,52,1w
+baseline_repeat,Sea of Japan,iou,0.119541510939598,52,1w
+baseline_repeat,Sea of Japan,bin_accuracy,0.971933901309967,52,1w
+baseline_repeat,Barents Sea,mae,0.0968380698135921,90,1d
+baseline_repeat,Barents Sea,rmse,0.2420572170189448,90,1d
+baseline_repeat,Barents Sea,psnr,12.326154845101494,90,1d
+baseline_repeat,Barents Sea,ssim,0.7180197749819074,90,1d
+baseline_repeat,Barents Sea,iou,0.5616233689444405,90,1d
+baseline_repeat,Barents Sea,bin_accuracy,0.9156962207385472,90,1d
+baseline_repeat,Chukchi Sea,mae,0.1610597712653023,90,1d
+baseline_repeat,Chukchi Sea,rmse,0.3326310685702732,90,1d
+baseline_repeat,Chukchi Sea,psnr,9.649034908839637,90,1d
+baseline_repeat,Chukchi Sea,ssim,0.5887144207954407,90,1d
+baseline_repeat,Chukchi Sea,iou,0.5954992856298175,90,1d
+baseline_repeat,Chukchi Sea,bin_accuracy,0.8452271393367222,90,1d
+baseline_repeat,Kara Sea,mae,0.11214059059109,90,1d
+baseline_repeat,Kara Sea,rmse,0.2666810963835035,90,1d
+baseline_repeat,Kara Sea,psnr,11.511049270629885,90,1d
+baseline_repeat,Kara Sea,ssim,0.7150716781616211,90,1d
+baseline_repeat,Kara Sea,iou,0.6507675903184074,90,1d
+baseline_repeat,Kara Sea,bin_accuracy,0.8923131397792271,90,1d
+baseline_repeat,Laptev Sea,mae,0.0775631522493703,90,1d
+baseline_repeat,Laptev Sea,rmse,0.2300433559077126,90,1d
+baseline_repeat,Laptev Sea,psnr,12.853872844151088,90,1d
+baseline_repeat,Laptev Sea,ssim,0.8211757370403835,90,1d
+baseline_repeat,Laptev Sea,iou,0.7112191064017159,90,1d
+baseline_repeat,Laptev Sea,bin_accuracy,0.930990857737405,90,1d
+baseline_repeat,Sea of Japan,mae,0.0116655569789665,90,1d
+baseline_repeat,Sea of Japan,rmse,0.0772501288780144,90,1d
+baseline_repeat,Sea of Japan,psnr,22.40123748779297,90,1d
+baseline_repeat,Sea of Japan,ssim,0.9137420994894844,90,1d
+baseline_repeat,Sea of Japan,iou,0.1739587453859193,90,1d
+baseline_repeat,Sea of Japan,bin_accuracy,0.9797032049724034,90,1d
+baseline_mean,Barents Sea,mae,0.1688788490636008,90,1d
+baseline_mean,Barents Sea,rmse,0.3149890005588531,90,1d
+baseline_mean,Barents Sea,psnr,10.081781796046666,90,1d
+baseline_mean,Barents Sea,ssim,0.5278719280447278,90,1d
+baseline_mean,Barents Sea,iou,0.4372074731758663,90,1d
+baseline_mean,Barents Sea,bin_accuracy,0.8198968257222857,90,1d
+baseline_mean,Chukchi Sea,mae,0.358432935816901,90,1d
+baseline_mean,Chukchi Sea,rmse,0.4917634299823216,90,1d
+baseline_mean,Chukchi Sea,psnr,6.189423629215786,90,1d
+baseline_mean,Chukchi Sea,ssim,0.2759827928883688,90,1d
+baseline_mean,Chukchi Sea,iou,0.5536520395960126,90,1d
+baseline_mean,Chukchi Sea,bin_accuracy,0.705993686403547,90,1d
+baseline_mean,Kara Sea,mae,0.215129975761686,90,1d
+baseline_mean,Kara Sea,rmse,0.3649530027593885,90,1d
+baseline_mean,Kara Sea,psnr,8.76714025224958,90,1d
+baseline_mean,Kara Sea,ssim,0.5328336996691567,90,1d
+baseline_mean,Kara Sea,iou,0.5854938541139875,90,1d
+baseline_mean,Kara Sea,bin_accuracy,0.8112900086811611,90,1d
+baseline_mean,Laptev Sea,mae,0.1602702438831329,90,1d
+baseline_mean,Laptev Sea,rmse,0.3210474167551313,90,1d
+baseline_mean,Laptev Sea,psnr,9.916154861450195,90,1d
+baseline_mean,Laptev Sea,ssim,0.711085821901049,90,1d
+baseline_mean,Laptev Sea,iou,0.7351699471473694,90,1d
+baseline_mean,Laptev Sea,bin_accuracy,0.9087975536073956,90,1d
+baseline_mean,Sea of Japan,mae,0.0158623809527073,90,1d
+baseline_mean,Sea of Japan,rmse,0.0816965667264802,90,1d
+baseline_mean,Sea of Japan,psnr,21.74772208077567,90,1d
+baseline_mean,Sea of Japan,ssim,0.8512585844312396,90,1d
+baseline_mean,Sea of Japan,iou,0.0945440509489604,90,1d
+baseline_mean,Sea of Japan,bin_accuracy,0.9665689212935312,90,1d
+baseline_mean,Barents Sea,mae,0.0828743539750576,30,1d
+baseline_mean,Barents Sea,rmse,0.1958984788507223,30,1d
+baseline_mean,Barents Sea,psnr,14.18662703037262,30,1d
+baseline_mean,Barents Sea,ssim,0.7202692553400993,30,1d
+baseline_mean,Barents Sea,iou,0.6304353922605515,30,1d
+baseline_mean,Barents Sea,bin_accuracy,0.9108335971832277,30,1d
+baseline_mean,Chukchi Sea,mae,0.1332277995534241,30,1d
+baseline_mean,Chukchi Sea,rmse,0.2624016162008047,30,1d
+baseline_mean,Chukchi Sea,psnr,11.967468857765198,30,1d
+baseline_mean,Chukchi Sea,ssim,0.6170338951051235,30,1d
+baseline_mean,Chukchi Sea,iou,0.674072727560997,30,1d
+baseline_mean,Chukchi Sea,bin_accuracy,0.8797181323170662,30,1d
+baseline_mean,Kara Sea,mae,0.0964980954304337,30,1d
+baseline_mean,Kara Sea,rmse,0.2161909025162458,30,1d
+baseline_mean,Kara Sea,psnr,13.385347127914429,30,1d
+baseline_mean,Kara Sea,ssim,0.728583887219429,30,1d
+baseline_mean,Kara Sea,iou,0.718451589345932,30,1d
+baseline_mean,Kara Sea,bin_accuracy,0.911898359656334,30,1d
+baseline_mean,Laptev Sea,mae,0.0655195703729987,30,1d
+baseline_mean,Laptev Sea,rmse,0.1832650722935795,30,1d
+baseline_mean,Laptev Sea,psnr,14.98929226398468,30,1d
+baseline_mean,Laptev Sea,ssim,0.8356393352150917,30,1d
+baseline_mean,Laptev Sea,iou,0.7773458808660507,30,1d
+baseline_mean,Laptev Sea,bin_accuracy,0.9463537782430648,30,1d
+baseline_mean,Sea of Japan,mae,0.011032767011784,30,1d
+baseline_mean,Sea of Japan,rmse,0.0655851117335259,30,1d
+baseline_mean,Sea of Japan,psnr,23.99568462371826,30,1d
+baseline_mean,Sea of Japan,ssim,0.9145540297031404,30,1d
+baseline_mean,Sea of Japan,iou,0.204333659261465,30,1d
+baseline_mean,Sea of Japan,bin_accuracy,0.9803671836853028,30,1d
+baseline_repeat,Barents Sea,mae,0.0513940062373876,30,1d
+baseline_repeat,Barents Sea,rmse,0.1458750693127513,30,1d
+baseline_repeat,Barents Sea,psnr,16.7600599527359,30,1d
+baseline_repeat,Barents Sea,ssim,0.8126293942332268,30,1d
+baseline_repeat,Barents Sea,iou,0.743973933160305,30,1d
+baseline_repeat,Barents Sea,bin_accuracy,0.9482288882136344,30,1d
+baseline_repeat,Chukchi Sea,mae,0.065473822876811,30,1d
+baseline_repeat,Chukchi Sea,rmse,0.1687821485102176,30,1d
+baseline_repeat,Chukchi Sea,psnr,15.654554963111876,30,1d
+baseline_repeat,Chukchi Sea,ssim,0.7683542743325233,30,1d
+baseline_repeat,Chukchi Sea,iou,0.7763192430138588,30,1d
+baseline_repeat,Chukchi Sea,bin_accuracy,0.943418838083744,30,1d
+baseline_repeat,Kara Sea,mae,0.0545824575237929,30,1d
+baseline_repeat,Kara Sea,rmse,0.1508317533880472,30,1d
+baseline_repeat,Kara Sea,psnr,16.461272358894348,30,1d
+baseline_repeat,Kara Sea,ssim,0.8271841555833817,30,1d
+baseline_repeat,Kara Sea,iou,0.8242772817611694,30,1d
+baseline_repeat,Kara Sea,bin_accuracy,0.9533539041876792,30,1d
+baseline_repeat,Laptev Sea,mae,0.0322566314134746,30,1d
+baseline_repeat,Laptev Sea,rmse,0.1169749749824404,30,1d
+baseline_repeat,Laptev Sea,psnr,18.876209259033203,30,1d
+baseline_repeat,Laptev Sea,ssim,0.9066845029592514,30,1d
+baseline_repeat,Laptev Sea,iou,0.8576222583651543,30,1d
+baseline_repeat,Laptev Sea,bin_accuracy,0.9744832664728164,30,1d
+baseline_repeat,Sea of Japan,mae,0.0061962250911165,30,1d
+baseline_repeat,Sea of Japan,rmse,0.0469748633913695,30,1d
+baseline_repeat,Sea of Japan,psnr,26.890151262283325,30,1d
+baseline_repeat,Sea of Japan,ssim,0.9435259103775024,30,1d
+baseline_repeat,Sea of Japan,iou,0.3265949822962284,30,1d
+baseline_repeat,Sea of Japan,bin_accuracy,0.9892643615603448,30,1d
+baseline_repeat,Barents Sea,mae,0.0265144302975386,7,1d
+baseline_repeat,Barents Sea,rmse,0.0821545384824276,7,1d
+baseline_repeat,Barents Sea,psnr,21.764369010925293,7,1d
+baseline_repeat,Barents Sea,ssim,0.8965507596731186,7,1d
+baseline_repeat,Barents Sea,iou,0.8688855692744255,7,1d
+baseline_repeat,Barents Sea,bin_accuracy,0.9752143397927284,7,1d
+baseline_repeat,Chukchi Sea,mae,0.0283236305695027,7,1d
+baseline_repeat,Chukchi Sea,rmse,0.0788458450697362,7,1d
+baseline_repeat,Chukchi Sea,psnr,22.184123277664185,7,1d
+baseline_repeat,Chukchi Sea,ssim,0.8845589309930801,7,1d
+baseline_repeat,Chukchi Sea,iou,0.8851857408881187,7,1d
+baseline_repeat,Chukchi Sea,bin_accuracy,0.9788047522306442,7,1d
+baseline_repeat,Kara Sea,mae,0.0265975599177181,7,1d
+baseline_repeat,Kara Sea,rmse,0.0792829208076,7,1d
+baseline_repeat,Kara Sea,psnr,22.046283721923828,7,1d
+baseline_repeat,Kara Sea,ssim,0.910152368247509,7,1d
+baseline_repeat,Kara Sea,iou,0.9196467846632004,7,1d
+baseline_repeat,Kara Sea,bin_accuracy,0.9800703898072244,7,1d
+baseline_repeat,Laptev Sea,mae,0.0135970236733555,7,1d
+baseline_repeat,Laptev Sea,rmse,0.0522754285484552,7,1d
+baseline_repeat,Laptev Sea,psnr,25.78753399848938,7,1d
+baseline_repeat,Laptev Sea,ssim,0.956125281751156,7,1d
+baseline_repeat,Laptev Sea,iou,0.934601865708828,7,1d
+baseline_repeat,Laptev Sea,bin_accuracy,0.9914994910359384,7,1d
+baseline_repeat,Sea of Japan,mae,0.0032869510978343,7,1d
+baseline_repeat,Sea of Japan,rmse,0.0264775601681321,7,1d
+baseline_repeat,Sea of Japan,psnr,31.509171962738037,7,1d
+baseline_repeat,Sea of Japan,ssim,0.9623712450265884,7,1d
+baseline_repeat,Sea of Japan,iou,0.4579561799764633,7,1d
+baseline_repeat,Sea of Japan,bin_accuracy,0.9941771775484084,7,1d
+baseline_mean,Barents Sea,mae,0.0374495456926524,7,1d
+baseline_mean,Barents Sea,rmse,0.1043730517849326,7,1d
+baseline_mean,Barents Sea,psnr,19.66626739501953,7,1d
+baseline_mean,Barents Sea,ssim,0.8580758199095726,7,1d
+baseline_mean,Barents Sea,iou,0.817674919962883,7,1d
+baseline_mean,Barents Sea,bin_accuracy,0.9644443690776824,7,1d
+baseline_mean,Chukchi Sea,mae,0.0444289902225136,7,1d
+baseline_mean,Chukchi Sea,rmse,0.112137340940535,7,1d
+baseline_mean,Chukchi Sea,psnr,19.11554503440857,7,1d
+baseline_mean,Chukchi Sea,ssim,0.8283843249082565,7,1d
+baseline_mean,Chukchi Sea,iou,0.8420126065611839,7,1d
+baseline_mean,Chukchi Sea,bin_accuracy,0.965275451540947,7,1d
+baseline_mean,Kara Sea,mae,0.0386390234343707,7,1d
+baseline_mean,Kara Sea,rmse,0.1045749820768833,7,1d
+baseline_mean,Kara Sea,psnr,19.636058807373047,7,1d
+baseline_mean,Kara Sea,ssim,0.8721868321299553,7,1d
+baseline_mean,Kara Sea,iou,0.8817775323987007,7,1d
+baseline_mean,Kara Sea,bin_accuracy,0.969700150191784,7,1d
+baseline_mean,Laptev Sea,mae,0.0214350414462387,7,1d
+baseline_mean,Laptev Sea,rmse,0.0766560337506234,7,1d
+baseline_mean,Laptev Sea,psnr,22.576486349105835,7,1d
+baseline_mean,Laptev Sea,ssim,0.9347035810351372,7,1d
+baseline_mean,Laptev Sea,iou,0.9037876725196838,7,1d
+baseline_mean,Laptev Sea,bin_accuracy,0.9850536212325096,7,1d
+baseline_mean,Sea of Japan,mae,0.0044433891453081,7,1d
+baseline_mean,Sea of Japan,rmse,0.0328587738331407,7,1d
+baseline_mean,Sea of Japan,psnr,29.54703426361084,7,1d
+baseline_mean,Sea of Japan,ssim,0.9605474397540092,7,1d
+baseline_mean,Sea of Japan,iou,0.42528922483325,7,1d
+baseline_mean,Sea of Japan,bin_accuracy,0.992679201066494,7,1d
+convlstm,Barents Sea,mae,0.0572961366011036,52,1w
+convlstm,Barents Sea,rmse,0.1595783349540498,52,1w
+convlstm,Barents Sea,psnr,15.948076883951822,52,1w
+convlstm,Barents Sea,ssim,0.7847373816702101,52,1w
+convlstm,Barents Sea,iou,0.7665581107139587,52,1w
+convlstm,Barents Sea,bin_accuracy,0.9406579865349664,52,1w
+convlstm,Chukchi Sea,mae,0.0619567645092805,52,1w
+convlstm,Chukchi Sea,rmse,0.1625962224271562,52,1w
+convlstm,Chukchi Sea,psnr,15.79696167839898,52,1w
+convlstm,Chukchi Sea,ssim,0.7513460053337945,52,1w
+convlstm,Chukchi Sea,iou,0.8713266187243991,52,1w
+convlstm,Chukchi Sea,bin_accuracy,0.9378841519355774,52,1w
+convlstm,Kara Sea,mae,0.0546925808820459,52,1w
+convlstm,Kara Sea,rmse,0.1489128222068151,52,1w
+convlstm,Kara Sea,psnr,16.550934685601128,52,1w
+convlstm,Kara Sea,ssim,0.8109785053465102,52,1w
+convlstm,Kara Sea,iou,0.8634919855329726,52,1w
+convlstm,Kara Sea,bin_accuracy,0.9525061183505588,52,1w
+convlstm,Laptev Sea,mae,0.0306663347615136,52,1w
+convlstm,Laptev Sea,rmse,0.1080990044607056,52,1w
+convlstm,Laptev Sea,psnr,19.40033785502116,52,1w
+convlstm,Laptev Sea,ssim,0.9074477950731912,52,1w
+convlstm,Laptev Sea,iou,0.9127066598998176,52,1w
+convlstm,Laptev Sea,bin_accuracy,0.9748487207624648,52,1w
+convlstm,Sea of Japan,mae,0.0067488425411283,52,1w
+convlstm,Sea of Japan,rmse,0.0511332613726457,52,1w
+convlstm,Sea of Japan,psnr,25.774397532145183,52,1w
+convlstm,Sea of Japan,ssim,0.9238961405224272,52,1w
+convlstm,Sea of Japan,iou,0.4616741339365641,52,1w
+convlstm,Sea of Japan,bin_accuracy,0.9889542924033272,52,1w
+convlstm,Barents Sea,mae,0.0616730256006121,32,1w
+convlstm,Barents Sea,rmse,0.1687214076519012,32,1w
+convlstm,Barents Sea,psnr,15.533925692240397,32,1w
+convlstm,Barents Sea,ssim,0.7756147434314092,32,1w
+convlstm,Barents Sea,iou,0.7491691708564758,32,1w
+convlstm,Barents Sea,bin_accuracy,0.936188131570816,32,1w
+convlstm,Chukchi Sea,mae,0.0670897150412201,32,1w
+convlstm,Chukchi Sea,rmse,0.1715344314773877,32,1w
+convlstm,Chukchi Sea,psnr,15.51219375928243,32,1w
+convlstm,Chukchi Sea,ssim,0.7464082688093185,32,1w
+convlstm,Chukchi Sea,iou,0.8396485696236292,32,1w
+convlstm,Chukchi Sea,bin_accuracy,0.9315626720587412,32,1w
+convlstm,Kara Sea,mae,0.058267512358725,32,1w
+convlstm,Kara Sea,rmse,0.1554850476483504,32,1w
+convlstm,Kara Sea,psnr,16.22450049718221,32,1w
+convlstm,Kara Sea,ssim,0.8020277818044027,32,1w
+convlstm,Kara Sea,iou,0.8404578417539597,32,1w
+convlstm,Kara Sea,bin_accuracy,0.9475000947713852,32,1w
+convlstm,Laptev Sea,mae,0.0331657271211346,32,1w
+convlstm,Laptev Sea,rmse,0.1118711537371079,32,1w
+convlstm,Laptev Sea,psnr,19.380057334899902,32,1w
+convlstm,Laptev Sea,ssim,0.8974210172891617,32,1w
+convlstm,Laptev Sea,iou,0.8922653198242188,32,1w
+convlstm,Laptev Sea,bin_accuracy,0.9713161587715148,32,1w
+convlstm,Sea of Japan,mae,0.0049441517039667,32,1w
+convlstm,Sea of Japan,rmse,0.0377775168356796,32,1w
+convlstm,Sea of Japan,psnr,28.612194220225017,32,1w
+convlstm,Sea of Japan,ssim,0.9366110215584436,32,1w
+convlstm,Sea of Japan,iou,0.5178846543033918,32,1w
+convlstm,Sea of Japan,bin_accuracy,0.9918085436026256,32,1w
+convlstm,Barents Sea,mae,0.0605062767863273,12,1m
+convlstm,Barents Sea,rmse,0.1627073213458061,12,1m
+convlstm,Barents Sea,psnr,15.775124073028564,12,1m
+convlstm,Barents Sea,ssim,0.7592174708843231,12,1m
+convlstm,Barents Sea,iou,0.7523010075092316,12,1m
+convlstm,Barents Sea,bin_accuracy,0.93754842877388,12,1m
+convlstm,Chukchi Sea,mae,0.061281343922019,12,1m
+convlstm,Chukchi Sea,rmse,0.1622954905033111,12,1m
+convlstm,Chukchi Sea,psnr,15.845595836639404,12,1m
+convlstm,Chukchi Sea,ssim,0.7481897175312042,12,1m
+convlstm,Chukchi Sea,iou,0.8738788962364197,12,1m
+convlstm,Chukchi Sea,bin_accuracy,0.9393097460269928,12,1m
+convlstm,Kara Sea,mae,0.0607978217303752,12,1m
+convlstm,Kara Sea,rmse,0.1611997112631797,12,1m
+convlstm,Kara Sea,psnr,15.853535652160645,12,1m
+convlstm,Kara Sea,ssim,0.793855220079422,12,1m
+convlstm,Kara Sea,iou,0.8434044718742371,12,1m
+convlstm,Kara Sea,bin_accuracy,0.9446107447147368,12,1m
+convlstm,Laptev Sea,mae,0.0294669922441244,12,1m
+convlstm,Laptev Sea,rmse,0.1027586422860622,12,1m
+convlstm,Laptev Sea,psnr,19.786980628967285,12,1m
+convlstm,Laptev Sea,ssim,0.907707929611206,12,1m
+convlstm,Laptev Sea,iou,0.9240443706512452,12,1m
+convlstm,Laptev Sea,bin_accuracy,0.978187382221222,12,1m
+convlstm,Sea of Japan,mae,0.0103226471692323,12,1m
+convlstm,Sea of Japan,rmse,0.0756173431873321,12,1m
+convlstm,Sea of Japan,psnr,22.08117389678955,12,1m
+convlstm,Sea of Japan,ssim,0.9170055985450744,12,1m
+convlstm,Sea of Japan,iou,0.0,12,1m
+convlstm,Sea of Japan,bin_accuracy,0.9819014966487885,12,1m
+convlstm,Barents Sea,mae,0.0701761823147535,6,1m
+convlstm,Barents Sea,rmse,0.1803259737789631,6,1m
+convlstm,Barents Sea,psnr,14.883718252182009,6,1m
+convlstm,Barents Sea,ssim,0.7389085292816162,6,1m
+convlstm,Barents Sea,iou,0.7127512395381927,6,1m
+convlstm,Barents Sea,bin_accuracy,0.9243455827236176,6,1m
+convlstm,Chukchi Sea,mae,0.0618000505492091,6,1m
+convlstm,Chukchi Sea,rmse,0.1641888301819563,6,1m
+convlstm,Chukchi Sea,psnr,15.823758840560911,6,1m
+convlstm,Chukchi Sea,ssim,0.7757882475852966,6,1m
+convlstm,Chukchi Sea,iou,0.8635890185832977,6,1m
+convlstm,Chukchi Sea,bin_accuracy,0.9451145827770232,6,1m
+convlstm,Kara Sea,mae,0.06988519243896,6,1m
+convlstm,Kara Sea,rmse,0.1772557310760021,6,1m
+convlstm,Kara Sea,psnr,15.038801908493042,6,1m
+convlstm,Kara Sea,ssim,0.7812558561563492,6,1m
+convlstm,Kara Sea,iou,0.8233755230903625,6,1m
+convlstm,Kara Sea,bin_accuracy,0.9368056654930116,6,1m
+convlstm,Laptev Sea,mae,0.0331849129870533,6,1m
+convlstm,Laptev Sea,rmse,0.1135623753070831,6,1m
+convlstm,Laptev Sea,psnr,19.0398383140564,6,1m
+convlstm,Laptev Sea,ssim,0.9007773101329803,6,1m
+convlstm,Laptev Sea,iou,0.916395753622055,6,1m
+convlstm,Laptev Sea,bin_accuracy,0.9778097867965698,6,1m
+convlstm,Sea of Japan,mae,0.0064337440999224,6,1m
+convlstm,Sea of Japan,rmse,0.0435800915583968,6,1m
+convlstm,Sea of Japan,psnr,26.69056749343872,6,1m
+convlstm,Sea of Japan,ssim,0.9157183915376664,6,1m
+convlstm,Sea of Japan,iou,0.4451189786195755,6,1m
+convlstm,Sea of Japan,bin_accuracy,0.9893723130226136,6,1m
+convlstm,Barents Sea,mae,0.026080306854099,7,1d
+convlstm,Barents Sea,rmse,0.0751657248735427,7,1d
+convlstm,Barents Sea,psnr,23.27000340270996,7,1d
+convlstm,Barents Sea,ssim,0.8997446060180664,7,1d
+convlstm,Barents Sea,iou,0.8755591306686401,7,1d
+convlstm,Barents Sea,bin_accuracy,0.9762374086380003,7,1d
+convlstm,Chukchi Sea,mae,0.0257188267870806,7,1d
+convlstm,Chukchi Sea,rmse,0.060205502834171,7,1d
+convlstm,Chukchi Sea,psnr,25.9714786529541,7,1d
+convlstm,Chukchi Sea,ssim,0.8980745530128479,7,1d
+convlstm,Chukchi Sea,iou,0.8871318333148956,7,1d
+convlstm,Chukchi Sea,bin_accuracy,0.9808694982528686,7,1d
+convlstm,Kara Sea,mae,0.0251154280295595,7,1d
+convlstm,Kara Sea,rmse,0.0701040040105581,7,1d
+convlstm,Kara Sea,psnr,23.685920623779296,7,1d
+convlstm,Kara Sea,ssim,0.9187907409667968,7,1d
+convlstm,Kara Sea,iou,0.925817368030548,7,1d
+convlstm,Kara Sea,bin_accuracy,0.9818010692596436,7,1d
+convlstm,Laptev Sea,mae,0.0121516855778172,7,1d
+convlstm,Laptev Sea,rmse,0.0371117140725255,7,1d
+convlstm,Laptev Sea,psnr,30.431705276489257,7,1d
+convlstm,Laptev Sea,ssim,0.9624948511123658,7,1d
+convlstm,Laptev Sea,iou,0.9376504096984865,7,1d
+convlstm,Laptev Sea,bin_accuracy,0.9927444462776184,7,1d
+convlstm,Sea of Japan,mae,0.0031170118323061,7,1d
+convlstm,Sea of Japan,rmse,0.0195494058111216,7,1d
+convlstm,Sea of Japan,psnr,29.134857,7,1d
+convlstm,Sea of Japan,ssim,0.97059708070755,7,1d
+convlstm,Sea of Japan,iou,0.4524284374266863,7,1d
+convlstm,Sea of Japan,bin_accuracy,0.994921232700348,7,1d
+convlstm,Barents Sea,mae,0.0407211189468701,30,1d
+convlstm,Barents Sea,rmse,0.1148118012584746,30,1d
+convlstm,Barents Sea,psnr,19.366108441352843,30,1d
+convlstm,Barents Sea,ssim,0.8401857122778893,30,1d
+convlstm,Barents Sea,iou,0.7894076312581698,30,1d
+convlstm,Barents Sea,bin_accuracy,0.9607704748709996,30,1d
+convlstm,Chukchi Sea,mae,0.0447473648702725,30,1d
+convlstm,Chukchi Sea,rmse,0.1025018502026796,30,1d
+convlstm,Chukchi Sea,psnr,21.521279780069985,30,1d
+convlstm,Chukchi Sea,ssim,0.7946554514269034,30,1d
+convlstm,Chukchi Sea,iou,0.7847063936293125,30,1d
+convlstm,Chukchi Sea,bin_accuracy,0.9606538698077202,30,1d
+convlstm,Kara Sea,mae,0.0416834736630941,30,1d
+convlstm,Kara Sea,rmse,0.1141459034445385,30,1d
+convlstm,Kara Sea,psnr,19.223542165756225,30,1d
+convlstm,Kara Sea,ssim,0.8592362895607948,30,1d
+convlstm,Kara Sea,iou,0.862055933723847,30,1d
+convlstm,Kara Sea,bin_accuracy,0.9671585788329442,30,1d
+convlstm,Laptev Sea,mae,0.0265435500846554,30,1d
+convlstm,Laptev Sea,rmse,0.0746605464722961,30,1d
+convlstm,Laptev Sea,psnr,25.45724511146545,30,1d
+convlstm,Laptev Sea,ssim,0.9028010884920756,30,1d
+convlstm,Laptev Sea,iou,0.859766536206007,30,1d
+convlstm,Laptev Sea,bin_accuracy,0.9800209999084472,30,1d
+convlstm,Sea of Japan,mae,0.0044588870904893,30,1d
+convlstm,Sea of Japan,rmse,0.0274047495184883,30,1d
+convlstm,Sea of Japan,psnr,26.381204,30,1d
+convlstm,Sea of Japan,ssim,0.9551870445410412,30,1d
+convlstm,Sea of Japan,iou,0.359858924181511,30,1d
+convlstm,Sea of Japan,bin_accuracy,0.9928877621889114,30,1d
+convlstm,Barents Sea,mae,0.0720173108466397,90,1d
+convlstm,Barents Sea,rmse,0.178619472905137,90,1d
+convlstm,Barents Sea,psnr,15.355315552634757,90,1d
+convlstm,Barents Sea,ssim,0.6786680531227726,90,1d
+convlstm,Barents Sea,iou,0.6495581335719974,90,1d
+convlstm,Barents Sea,bin_accuracy,0.9251091372007612,90,1d
+convlstm,Chukchi Sea,mae,0.1127483446622031,90,1d
+convlstm,Chukchi Sea,rmse,0.2012917056936642,90,1d
+convlstm,Chukchi Sea,psnr,15.259479912944224,90,1d
+convlstm,Chukchi Sea,ssim,0.6765371874831189,90,1d
+convlstm,Chukchi Sea,iou,0.6344319597562045,90,1d
+convlstm,Chukchi Sea,bin_accuracy,0.9014364782421068,90,1d
+convlstm,Kara Sea,mae,0.1017429325858066,90,1d
+convlstm,Kara Sea,rmse,0.2356072805736256,90,1d
+convlstm,Kara Sea,psnr,13.206606691733176,90,1d
+convlstm,Kara Sea,ssim,0.684208908163268,90,1d
+convlstm,Kara Sea,iou,0.6744670120121419,90,1d
+convlstm,Kara Sea,bin_accuracy,0.9085502098346578,90,1d
+convlstm,Laptev Sea,mae,0.0359910387738511,90,1d
+convlstm,Laptev Sea,rmse,0.1001392868572268,90,1d
+convlstm,Laptev Sea,psnr,22.18198128185053,90,1d
+convlstm,Laptev Sea,ssim,0.8601782811099086,90,1d
+convlstm,Laptev Sea,iou,0.8501566231250763,90,1d
+convlstm,Laptev Sea,bin_accuracy,0.971961350002508,90,1d
+convlstm,Sea of Japan,mae,0.0073965279431612,90,1d
+convlstm,Sea of Japan,rmse,0.0442185239625516,90,1d
+convlstm,Sea of Japan,psnr,28.722818585099844,90,1d
+convlstm,Sea of Japan,ssim,0.9247517311710052,90,1d
+convlstm,Sea of Japan,iou,0.1918568355630783,90,1d
+convlstm,Sea of Japan,bin_accuracy,0.987272738314223,90,1d
+FH-Mamba,Barents Sea,bin_accuracy,0.910844549536705,52,1w
+FH-Mamba,Barents Sea,iou,0.7043064882357916,52,1w
+FH-Mamba,Barents Sea,mae,0.0727712449928124,52,1w
+FH-Mamba,Barents Sea,psnr,15.532787084579468,52,1w
+FH-Mamba,Barents Sea,rmse,0.1677179212371508,52,1w
+FH-Mamba,Barents Sea,ssim,0.7305641919374466,52,1w
+FH-Mamba,Chukchi Sea,bin_accuracy,0.9061557402213416,52,1w
+FH-Mamba,Chukchi Sea,iou,0.82231933871905,52,1w
+FH-Mamba,Chukchi Sea,mae,0.0833644432326157,52,1w
+FH-Mamba,Chukchi Sea,psnr,15.15139881769816,52,1w
+FH-Mamba,Chukchi Sea,rmse,0.1765927250186602,52,1w
+FH-Mamba,Chukchi Sea,ssim,0.6916394333044688,52,1w
+FH-Mamba,Sea of Japan,bin_accuracy,0.989317407210668,52,1w
+FH-Mamba,Sea of Japan,iou,0.575613223016262,52,1w
+FH-Mamba,Sea of Japan,mae,0.0062753295060247,52,1w
+FH-Mamba,Sea of Japan,psnr,27.60111792882284,52,1w
+FH-Mamba,Sea of Japan,rmse,0.0416070024172465,52,1w
+FH-Mamba,Sea of Japan,ssim,0.9477507869402568,52,1w
+FH-Mamba,Kara Sea,bin_accuracy,0.914594625433286,52,1w
+FH-Mamba,Kara Sea,iou,0.7846866101026535,52,1w
+FH-Mamba,Kara Sea,mae,0.0773764637609322,52,1w
+FH-Mamba,Kara Sea,psnr,15.77015264829,52,1w
+FH-Mamba,Kara Sea,rmse,0.1629707564910253,52,1w
+FH-Mamba,Kara Sea,ssim,0.718173568447431,52,1w
+FH-Mamba,Laptev Sea,bin_accuracy,0.9504824380079904,52,1w
+FH-Mamba,Laptev Sea,iou,0.8415165444215139,52,1w
+FH-Mamba,Laptev Sea,mae,0.0432189516723156,52,1w
+FH-Mamba,Laptev Sea,psnr,18.74743874867757,52,1w
+FH-Mamba,Laptev Sea,rmse,0.1158421294142802,52,1w
+FH-Mamba,Laptev Sea,ssim,0.8551571617523829,52,1w
+FH-Mamba,Barents Sea,bin_accuracy,0.8692211359739304,6,1m
+FH-Mamba,Barents Sea,iou,0.5688116699457169,6,1m
+FH-Mamba,Barents Sea,mae,0.1049468889832496,6,1m
+FH-Mamba,Barents Sea,psnr,12.744869947433472,6,1m
+FH-Mamba,Barents Sea,rmse,0.2305983081459999,6,1m
+FH-Mamba,Barents Sea,ssim,0.6588436365127563,6,1m
+FH-Mamba,Barents Sea,bin_accuracy,0.9513673491477966,7,1d
+FH-Mamba,Barents Sea,iou,0.785186423778534,7,1d
+FH-Mamba,Barents Sea,mae,0.0415119180344045,7,1d
+FH-Mamba,Barents Sea,psnr,20.995214057922365,7,1d
+FH-Mamba,Barents Sea,rmse,0.0964996850788593,7,1d
+FH-Mamba,Barents Sea,ssim,0.8363659787178039,7,1d
+FH-Mamba,Barents Sea,bin_accuracy,0.872265895207723,12,1m
+FH-Mamba,Barents Sea,iou,0.5953014691670736,12,1m
+FH-Mamba,Barents Sea,mae,0.1031066278616587,12,1m
+FH-Mamba,Barents Sea,psnr,12.86313819885254,12,1m
+FH-Mamba,Barents Sea,rmse,0.227431779106458,12,1m
+FH-Mamba,Barents Sea,ssim,0.6598354379336039,12,1m
+FH-Mamba,Barents Sea,bin_accuracy,0.9342984371497984,30,1d
+FH-Mamba,Barents Sea,iou,0.7212971207059797,30,1d
+FH-Mamba,Barents Sea,mae,0.0559954553781474,30,1d
+FH-Mamba,Barents Sea,psnr,18.293186258097165,30,1d
+FH-Mamba,Barents Sea,rmse,0.1297568511523184,30,1d
+FH-Mamba,Barents Sea,ssim,0.7910367973515244,30,1d
+FH-Mamba,Barents Sea,bin_accuracy,0.9127279903207508,32,1w
+FH-Mamba,Barents Sea,iou,0.7008093936102731,32,1w
+FH-Mamba,Barents Sea,mae,0.0713604023413998,32,1w
+FH-Mamba,Barents Sea,psnr,15.784664630889893,32,1w
+FH-Mamba,Barents Sea,rmse,0.1635251002652304,32,1w
+FH-Mamba,Barents Sea,ssim,0.7363768560545785,32,1w
+FH-Mamba,Barents Sea,bin_accuracy,0.9189758736154308,90,1d
+FH-Mamba,Barents Sea,iou,0.6629914208598758,90,1d
+FH-Mamba,Barents Sea,mae,0.0668252125544392,90,1d
+FH-Mamba,Barents Sea,psnr,16.441677508146867,90,1d
+FH-Mamba,Barents Sea,rmse,0.1541693791747093,90,1d
+FH-Mamba,Barents Sea,ssim,0.7462125508681587,90,1d
+FH-Mamba,Chukchi Sea,bin_accuracy,0.8320496529340744,6,1m
+FH-Mamba,Chukchi Sea,iou,0.6667503863573074,6,1m
+FH-Mamba,Chukchi Sea,mae,0.1753825210034847,6,1m
+FH-Mamba,Chukchi Sea,psnr,9.697283029556274,6,1m
+FH-Mamba,Chukchi Sea,rmse,0.3300182148814201,6,1m
+FH-Mamba,Chukchi Sea,ssim,0.5311959087848663,6,1m
+FH-Mamba,Chukchi Sea,bin_accuracy,0.9564296927452088,7,1d
+FH-Mamba,Chukchi Sea,iou,0.8398780262470246,7,1d
+FH-Mamba,Chukchi Sea,mae,0.0427231354191899,7,1d
+FH-Mamba,Chukchi Sea,psnr,21.89818214416504,7,1d
+FH-Mamba,Chukchi Sea,rmse,0.0839806371927261,7,1d
+FH-Mamba,Chukchi Sea,ssim,0.8636390810012817,7,1d
+FH-Mamba,Chukchi Sea,bin_accuracy,0.8047606547673544,12,1m
+FH-Mamba,Chukchi Sea,iou,0.6595416267712911,12,1m
+FH-Mamba,Chukchi Sea,mae,0.1878037204345067,12,1m
+FH-Mamba,Chukchi Sea,psnr,9.152965227762856,12,1m
+FH-Mamba,Chukchi Sea,rmse,0.3507099250952403,12,1m
+FH-Mamba,Chukchi Sea,ssim,0.5156352917353312,12,1m
+FH-Mamba,Chukchi Sea,bin_accuracy,0.9347417159158676,30,1d
+FH-Mamba,Chukchi Sea,iou,0.7650551673818807,30,1d
+FH-Mamba,Chukchi Sea,mae,0.0580350935333179,30,1d
+FH-Mamba,Chukchi Sea,psnr,19.57159315953489,30,1d
+FH-Mamba,Chukchi Sea,rmse,0.1128215494367187,30,1d
+FH-Mamba,Chukchi Sea,ssim,0.7779544677402153,30,1d
+FH-Mamba,Chukchi Sea,bin_accuracy,0.9138701004641396,32,1w
+FH-Mamba,Chukchi Sea,iou,0.818929408277784,32,1w
+FH-Mamba,Chukchi Sea,mae,0.0758363982396466,32,1w
+FH-Mamba,Chukchi Sea,psnr,15.972609656197683,32,1w
+FH-Mamba,Chukchi Sea,rmse,0.1621559725276061,32,1w
+FH-Mamba,Chukchi Sea,ssim,0.7117686399391719,32,1w
+FH-Mamba,Chukchi Sea,bin_accuracy,0.9271467115568078,90,1d
+FH-Mamba,Chukchi Sea,iou,0.7692457072112872,90,1d
+FH-Mamba,Chukchi Sea,mae,0.0726436446866263,90,1d
+FH-Mamba,Chukchi Sea,psnr,17.42720073202382,90,1d
+FH-Mamba,Chukchi Sea,rmse,0.1453372976702192,90,1d
+FH-Mamba,Chukchi Sea,ssim,0.7137966904951178,90,1d
+FH-Mamba,Sea of Japan,bin_accuracy,0.9737197011709212,6,1m
+FH-Mamba,Sea of Japan,iou,0.212359469383955,6,1m
+FH-Mamba,Sea of Japan,mae,0.0147445842158049,6,1m
+FH-Mamba,Sea of Japan,psnr,20.915658473968502,6,1m
+FH-Mamba,Sea of Japan,rmse,0.0844887942075729,6,1m
+FH-Mamba,Sea of Japan,ssim,0.9015531241893768,6,1m
+FH-Mamba,Sea of Japan,bin_accuracy,0.9926976046562196,7,1d
+FH-Mamba,Sea of Japan,iou,0.387974974066019,7,1d
+FH-Mamba,Sea of Japan,mae,0.0044538443692144,7,1d
+FH-Mamba,Sea of Japan,psnr,30.847523,7,1d
+FH-Mamba,Sea of Japan,rmse,0.022687965478748,7,1d
+FH-Mamba,Sea of Japan,ssim,0.9539046120643616,7,1d
+FH-Mamba,Sea of Japan,bin_accuracy,0.9751439094543456,12,1m
+FH-Mamba,Sea of Japan,iou,0.2379193007946014,12,1m
+FH-Mamba,Sea of Japan,mae,0.0140716119979818,12,1m
+FH-Mamba,Sea of Japan,psnr,21.410303751627605,12,1m
+FH-Mamba,Sea of Japan,rmse,0.0829401661952336,12,1m
+FH-Mamba,Sea of Japan,ssim,0.9128078023592632,12,1m
+FH-Mamba,Sea of Japan,bin_accuracy,0.9904973746323196,30,1d
+FH-Mamba,Sea of Japan,iou,0.3161279549440521,30,1d
+FH-Mamba,Sea of Japan,mae,0.0057989151281851,30,1d
+FH-Mamba,Sea of Japan,psnr,25.913671,30,1d
+FH-Mamba,Sea of Japan,rmse,0.029828790016359,30,1d
+FH-Mamba,Sea of Japan,ssim,0.9492983168265858,30,1d
+FH-Mamba,Sea of Japan,bin_accuracy,0.9884173486913952,32,1w
+FH-Mamba,Sea of Japan,iou,0.5307091346808842,32,1w
+FH-Mamba,Sea of Japan,mae,0.006820265852314,32,1w
+FH-Mamba,Sea of Japan,psnr,27.592798505510604,32,1w
+FH-Mamba,Sea of Japan,rmse,0.0431324073246547,32,1w
+FH-Mamba,Sea of Japan,ssim,0.9416297674179076,32,1w
+FH-Mamba,Sea of Japan,bin_accuracy,0.9896865533745808,90,1d
+FH-Mamba,Sea of Japan,iou,0.4148118257522583,90,1d
+FH-Mamba,Sea of Japan,mae,0.0060497719955848,90,1d
+FH-Mamba,Sea of Japan,psnr,31.2854351375414,90,1d
+FH-Mamba,Sea of Japan,rmse,0.0327488804276546,90,1d
+FH-Mamba,Sea of Japan,ssim,0.9431133161420407,90,1d
+FH-Mamba,Kara Sea,bin_accuracy,0.8534302711486816,6,1m
+FH-Mamba,Kara Sea,iou,0.6401456445455551,6,1m
+FH-Mamba,Kara Sea,mae,0.1344148702919483,6,1m
+FH-Mamba,Kara Sea,psnr,11.497495651245115,6,1m
+FH-Mamba,Kara Sea,rmse,0.2671689055860042,6,1m
+FH-Mamba,Kara Sea,ssim,0.6216223835945129,6,1m
+FH-Mamba,Kara Sea,bin_accuracy,0.9427441267967224,7,1d
+FH-Mamba,Kara Sea,iou,0.821682267665863,7,1d
+FH-Mamba,Kara Sea,mae,0.050080367706716,7,1d
+FH-Mamba,Kara Sea,psnr,19.83862907409668,7,1d
+FH-Mamba,Kara Sea,rmse,0.106338551133871,7,1d
+FH-Mamba,Kara Sea,ssim,0.8125983266830444,7,1d
+FH-Mamba,Kara Sea,bin_accuracy,0.8494487007459005,12,1m
+FH-Mamba,Kara Sea,iou,0.650652805964152,12,1m
+FH-Mamba,Kara Sea,mae,0.1354977488517761,12,1m
+FH-Mamba,Kara Sea,psnr,11.400583585103352,12,1m
+FH-Mamba,Kara Sea,rmse,0.2695434292157491,12,1m
+FH-Mamba,Kara Sea,ssim,0.6154837807019552,12,1m
+FH-Mamba,Kara Sea,bin_accuracy,0.9265372606574512,30,1d
+FH-Mamba,Kara Sea,iou,0.7656443007901067,30,1d
+FH-Mamba,Kara Sea,mae,0.0658140832588809,30,1d
+FH-Mamba,Kara Sea,psnr,17.343127469547458,30,1d
+FH-Mamba,Kara Sea,rmse,0.1395730518537466,30,1d
+FH-Mamba,Kara Sea,ssim,0.7650532292538001,30,1d
+FH-Mamba,Kara Sea,bin_accuracy,0.9114032302583966,32,1w
+FH-Mamba,Kara Sea,iou,0.7763122703347888,32,1w
+FH-Mamba,Kara Sea,mae,0.077783745846578,32,1w
+FH-Mamba,Kara Sea,psnr,15.794713633401054,32,1w
+FH-Mamba,Kara Sea,rmse,0.1630809839282717,32,1w
+FH-Mamba,Kara Sea,ssim,0.7262568899563381,32,1w
+FH-Mamba,Kara Sea,bin_accuracy,0.897962628758472,90,1d
+FH-Mamba,Kara Sea,iou,0.7148539711599765,90,1d
+FH-Mamba,Kara Sea,mae,0.0846805261205072,90,1d
+FH-Mamba,Kara Sea,psnr,15.45746950066608,90,1d
+FH-Mamba,Kara Sea,rmse,0.1745560533974481,90,1d
+FH-Mamba,Kara Sea,ssim,0.7119744285293247,90,1d
+FH-Mamba,Laptev Sea,bin_accuracy,0.896499514579773,6,1m
+FH-Mamba,Laptev Sea,iou,0.6946052610874176,6,1m
+FH-Mamba,Laptev Sea,mae,0.0985352527350187,6,1m
+FH-Mamba,Laptev Sea,psnr,12.427263259887695,6,1m
+FH-Mamba,Laptev Sea,rmse,0.2408416233956813,6,1m
+FH-Mamba,Laptev Sea,ssim,0.7587710171937943,6,1m
+FH-Mamba,Laptev Sea,bin_accuracy,0.9644012775421142,7,1d
+FH-Mamba,Laptev Sea,iou,0.836378121137619,7,1d
+FH-Mamba,Laptev Sea,mae,0.0306989670358598,7,1d
+FH-Mamba,Laptev Sea,psnr,21.99271867370605,7,1d
+FH-Mamba,Laptev Sea,rmse,0.0815606728196144,7,1d
+FH-Mamba,Laptev Sea,ssim,0.9000842118263245,7,1d
+FH-Mamba,Laptev Sea,bin_accuracy,0.8968386054039001,12,1m
+FH-Mamba,Laptev Sea,iou,0.6977044542630514,12,1m
+FH-Mamba,Laptev Sea,mae,0.1009961689511935,12,1m
+FH-Mamba,Laptev Sea,psnr,12.18720531463623,12,1m
+FH-Mamba,Laptev Sea,rmse,0.2467822879552841,12,1m
+FH-Mamba,Laptev Sea,ssim,0.7564040422439575,12,1m
+FH-Mamba,Laptev Sea,bin_accuracy,0.9488285066651516,30,1d
+FH-Mamba,Laptev Sea,iou,0.7833377580906524,30,1d
+FH-Mamba,Laptev Sea,mae,0.0408227292202474,30,1d
+FH-Mamba,Laptev Sea,psnr,20.053554339487043,30,1d
+FH-Mamba,Laptev Sea,rmse,0.1038314776769915,30,1d
+FH-Mamba,Laptev Sea,ssim,0.8650402006555776,30,1d
+FH-Mamba,Laptev Sea,bin_accuracy,0.94271582365036,32,1w
+FH-Mamba,Laptev Sea,iou,0.8172153191907066,32,1w
+FH-Mamba,Laptev Sea,mae,0.0477675186204058,32,1w
+FH-Mamba,Laptev Sea,psnr,17.91861847468785,32,1w
+FH-Mamba,Laptev Sea,rmse,0.1279639665569578,32,1w
+FH-Mamba,Laptev Sea,ssim,0.8490411341190338,32,1w
+FH-Mamba,Laptev Sea,bin_accuracy,0.9411815835082012,90,1d
+FH-Mamba,Laptev Sea,iou,0.7744012130343396,90,1d
+FH-Mamba,Laptev Sea,mae,0.0513663566630819,90,1d
+FH-Mamba,Laptev Sea,psnr,18.158626365661625,90,1d
+FH-Mamba,Laptev Sea,rmse,0.1285789728164673,90,1d
+FH-Mamba,Laptev Sea,ssim,0.8348576058512148,90,1d
+unet,Barents Sea,mae,0.0302530681192874,7,1d
+unet,Barents Sea,rmse,0.0861100540608167,7,1d
+unet,Barents Sea,psnr,21.941942115783693,7,1d
+unet,Barents Sea,ssim,0.8852230739593506,7,1d
+unet,Barents Sea,iou,0.8529574522972106,7,1d
+unet,Barents Sea,bin_accuracy,0.9722513794898988,7,1d
+unet,Chukchi Sea,mae,0.0320303095120471,7,1d
+unet,Chukchi Sea,rmse,0.0714246937148273,7,1d
+unet,Chukchi Sea,psnr,24.35230241394043,7,1d
+unet,Chukchi Sea,ssim,0.8762731699943542,7,1d
+unet,Chukchi Sea,iou,0.8674794884920121,7,1d
+unet,Chukchi Sea,bin_accuracy,0.9762462539672851,7,1d
+unet,Kara Sea,mae,0.0299208441488444,7,1d
+unet,Kara Sea,rmse,0.0823591890186071,7,1d
+unet,Kara Sea,psnr,22.10182586669922,7,1d
+unet,Kara Sea,ssim,0.9008603281974792,7,1d
+unet,Kara Sea,iou,0.9088938388824462,7,1d
+unet,Kara Sea,bin_accuracy,0.9777692942619324,7,1d
+unet,Laptev Sea,mae,0.0153353711394593,7,1d
+unet,Laptev Sea,rmse,0.0454023765400052,7,1d
+unet,Laptev Sea,psnr,28.761160598754884,7,1d
+unet,Laptev Sea,ssim,0.950059432029724,7,1d
+unet,Laptev Sea,iou,0.9194123816490172,7,1d
+unet,Laptev Sea,bin_accuracy,0.9904928212165832,7,1d
+unet,Sea of Japan,mae,0.003561528453294,7,1d
+unet,Sea of Japan,rmse,0.022099673560124,7,1d
+unet,Sea of Japan,psnr,31.204938,7,1d
+unet,Sea of Japan,ssim,0.9663375754356384,7,1d
+unet,Sea of Japan,iou,0.4315143990516663,7,1d
+unet,Sea of Japan,bin_accuracy,0.9942384986877442,7,1d
+unet,Barents Sea,mae,0.0482941416480268,30,1d
+unet,Barents Sea,rmse,0.1323449300912519,30,1d
+unet,Barents Sea,psnr,18.03868525822957,30,1d
+unet,Barents Sea,ssim,0.8219749594728152,30,1d
+unet,Barents Sea,iou,0.7720704885820547,30,1d
+unet,Barents Sea,bin_accuracy,0.953767388065656,30,1d
+unet,Chukchi Sea,mae,0.046183625908452,30,1d
+unet,Chukchi Sea,rmse,0.1039234833559021,30,1d
+unet,Chukchi Sea,psnr,21.20632828871409,30,1d
+unet,Chukchi Sea,ssim,0.8084416682521502,30,1d
+unet,Chukchi Sea,iou,0.8027084256211917,30,1d
+unet,Chukchi Sea,bin_accuracy,0.9604845012227694,30,1d
+unet,Kara Sea,mae,0.0480848932793984,30,1d
+unet,Kara Sea,rmse,0.1284894660425682,30,1d
+unet,Kara Sea,psnr,18.06440096696218,30,1d
+unet,Kara Sea,ssim,0.8367072234551112,30,1d
+unet,Kara Sea,iou,0.8352210936446984,30,1d
+unet,Kara Sea,bin_accuracy,0.9601563359300296,30,1d
+unet,Laptev Sea,mae,0.0286846721525459,30,1d
+unet,Laptev Sea,rmse,0.0807557800784707,30,1d
+unet,Laptev Sea,psnr,25.014256358146667,30,1d
+unet,Laptev Sea,ssim,0.910122600197792,30,1d
+unet,Laptev Sea,iou,0.8553835617378354,30,1d
+unet,Laptev Sea,bin_accuracy,0.9764305055141448,30,1d
+unet,Sea of Japan,mae,0.0043439197440666,30,1d
+unet,Sea of Japan,rmse,0.0261367488416458,30,1d
+unet,Sea of Japan,psnr,27.658412,30,1d
+unet,Sea of Japan,ssim,0.9634987662235897,30,1d
+unet,Sea of Japan,iou,0.4160013460049716,30,1d
+unet,Sea of Japan,bin_accuracy,0.9928258056441944,30,1d
+unet,Barents Sea,mae,0.0598817904044045,90,1d
+unet,Barents Sea,rmse,0.159461609950853,90,1d
+unet,Barents Sea,psnr,16.18565688002,90,1d
+unet,Barents Sea,ssim,0.7765517393383411,90,1d
+unet,Barents Sea,iou,0.7205077305846258,90,1d
+unet,Barents Sea,bin_accuracy,0.9390304230768746,90,1d
+unet,Chukchi Sea,mae,0.0611569453201709,90,1d
+unet,Chukchi Sea,rmse,0.1409660498141695,90,1d
+unet,Chukchi Sea,psnr,18.43592118341988,90,1d
+unet,Chukchi Sea,ssim,0.7605902115139392,90,1d
+unet,Chukchi Sea,iou,0.7787136600241749,90,1d
+unet,Chukchi Sea,bin_accuracy,0.9411783251193684,90,1d
+unet,Kara Sea,mae,0.0613754005812176,90,1d
+unet,Kara Sea,rmse,0.1595723486821585,90,1d
+unet,Kara Sea,psnr,16.235440840414906,90,1d
+unet,Kara Sea,ssim,0.7986245477965118,90,1d
+unet,Kara Sea,iou,0.8067660739115619,90,1d
+unet,Kara Sea,bin_accuracy,0.9459713369334508,90,1d
+unet,Laptev Sea,mae,0.039290669169106,90,1d
+unet,Laptev Sea,rmse,0.1129242519104699,90,1d
+unet,Laptev Sea,psnr,22.14143891290788,90,1d
+unet,Laptev Sea,ssim,0.8897546365720417,90,1d
+unet,Laptev Sea,iou,0.8485591413641195,90,1d
+unet,Laptev Sea,bin_accuracy,0.9668357962862068,90,1d
+unet,Sea of Japan,mae,0.0058150418785479,90,1d
+unet,Sea of Japan,rmse,0.035816785804671,90,1d
+unet,Sea of Japan,psnr,30.871495570611515,90,1d
+unet,Sea of Japan,ssim,0.956275039856587,90,1d
+unet,Sea of Japan,iou,0.5103331703795205,90,1d
+unet,Sea of Japan,bin_accuracy,0.99085595684314,90,1d
+unet,Barents Sea,mae,0.0711709596216678,6,1m
+unet,Barents Sea,rmse,0.1793547160923481,6,1m
+unet,Barents Sea,psnr,15.027488231658936,6,1m
+unet,Barents Sea,ssim,0.7323724925518036,6,1m
+unet,Barents Sea,iou,0.7386042028665543,6,1m
+unet,Barents Sea,bin_accuracy,0.9273678809404372,6,1m
+unet,Chukchi Sea,mae,0.0644438872113823,6,1m
+unet,Chukchi Sea,rmse,0.1647903956472873,6,1m
+unet,Chukchi Sea,psnr,15.785366773605348,6,1m
+unet,Chukchi Sea,ssim,0.753289982676506,6,1m
+unet,Chukchi Sea,iou,0.8574845492839813,6,1m
+unet,Chukchi Sea,bin_accuracy,0.9442536979913712,6,1m
+unet,Kara Sea,mae,0.0675094220787286,6,1m
+unet,Kara Sea,rmse,0.1726077236235141,6,1m
+unet,Kara Sea,psnr,15.269938707351685,6,1m
+unet,Kara Sea,ssim,0.775534987449646,6,1m
+unet,Kara Sea,iou,0.8352741003036499,6,1m
+unet,Kara Sea,bin_accuracy,0.940948948264122,6,1m
+unet,Laptev Sea,mae,0.0307306856848299,6,1m
+unet,Laptev Sea,rmse,0.1038872050121426,6,1m
+unet,Laptev Sea,psnr,20.20459032058716,6,1m
+unet,Laptev Sea,ssim,0.8979426473379135,6,1m
+unet,Laptev Sea,iou,0.9024879187345504,6,1m
+unet,Laptev Sea,bin_accuracy,0.9753227829933168,6,1m
+unet,Sea of Japan,mae,0.0081211042124778,6,1m
+unet,Sea of Japan,rmse,0.0512753706425428,6,1m
+unet,Sea of Japan,psnr,25.91090726852417,6,1m
+unet,Sea of Japan,ssim,0.9273035526275636,6,1m
+unet,Sea of Japan,iou,0.474935732781887,6,1m
+unet,Sea of Japan,bin_accuracy,0.9884987622499466,6,1m
+unet,Barents Sea,mae,0.0592920072376728,12,1m
+unet,Barents Sea,rmse,0.1573450788855552,12,1m
+unet,Barents Sea,psnr,16.069355487823486,12,1m
+unet,Barents Sea,ssim,0.7518417239189148,12,1m
+unet,Barents Sea,iou,0.7712655961513519,12,1m
+unet,Barents Sea,bin_accuracy,0.9400371015071868,12,1m
+unet,Chukchi Sea,mae,0.0649663358926773,12,1m
+unet,Chukchi Sea,rmse,0.153684027493,12,1m
+unet,Chukchi Sea,psnr,16.298118591308594,12,1m
+unet,Chukchi Sea,ssim,0.7058357894420624,12,1m
+unet,Chukchi Sea,iou,0.8697946965694427,12,1m
+unet,Chukchi Sea,bin_accuracy,0.9363124072551728,12,1m
+unet,Kara Sea,mae,0.0575800128281116,12,1m
+unet,Kara Sea,rmse,0.1454442739486694,12,1m
+unet,Kara Sea,psnr,16.748656272888184,12,1m
+unet,Kara Sea,ssim,0.767594039440155,12,1m
+unet,Kara Sea,iou,0.8590531647205353,12,1m
+unet,Kara Sea,bin_accuracy,0.9498794376850128,12,1m
+unet,Laptev Sea,mae,0.035346083343029,12,1m
+unet,Laptev Sea,rmse,0.1124376095831394,12,1m
+unet,Laptev Sea,psnr,19.010629653930664,12,1m
+unet,Laptev Sea,ssim,0.8624624311923981,12,1m
+unet,Laptev Sea,iou,0.8901164531707764,12,1m
+unet,Laptev Sea,bin_accuracy,0.9672706425189972,12,1m
+unet,Sea of Japan,mae,0.0069090044125914,12,1m
+unet,Sea of Japan,rmse,0.0516916085034608,12,1m
+unet,Sea of Japan,psnr,25.731876373291016,12,1m
+unet,Sea of Japan,ssim,0.9259249269962312,12,1m
+unet,Sea of Japan,iou,0.4852247536182403,12,1m
+unet,Sea of Japan,bin_accuracy,0.9899360835552216,12,1m
+unet,Barents Sea,mae,0.058332144593199,32,1w
+unet,Barents Sea,rmse,0.1582509018480777,32,1w
+unet,Barents Sea,psnr,16.100608189900715,32,1w
+unet,Barents Sea,ssim,0.7721777061621348,32,1w
+unet,Barents Sea,iou,0.7574187368154526,32,1w
+unet,Barents Sea,bin_accuracy,0.9393482158581417,32,1w
+unet,Chukchi Sea,mae,0.0691466837500532,32,1w
+unet,Chukchi Sea,rmse,0.1724371487895647,32,1w
+unet,Chukchi Sea,psnr,15.497054735819498,32,1w
+unet,Chukchi Sea,ssim,0.7238932649294535,32,1w
+unet,Chukchi Sea,iou,0.840245912472407,32,1w
+unet,Chukchi Sea,bin_accuracy,0.931259959936142,32,1w
+unet,Kara Sea,mae,0.0570987692723671,32,1w
+unet,Kara Sea,rmse,0.1499378283818563,32,1w
+unet,Kara Sea,psnr,16.532037655512493,32,1w
+unet,Kara Sea,ssim,0.7923729866743088,32,1w
+unet,Kara Sea,iou,0.8479589372873306,32,1w
+unet,Kara Sea,bin_accuracy,0.948671301205953,32,1w
+unet,Laptev Sea,mae,0.0322641550252834,32,1w
+unet,Laptev Sea,rmse,0.1113294443736473,32,1w
+unet,Laptev Sea,psnr,19.36750332514445,32,1w
+unet,Laptev Sea,ssim,0.8942724317312241,32,1w
+unet,Laptev Sea,iou,0.8921888917684555,32,1w
+unet,Laptev Sea,bin_accuracy,0.9718942989905676,32,1w
+unet,Sea of Japan,mae,0.0063022665466026,32,1w
+unet,Sea of Japan,rmse,0.0455595672441025,32,1w
+unet,Sea of Japan,psnr,27.22812255223592,32,1w
+unet,Sea of Japan,ssim,0.9517357995112736,32,1w
+unet,Sea of Japan,iou,0.5341374004880587,32,1w
+unet,Sea of Japan,bin_accuracy,0.990806445479393,32,1w
+unet,Barents Sea,mae,0.0575588242047362,52,1w
+unet,Barents Sea,rmse,0.1554275618659125,52,1w
+unet,Barents Sea,psnr,16.197647624545628,52,1w
+unet,Barents Sea,ssim,0.7668550676769681,52,1w
+unet,Barents Sea,iou,0.7728352348009745,52,1w
+unet,Barents Sea,bin_accuracy,0.9411695467101204,52,1w
+unet,Chukchi Sea,mae,0.0636514818502797,52,1w
+unet,Chukchi Sea,rmse,0.1564393225643369,52,1w
+unet,Chukchi Sea,psnr,16.197120030721027,52,1w
+unet,Chukchi Sea,ssim,0.7178680433167351,52,1w
+unet,Chukchi Sea,iou,0.8728437423706055,52,1w
+unet,Chukchi Sea,bin_accuracy,0.9382141100035774,52,1w
+unet,Kara Sea,mae,0.0551486259533299,52,1w
+unet,Kara Sea,rmse,0.1434578133953942,52,1w
+unet,Kara Sea,psnr,16.872983508639866,52,1w
+unet,Kara Sea,ssim,0.7905793719821506,52,1w
+unet,Kara Sea,iou,0.8649138344658746,52,1w
+unet,Kara Sea,bin_accuracy,0.9520276784896852,52,1w
+unet,Laptev Sea,mae,0.0337918922305107,52,1w
+unet,Laptev Sea,rmse,0.1128246204720603,52,1w
+unet,Laptev Sea,psnr,18.979943169487846,52,1w
+unet,Laptev Sea,ssim,0.8793885045581393,52,1w
+unet,Laptev Sea,iou,0.8987559742397733,52,1w
+unet,Laptev Sea,bin_accuracy,0.9701721204651726,52,1w
+unet,Sea of Japan,mae,0.0053840548110504,52,1w
+unet,Sea of Japan,rmse,0.0401491837369071,52,1w
+unet,Sea of Japan,psnr,27.934265348646377,52,1w
+unet,Sea of Japan,ssim,0.9441109299659728,52,1w
+unet,Sea of Japan,iou,0.606827802128262,52,1w
+unet,Sea of Japan,bin_accuracy,0.9916006922721864,52,1w
+conv2d,Barents Sea,mae,0.0788469538092613,6,1m
+conv2d,Barents Sea,rmse,0.1881563067436218,6,1m
+conv2d,Barents Sea,psnr,14.509625434875488,6,1m
+conv2d,Barents Sea,ssim,0.685847282409668,6,1m
+conv2d,Barents Sea,iou,0.6560105681419373,6,1m
+conv2d,Barents Sea,bin_accuracy,0.9124668836593628,6,1m
+conv2d,Chukchi Sea,mae,0.1034776121377945,6,1m
+conv2d,Chukchi Sea,rmse,0.2087312638759613,6,1m
+conv2d,Chukchi Sea,psnr,13.60824966430664,6,1m
+conv2d,Chukchi Sea,ssim,0.5743550062179565,6,1m
+conv2d,Chukchi Sea,iou,0.7774813771247864,6,1m
+conv2d,Chukchi Sea,bin_accuracy,0.902656316757202,6,1m
+conv2d,Kara Sea,mae,0.0860665962100029,6,1m
+conv2d,Kara Sea,rmse,0.1867388188838958,6,1m
+conv2d,Kara Sea,psnr,14.575308799743652,6,1m
+conv2d,Kara Sea,ssim,0.672355055809021,6,1m
+conv2d,Kara Sea,iou,0.777541995048523,6,1m
+conv2d,Kara Sea,bin_accuracy,0.9218066930770874,6,1m
+conv2d,Laptev Sea,mae,0.0867103636264801,6,1m
+conv2d,Laptev Sea,rmse,0.2202339768409729,6,1m
+conv2d,Laptev Sea,psnr,13.142313957214355,6,1m
+conv2d,Laptev Sea,ssim,0.8007529973983765,6,1m
+conv2d,Laptev Sea,iou,0.7808699011802673,6,1m
+conv2d,Laptev Sea,bin_accuracy,0.9279010891914368,6,1m
+conv2d,Sea of Japan,mae,0.0088601345196366,6,1m
+conv2d,Sea of Japan,rmse,0.06525120139122,6,1m
+conv2d,Sea of Japan,psnr,23.620933532714844,6,1m
+conv2d,Sea of Japan,ssim,0.9197555780410768,6,1m
+conv2d,Sea of Japan,iou,0.140874981880188,6,1m
+conv2d,Sea of Japan,bin_accuracy,0.9844014048576356,6,1m
+conv2d,Barents Sea,mae,0.025007689371705,7,1d
+conv2d,Barents Sea,rmse,0.0773014291189611,7,1d
+conv2d,Barents Sea,psnr,22.30258846282959,7,1d
+conv2d,Barents Sea,ssim,0.9057940915226936,7,1d
+conv2d,Barents Sea,iou,0.8788257241249084,7,1d
+conv2d,Barents Sea,bin_accuracy,0.9772215113043784,7,1d
+conv2d,Chukchi Sea,mae,0.0252718064002692,7,1d
+conv2d,Chukchi Sea,rmse,0.0685678464360535,7,1d
+conv2d,Chukchi Sea,psnr,23.446308612823486,7,1d
+conv2d,Chukchi Sea,ssim,0.9034202769398688,7,1d
+conv2d,Chukchi Sea,iou,0.887791357934475,7,1d
+conv2d,Chukchi Sea,bin_accuracy,0.9815472960472108,7,1d
+conv2d,Kara Sea,mae,0.024637043941766,7,1d
+conv2d,Kara Sea,rmse,0.0733418781310319,7,1d
+conv2d,Kara Sea,psnr,22.73324513435364,7,1d
+conv2d,Kara Sea,ssim,0.9200326949357986,7,1d
+conv2d,Kara Sea,iou,0.9259615316987038,7,1d
+conv2d,Kara Sea,bin_accuracy,0.9818857163190842,7,1d
+conv2d,Laptev Sea,mae,0.0118843792006373,7,1d
+conv2d,Laptev Sea,rmse,0.0432309545576572,7,1d
+conv2d,Laptev Sea,psnr,27.357795238494873,7,1d
+conv2d,Laptev Sea,ssim,0.96349286288023,7,1d
+conv2d,Laptev Sea,iou,0.939823642373085,7,1d
+conv2d,Laptev Sea,bin_accuracy,0.99306820333004,7,1d
+conv2d,Sea of Japan,mae,0.0033315641194349,7,1d
+conv2d,Sea of Japan,rmse,0.0265019260114058,7,1d
+conv2d,Sea of Japan,psnr,31.52765941619873,7,1d
+conv2d,Sea of Japan,ssim,0.9674946069717408,7,1d
+conv2d,Sea of Japan,iou,0.4280583634972572,7,1d
+conv2d,Sea of Japan,bin_accuracy,0.994398646056652,7,1d
+conv2d,Barents Sea,mae,0.0789086818695068,12,1m
+conv2d,Barents Sea,rmse,0.1779258102178573,12,1m
+conv2d,Barents Sea,psnr,14.995221138000488,12,1m
+conv2d,Barents Sea,ssim,0.6523512601852417,12,1m
+conv2d,Barents Sea,iou,0.6746988892555237,12,1m
+conv2d,Barents Sea,bin_accuracy,0.9076040983200072,12,1m
+conv2d,Chukchi Sea,mae,0.101857341825962,12,1m
+conv2d,Chukchi Sea,rmse,0.1925405710935592,12,1m
+conv2d,Chukchi Sea,psnr,14.309555053710938,12,1m
+conv2d,Chukchi Sea,ssim,0.5387371182441711,12,1m
+conv2d,Chukchi Sea,iou,0.8017336130142212,12,1m
+conv2d,Chukchi Sea,bin_accuracy,0.8926971554756165,12,1m
+conv2d,Kara Sea,mae,0.1487871259450912,12,1m
+conv2d,Kara Sea,rmse,0.2985517680644989,12,1m
+conv2d,Kara Sea,psnr,10.49960708618164,12,1m
+conv2d,Kara Sea,ssim,0.6415325403213501,12,1m
+conv2d,Kara Sea,iou,0.6839956045150757,12,1m
+conv2d,Kara Sea,bin_accuracy,0.8646326661109924,12,1m
+conv2d,Laptev Sea,mae,0.0968316718935966,12,1m
+conv2d,Laptev Sea,rmse,0.2632929980754852,12,1m
+conv2d,Laptev Sea,psnr,11.591214179992676,12,1m
+conv2d,Laptev Sea,ssim,0.8161904215812683,12,1m
+conv2d,Laptev Sea,iou,0.8007560968399048,12,1m
+conv2d,Laptev Sea,bin_accuracy,0.9312756657600404,12,1m
+conv2d,Sea of Japan,mae,0.0098513253033161,12,1m
+conv2d,Sea of Japan,rmse,0.0758646503090858,12,1m
+conv2d,Sea of Japan,psnr,22.04463577270508,12,1m
+conv2d,Sea of Japan,ssim,0.918748676776886,12,1m
+conv2d,Sea of Japan,iou,0.0,12,1m
+conv2d,Sea of Japan,bin_accuracy,0.9819183349609376,12,1m
+conv2d,Barents Sea,mae,0.0469695669598877,30,1d
+conv2d,Barents Sea,rmse,0.1315157162025571,30,1d
+conv2d,Barents Sea,psnr,17.668550968170166,30,1d
+conv2d,Barents Sea,ssim,0.8104395791888237,30,1d
+conv2d,Barents Sea,iou,0.7724341005086899,30,1d
+conv2d,Barents Sea,bin_accuracy,0.9543575644493104,30,1d
+conv2d,Chukchi Sea,mae,0.0464127589948475,30,1d
+conv2d,Chukchi Sea,rmse,0.1176960561424493,30,1d
+conv2d,Chukchi Sea,psnr,18.785877227783203,30,1d
+conv2d,Chukchi Sea,ssim,0.796803392469883,30,1d
+conv2d,Chukchi Sea,iou,0.8143989443778992,30,1d
+conv2d,Chukchi Sea,bin_accuracy,0.9628642797470092,30,1d
+conv2d,Kara Sea,mae,0.253317603841424,30,1d
+conv2d,Kara Sea,rmse,0.447227519005537,30,1d
+conv2d,Kara Sea,psnr,7.038236320018768,30,1d
+conv2d,Kara Sea,ssim,0.3129277285188436,30,1d
+conv2d,Kara Sea,iou,0.2303848043084144,30,1d
+conv2d,Kara Sea,bin_accuracy,0.7129167020320892,30,1d
+conv2d,Laptev Sea,mae,0.0278958578128367,30,1d
+conv2d,Laptev Sea,rmse,0.1000792002305388,30,1d
+conv2d,Laptev Sea,psnr,20.144206762313843,30,1d
+conv2d,Laptev Sea,ssim,0.9001154154539108,30,1d
+conv2d,Laptev Sea,iou,0.8540938049554825,30,1d
+conv2d,Laptev Sea,bin_accuracy,0.9760826900601388,30,1d
+conv2d,Sea of Japan,mae,0.004912109739962,30,1d
+conv2d,Sea of Japan,rmse,0.0378261324949562,30,1d
+conv2d,Sea of Japan,psnr,28.59080219268799,30,1d
+conv2d,Sea of Japan,ssim,0.9541535452008248,30,1d
+conv2d,Sea of Japan,iou,0.3541128896176815,30,1d
+conv2d,Sea of Japan,bin_accuracy,0.992043174803257,30,1d
+conv2d,Barents Sea,mae,0.0664979591965675,32,1w
+conv2d,Barents Sea,rmse,0.1703923493623733,32,1w
+conv2d,Barents Sea,psnr,15.37099838256836,32,1w
+conv2d,Barents Sea,ssim,0.7240154147148132,32,1w
+conv2d,Barents Sea,iou,0.7271968126296997,32,1w
+conv2d,Barents Sea,bin_accuracy,0.9284576177597046,32,1w
+conv2d,Chukchi Sea,mae,0.0760044679045677,32,1w
+conv2d,Chukchi Sea,rmse,0.175100639462471,32,1w
+conv2d,Chukchi Sea,psnr,15.134246826171877,32,1w
+conv2d,Chukchi Sea,ssim,0.6843515634536743,32,1w
+conv2d,Chukchi Sea,iou,0.8351255655288696,32,1w
+conv2d,Chukchi Sea,bin_accuracy,0.9272162914276124,32,1w
+conv2d,Kara Sea,mae,0.0617101602256298,32,1w
+conv2d,Kara Sea,rmse,0.1523528397083282,32,1w
+conv2d,Kara Sea,psnr,16.342988967895508,32,1w
+conv2d,Kara Sea,ssim,0.7489839792251587,32,1w
+conv2d,Kara Sea,iou,0.8389384150505066,32,1w
+conv2d,Kara Sea,bin_accuracy,0.9448534846305848,32,1w
+conv2d,Laptev Sea,mae,0.0357002466917037,32,1w
+conv2d,Laptev Sea,rmse,0.1105701327323913,32,1w
+conv2d,Laptev Sea,psnr,19.127243041992188,32,1w
+conv2d,Laptev Sea,ssim,0.8616229891777039,32,1w
+conv2d,Laptev Sea,iou,0.8891028165817261,32,1w
+conv2d,Laptev Sea,bin_accuracy,0.9693736433982848,32,1w
+conv2d,Sea of Japan,mae,0.0092190280556678,32,1w
+conv2d,Sea of Japan,rmse,0.0741070583462715,32,1w
+conv2d,Sea of Japan,psnr,22.602807998657227,32,1w
+conv2d,Sea of Japan,ssim,0.9231634140014648,32,1w
+conv2d,Sea of Japan,iou,0.0,32,1w
+conv2d,Sea of Japan,bin_accuracy,0.9830402731895448,32,1w
+conv2d,Barents Sea,mae,0.1683243513107299,52,1w
+conv2d,Barents Sea,rmse,0.3709384202957153,52,1w
+conv2d,Barents Sea,psnr,8.613964080810547,52,1w
+conv2d,Barents Sea,ssim,0.5990468859672546,52,1w
+conv2d,Barents Sea,iou,0.0,52,1w
+conv2d,Barents Sea,bin_accuracy,0.7739297151565552,52,1w
+conv2d,Chukchi Sea,mae,0.0689363330602645,52,1w
+conv2d,Chukchi Sea,rmse,0.1521348804235458,52,1w
+conv2d,Chukchi Sea,psnr,16.355424880981445,52,1w
+conv2d,Chukchi Sea,ssim,0.6578295230865479,52,1w
+conv2d,Chukchi Sea,iou,0.8626392483711243,52,1w
+conv2d,Chukchi Sea,bin_accuracy,0.9312331676483154,52,1w
+conv2d,Kara Sea,mae,0.2617630064487457,52,1w
+conv2d,Kara Sea,rmse,0.4671028852462768,52,1w
+conv2d,Kara Sea,psnr,6.611748695373535,52,1w
+conv2d,Kara Sea,ssim,0.2908757030963897,52,1w
+conv2d,Kara Sea,iou,0.0798718258738517,52,1w
+conv2d,Kara Sea,bin_accuracy,0.6922143697738647,52,1w
+conv2d,Laptev Sea,mae,0.0382557474076747,52,1w
+conv2d,Laptev Sea,rmse,0.1146701872348785,52,1w
+conv2d,Laptev Sea,psnr,18.810989379882812,52,1w
+conv2d,Laptev Sea,ssim,0.8532045483589172,52,1w
+conv2d,Laptev Sea,iou,0.8847551345825195,52,1w
+conv2d,Laptev Sea,bin_accuracy,0.9651479721069336,52,1w
+conv2d,Sea of Japan,mae,0.0098399491980671,52,1w
+conv2d,Sea of Japan,rmse,0.0773917362093925,52,1w
+conv2d,Sea of Japan,psnr,22.22610855102539,52,1w
+conv2d,Sea of Japan,ssim,0.9220532178878784,52,1w
+conv2d,Sea of Japan,iou,0.0,52,1w
+conv2d,Sea of Japan,bin_accuracy,0.9822447299957277,52,1w
+conv2d,Barents Sea,mae,0.068349155996527,90,1d
+conv2d,Barents Sea,rmse,0.1758557196174349,90,1d
+conv2d,Barents Sea,psnr,15.13055978502546,90,1d
+conv2d,Barents Sea,ssim,0.7394833990505764,90,1d
+conv2d,Barents Sea,iou,0.6900220939091274,90,1d
+conv2d,Barents Sea,bin_accuracy,0.9279645340783256,90,1d
+conv2d,Chukchi Sea,mae,0.3954164896692548,90,1d
+conv2d,Chukchi Sea,rmse,0.594006427696773,90,1d
+conv2d,Chukchi Sea,psnr,4.5917768478393555,90,1d
+conv2d,Chukchi Sea,ssim,0.2467958559947354,90,1d
+conv2d,Chukchi Sea,iou,0.0197534921712109,90,1d
+conv2d,Chukchi Sea,bin_accuracy,0.5477688099656787,90,1d
+conv2d,Kara Sea,mae,0.2647659672158105,90,1d
+conv2d,Kara Sea,rmse,0.4784604779311588,90,1d
+conv2d,Kara Sea,psnr,6.4398505347115655,90,1d
+conv2d,Kara Sea,ssim,0.3553020102637155,90,1d
+conv2d,Kara Sea,iou,0.0079406625591218,90,1d
+conv2d,Kara Sea,bin_accuracy,0.6772489292281014,90,1d
+conv2d,Laptev Sea,mae,0.0618011813078607,90,1d
+conv2d,Laptev Sea,rmse,0.1773606262036732,90,1d
+conv2d,Laptev Sea,psnr,15.22683048248291,90,1d
+conv2d,Laptev Sea,ssim,0.8392719285828727,90,1d
+conv2d,Laptev Sea,iou,0.8029212015015739,90,1d
+conv2d,Laptev Sea,bin_accuracy,0.9521302836281912,90,1d
+conv2d,Sea of Japan,mae,0.0057725969901574,90,1d
+conv2d,Sea of Japan,rmse,0.0415898159678493,90,1d
+conv2d,Sea of Japan,psnr,27.947996956961497,90,1d
+conv2d,Sea of Japan,ssim,0.9469495330538068,90,1d
+conv2d,Sea of Japan,iou,0.427713998726436,90,1d
+conv2d,Sea of Japan,bin_accuracy,0.9906106676374165,90,1d
+conv3d,Barents Sea,mae,0.079754,6,1m
+conv3d,Barents Sea,rmse,0.18856,6,1m
+conv3d,Barents Sea,psnr,14.611056,6,1m
+conv3d,Barents Sea,ssim,0.701625,6,1m
+conv3d,Barents Sea,iou,0.648751,6,1m
+conv3d,Barents Sea,bin_accuracy,0.911731,6,1m
+conv3d,Chukchi Sea,mae,0.107336,6,1m
+conv3d,Chukchi Sea,rmse,0.216615,6,1m
+conv3d,Chukchi Sea,psnr,12.45707,6,1m
+conv3d,Chukchi Sea,ssim,0.620919,6,1m
+conv3d,Chukchi Sea,iou,0.783212,6,1m
+conv3d,Chukchi Sea,bin_accuracy,0.912706,6,1m
+conv3d,Kara Sea,mae,0.089589,6,1m
+conv3d,Kara Sea,rmse,0.195209,6,1m
+conv3d,Kara Sea,psnr,13.262512,6,1m
+conv3d,Kara Sea,ssim,0.657,6,1m
+conv3d,Kara Sea,iou,0.748759,6,1m
+conv3d,Kara Sea,bin_accuracy,0.909514,6,1m
+conv3d,Laptev Sea,mae,0.089624,6,1m
+conv3d,Laptev Sea,rmse,0.230426,6,1m
+conv3d,Laptev Sea,psnr,17.10551,6,1m
+conv3d,Laptev Sea,ssim,0.783907,6,1m
+conv3d,Laptev Sea,iou,0.78869,6,1m
+conv3d,Laptev Sea,bin_accuracy,0.945606,6,1m
+conv3d,Sea of Japan,mae,0.009112,6,1m
+conv3d,Sea of Japan,rmse,0.071502,6,1m
+conv3d,Sea of Japan,psnr,21.370626,6,1m
+conv3d,Sea of Japan,ssim,0.922474,6,1m
+conv3d,Sea of Japan,iou,0.0,6,1m
+conv3d,Sea of Japan,bin_accuracy,0.97382,6,1m
+conv3d,Barents Sea,mae,0.170779,52,1w
+conv3d,Barents Sea,rmse,0.387392,52,1w
+conv3d,Barents Sea,psnr,10.873561,52,1w
+conv3d,Barents Sea,ssim,0.606533,52,1w
+conv3d,Barents Sea,iou,0.571012,52,1w
+conv3d,Barents Sea,bin_accuracy,0.864151,52,1w
+conv3d,Chukchi Sea,mae,0.209067,52,1w
+conv3d,Chukchi Sea,rmse,0.380129,52,1w
+conv3d,Chukchi Sea,psnr,8.16773,52,1w
+conv3d,Chukchi Sea,ssim,0.455263,52,1w
+conv3d,Chukchi Sea,iou,0.696077,52,1w
+conv3d,Chukchi Sea,bin_accuracy,0.798482,52,1w
+conv3d,Kara Sea,mae,0.27057,52,1w
+conv3d,Kara Sea,rmse,0.481394,52,1w
+conv3d,Kara Sea,psnr,9.898241,52,1w
+conv3d,Kara Sea,ssim,0.589476,52,1w
+conv3d,Kara Sea,iou,0.645056,52,1w
+conv3d,Kara Sea,bin_accuracy,0.847762,52,1w
+conv3d,Laptev Sea,mae,0.091657,52,1w
+conv3d,Laptev Sea,rmse,0.255458,52,1w
+conv3d,Laptev Sea,psnr,11.765269,52,1w
+conv3d,Laptev Sea,ssim,0.779957,52,1w
+conv3d,Laptev Sea,iou,0.684684,52,1w
+conv3d,Laptev Sea,bin_accuracy,0.888338,52,1w
+conv3d,Sea of Japan,mae,0.010278,52,1w
+conv3d,Sea of Japan,rmse,0.078684,52,1w
+conv3d,Sea of Japan,psnr,23.227945,52,1w
+conv3d,Sea of Japan,ssim,0.932712,52,1w
+conv3d,Sea of Japan,iou,0.0,52,1w
+conv3d,Sea of Japan,bin_accuracy,0.9917,52,1w
+conv3d,Barents Sea,mae,0.028999,7,1d
+conv3d,Barents Sea,rmse,0.081055,7,1d
+conv3d,Barents Sea,psnr,22.734866,7,1d
+conv3d,Barents Sea,ssim,0.898009,7,1d
+conv3d,Barents Sea,iou,0.860603,7,1d
+conv3d,Barents Sea,bin_accuracy,0.98081,7,1d
+conv3d,Kara Sea,mae,0.027695,7,1d
+conv3d,Kara Sea,rmse,0.079966,7,1d
+conv3d,Kara Sea,psnr,21.275732,7,1d
+conv3d,Kara Sea,ssim,0.921606,7,1d
+conv3d,Kara Sea,iou,0.909017,7,1d
+conv3d,Kara Sea,bin_accuracy,0.982423,7,1d
+conv3d,Chukchi Sea,mae,0.027226,7,1d
+conv3d,Chukchi Sea,rmse,0.080457,7,1d
+conv3d,Chukchi Sea,psnr,22.049757,7,1d
+conv3d,Chukchi Sea,ssim,0.863831,7,1d
+conv3d,Chukchi Sea,iou,0.878909,7,1d
+conv3d,Chukchi Sea,bin_accuracy,0.969906,7,1d
+conv3d,Laptev Sea,mae,0.01216,7,1d
+conv3d,Laptev Sea,rmse,0.047157,7,1d
+conv3d,Laptev Sea,psnr,27.551502,7,1d
+conv3d,Laptev Sea,ssim,0.955732,7,1d
+conv3d,Laptev Sea,iou,0.90184,7,1d
+conv3d,Laptev Sea,bin_accuracy,0.990459,7,1d
+conv3d,Sea of Japan,mae,0.003588,7,1d
+conv3d,Sea of Japan,rmse,0.027222,7,1d
+conv3d,Sea of Japan,psnr,31.741692,7,1d
+conv3d,Sea of Japan,ssim,0.974441,7,1d
+conv3d,Sea of Japan,iou,0.401419,7,1d
+conv3d,Sea of Japan,bin_accuracy,0.987226,7,1d
+conv3d,Barents Sea,mae,0.086646,12,1m
+conv3d,Barents Sea,rmse,0.183227,12,1m
+conv3d,Barents Sea,psnr,12.578553,12,1m
+conv3d,Barents Sea,ssim,0.628539,12,1m
+conv3d,Barents Sea,iou,0.663849,12,1m
+conv3d,Barents Sea,bin_accuracy,0.891143,12,1m
+conv3d,Chukchi Sea,mae,0.106863,12,1m
+conv3d,Chukchi Sea,rmse,0.215651,12,1m
+conv3d,Chukchi Sea,psnr,14.097858,12,1m
+conv3d,Chukchi Sea,ssim,0.54048,12,1m
+conv3d,Chukchi Sea,iou,0.757629,12,1m
+conv3d,Chukchi Sea,bin_accuracy,0.891821,12,1m
+conv3d,Kara Sea,mae,0.155462,12,1m
+conv3d,Kara Sea,rmse,0.313101,12,1m
+conv3d,Kara Sea,psnr,10.900594,12,1m
+conv3d,Kara Sea,ssim,0.591419,12,1m
+conv3d,Kara Sea,iou,0.641927,12,1m
+conv3d,Kara Sea,bin_accuracy,0.853154,12,1m
+conv3d,Laptev Sea,mae,0.108053,12,1m
+conv3d,Laptev Sea,rmse,0.26594,12,1m
+conv3d,Laptev Sea,psnr,9.996238,12,1m
+conv3d,Laptev Sea,ssim,0.785024,12,1m
+conv3d,Laptev Sea,iou,0.787336,12,1m
+conv3d,Laptev Sea,bin_accuracy,0.911218,12,1m
+conv3d,Sea of Japan,mae,0.010039,12,1m
+conv3d,Sea of Japan,rmse,0.083666,12,1m
+conv3d,Sea of Japan,psnr,21.066005,12,1m
+conv3d,Sea of Japan,ssim,0.898764,12,1m
+conv3d,Sea of Japan,iou,0.0,12,1m
+conv3d,Sea of Japan,bin_accuracy,0.987866,12,1m
+conv3d,Barents Sea,mae,0.048484,30,1d
+conv3d,Barents Sea,rmse,0.13742,30,1d
+conv3d,Barents Sea,psnr,17.277244,30,1d
+conv3d,Barents Sea,ssim,0.76725,30,1d
+conv3d,Barents Sea,iou,0.740021,30,1d
+conv3d,Barents Sea,bin_accuracy,0.943292,30,1d
+conv3d,Chukchi Sea,mae,0.054157,30,1d
+conv3d,Chukchi Sea,rmse,0.122838,30,1d
+conv3d,Chukchi Sea,psnr,17.254157,30,1d
+conv3d,Chukchi Sea,ssim,0.797496,30,1d
+conv3d,Chukchi Sea,iou,0.808842,30,1d
+conv3d,Chukchi Sea,bin_accuracy,0.957513,30,1d
+conv3d,Kara Sea,mae,0.271756,30,1d
+conv3d,Kara Sea,rmse,0.460811,30,1d
+conv3d,Kara Sea,psnr,6.267353,30,1d
+conv3d,Kara Sea,ssim,0.28087,30,1d
+conv3d,Kara Sea,iou,0.224963,30,1d
+conv3d,Kara Sea,bin_accuracy,0.703306,30,1d
+conv3d,Laptev Sea,mae,0.02984,30,1d
+conv3d,Laptev Sea,rmse,0.104187,30,1d
+conv3d,Laptev Sea,psnr,19.003954,30,1d
+conv3d,Laptev Sea,ssim,0.872357,30,1d
+conv3d,Laptev Sea,iou,0.8066,30,1d
+conv3d,Laptev Sea,bin_accuracy,0.961678,30,1d
+conv3d,Sea of Japan,mae,0.005069,30,1d
+conv3d,Sea of Japan,rmse,0.039805,30,1d
+conv3d,Sea of Japan,psnr,26.597202,30,1d
+conv3d,Sea of Japan,ssim,0.939681,30,1d
+conv3d,Sea of Japan,iou,0.333272,30,1d
+conv3d,Sea of Japan,bin_accuracy,0.985374,30,1d
+conv3d,Barents Sea,mae,0.069091,32,1w
+conv3d,Barents Sea,rmse,0.186772,32,1w
+conv3d,Barents Sea,psnr,14.299083,32,1w
+conv3d,Barents Sea,ssim,0.682181,32,1w
+conv3d,Barents Sea,iou,0.690052,32,1w
+conv3d,Barents Sea,bin_accuracy,0.926635,32,1w
+conv3d,Chukchi Sea,mae,0.077162,32,1w
+conv3d,Chukchi Sea,rmse,0.187935,32,1w
+conv3d,Chukchi Sea,psnr,13.327195,32,1w
+conv3d,Chukchi Sea,ssim,0.654748,32,1w
+conv3d,Chukchi Sea,iou,0.829941,32,1w
+conv3d,Chukchi Sea,bin_accuracy,0.912838,32,1w
+conv3d,Kara Sea,mae,0.06342,32,1w
+conv3d,Kara Sea,rmse,0.154681,32,1w
+conv3d,Kara Sea,psnr,15.046436,32,1w
+conv3d,Kara Sea,ssim,0.732081,32,1w
+conv3d,Kara Sea,iou,0.796576,32,1w
+conv3d,Kara Sea,bin_accuracy,0.935506,32,1w
+conv3d,Laptev Sea,mae,0.037401,32,1w
+conv3d,Laptev Sea,rmse,0.11988,32,1w
+conv3d,Laptev Sea,psnr,19.127306,32,1w
+conv3d,Laptev Sea,ssim,0.860428,32,1w
+conv3d,Laptev Sea,iou,0.882436,32,1w
+conv3d,Laptev Sea,bin_accuracy,0.9633,32,1w
+conv3d,Sea of Japan,mae,0.009711,32,1w
+conv3d,Sea of Japan,rmse,0.080444,32,1w
+conv3d,Sea of Japan,psnr,21.375235,32,1w
+conv3d,Sea of Japan,ssim,0.865579,32,1w
+conv3d,Sea of Japan,iou,0.0,32,1w
+conv3d,Sea of Japan,bin_accuracy,0.980259,32,1w
+conv3d,Barents Sea,mae,0.075114,90,1d
+conv3d,Barents Sea,rmse,0.196234,90,1d
+conv3d,Barents Sea,psnr,14.306957,90,1d
+conv3d,Barents Sea,ssim,0.708322,90,1d
+conv3d,Barents Sea,iou,0.692804,90,1d
+conv3d,Barents Sea,bin_accuracy,0.920734,90,1d
+conv3d,Chukchi Sea,mae,0.443035,90,1d
+conv3d,Chukchi Sea,rmse,0.654324,90,1d
+conv3d,Chukchi Sea,psnr,4.23565,90,1d
+conv3d,Chukchi Sea,ssim,0.20671,90,1d
+conv3d,Chukchi Sea,iou,0.0,90,1d
+conv3d,Chukchi Sea,bin_accuracy,0.544518,90,1d
+conv3d,Kara Sea,mae,0.277556,90,1d
+conv3d,Kara Sea,rmse,0.533102,90,1d
+conv3d,Kara Sea,psnr,5.388845,90,1d
+conv3d,Kara Sea,ssim,0.314433,90,1d
+conv3d,Kara Sea,iou,0.0,90,1d
+conv3d,Kara Sea,bin_accuracy,0.673269,90,1d
+conv3d,Laptev Sea,mae,0.066975,90,1d
+conv3d,Laptev Sea,rmse,0.202048,90,1d
+conv3d,Laptev Sea,psnr,13.745302,90,1d
+conv3d,Laptev Sea,ssim,0.818066,90,1d
+conv3d,Laptev Sea,iou,0.827743,90,1d
+conv3d,Laptev Sea,bin_accuracy,0.942804,90,1d
+conv3d,Sea of Japan,mae,0.00625,90,1d
+conv3d,Sea of Japan,rmse,0.04212,90,1d
+conv3d,Sea of Japan,psnr,27.824359,90,1d
+conv3d,Sea of Japan,ssim,0.941552,90,1d
+conv3d,Sea of Japan,iou,0.375679,90,1d
+conv3d,Sea of Japan,bin_accuracy,0.988605,90,1d
+fno,Barents Sea,mae,0.067617142572999,6,1m
+fno,Barents Sea,rmse,0.1710343658924102,6,1m
+fno,Barents Sea,psnr,15.411317348480225,6,1m
+fno,Barents Sea,bin_accuracy,0.9263190627098083,6,1m
+fno,Barents Sea,ssim,0.7223262786865234,6,1m
+fno,Barents Sea,iou,0.7331289201974869,6,1m
+fno,Chukchi Sea,mae,0.0573162548243999,6,1m
+fno,Chukchi Sea,rmse,0.1402270346879959,6,1m
+fno,Chukchi Sea,psnr,17.30882692337036,6,1m
+fno,Chukchi Sea,bin_accuracy,0.9570193588733672,6,1m
+fno,Chukchi Sea,ssim,0.7622381448745728,6,1m
+fno,Chukchi Sea,iou,0.8922869116067886,6,1m
+fno,Laptev Sea,mae,0.0290246759541332,6,1m
+fno,Laptev Sea,rmse,0.091034073382616,6,1m
+fno,Laptev Sea,psnr,20.94431066513061,6,1m
+fno,Laptev Sea,bin_accuracy,0.9816922098398208,6,1m
+fno,Laptev Sea,ssim,0.9013069123029708,6,1m
+fno,Laptev Sea,iou,0.9308602809906006,6,1m
+fno,Sea of Japan,mae,0.006017405888997,6,1m
+fno,Sea of Japan,rmse,0.0397172681987285,6,1m
+fno,Sea of Japan,psnr,27.611714839935303,6,1m
+fno,Sea of Japan,bin_accuracy,0.9902322441339492,6,1m
+fno,Sea of Japan,ssim,0.9362491071224212,6,1m
+fno,Sea of Japan,iou,0.5345954895019531,6,1m
+fno,Barents Sea,mae,0.024443367883563,7,1d
+fno,Barents Sea,rmse,0.0713237264901399,7,1d
+fno,Barents Sea,psnr,23.654411758422853,7,1d
+fno,Barents Sea,bin_accuracy,0.9775483102798462,7,1d
+fno,Barents Sea,ssim,0.9054454350471496,7,1d
+fno,Barents Sea,iou,0.8776933016777039,7,1d
+fno,Chukchi Sea,mae,0.0247727331570349,7,1d
+fno,Chukchi Sea,rmse,0.0567217411100864,7,1d
+fno,Chukchi Sea,psnr,26.26604470062256,7,1d
+fno,Chukchi Sea,bin_accuracy,0.9819277272224426,7,1d
+fno,Chukchi Sea,ssim,0.9024111428260804,7,1d
+fno,Chukchi Sea,iou,0.8887748517990113,7,1d
+fno,Sea of Japan,mae,0.0029978908369084,7,1d
+fno,Sea of Japan,rmse,0.0181386591279879,7,1d
+fno,Sea of Japan,psnr,31.204751,7,1d
+fno,Sea of Japan,bin_accuracy,0.9951300630569458,7,1d
+fno,Sea of Japan,ssim,0.9696018447875976,7,1d
+fno,Sea of Japan,iou,0.453151181936264,7,1d
+fno,Barents Sea,mae,0.0631712190806865,12,1m
+fno,Barents Sea,rmse,0.160147488117218,12,1m
+fno,Barents Sea,psnr,15.910359382629396,12,1m
+fno,Barents Sea,bin_accuracy,0.9281668961048126,12,1m
+fno,Barents Sea,ssim,0.7272915244102478,12,1m
+fno,Barents Sea,iou,0.738081306219101,12,1m
+fno,Chukchi Sea,mae,0.0606116503477096,12,1m
+fno,Chukchi Sea,rmse,0.142541728913784,12,1m
+fno,Chukchi Sea,psnr,16.951828002929688,12,1m
+fno,Chukchi Sea,bin_accuracy,0.945815086364746,12,1m
+fno,Chukchi Sea,ssim,0.707464873790741,12,1m
+fno,Chukchi Sea,iou,0.890117734670639,12,1m
+fno,Kara Sea,mae,0.0590257924050092,12,1m
+fno,Kara Sea,rmse,0.1437388956546783,12,1m
+fno,Kara Sea,psnr,16.85269069671631,12,1m
+fno,Kara Sea,bin_accuracy,0.9447024166584016,12,1m
+fno,Kara Sea,ssim,0.7679862082004547,12,1m
+fno,Kara Sea,iou,0.8476470112800598,12,1m
+fno,Laptev Sea,mae,0.0275765461847186,12,1m
+fno,Laptev Sea,rmse,0.0854975022375583,12,1m
+fno,Laptev Sea,psnr,21.364800453186035,12,1m
+fno,Laptev Sea,bin_accuracy,0.9801722466945648,12,1m
+fno,Laptev Sea,ssim,0.8953800201416016,12,1m
+fno,Laptev Sea,iou,0.9322443008422852,12,1m
+fno,Sea of Japan,mae,0.0047834652941673,12,1m
+fno,Sea of Japan,rmse,0.0338048376142978,12,1m
+fno,Sea of Japan,psnr,29.066761016845703,12,1m
+fno,Sea of Japan,bin_accuracy,0.9920252561569214,12,1m
+fno,Sea of Japan,ssim,0.947026550769806,12,1m
+fno,Sea of Japan,iou,0.6385120749473572,12,1m
+fno,Barents Sea,mae,0.0433875612526511,30,1d
+fno,Barents Sea,rmse,0.1186112254547576,30,1d
+fno,Barents Sea,psnr,19.01703600883484,30,1d
+fno,Barents Sea,bin_accuracy,0.9578604285915692,30,1d
+fno,Barents Sea,ssim,0.8258812531828881,30,1d
+fno,Barents Sea,iou,0.7765568767984709,30,1d
+fno,Chukchi Sea,mae,0.0420560236506086,30,1d
+fno,Chukchi Sea,rmse,0.0932037287624552,30,1d
+fno,Chukchi Sea,psnr,22.437945747375487,30,1d
+fno,Chukchi Sea,bin_accuracy,0.9641260241468748,30,1d
+fno,Chukchi Sea,ssim,0.8197555465002855,30,1d
+fno,Chukchi Sea,iou,0.8178089658419291,30,1d
+fno,Kara Sea,mae,0.0414512659733494,30,1d
+fno,Kara Sea,rmse,0.1101060102693736,30,1d
+fno,Kara Sea,psnr,19.50268476804097,30,1d
+fno,Kara Sea,bin_accuracy,0.9666123082240422,30,1d
+fno,Kara Sea,ssim,0.8504879097143809,30,1d
+fno,Kara Sea,iou,0.8577380319436391,30,1d
+fno,Laptev Sea,mae,0.0259327121156578,30,1d
+fno,Laptev Sea,rmse,0.0714948548780133,30,1d
+fno,Laptev Sea,psnr,26.099720335006715,30,1d
+fno,Laptev Sea,bin_accuracy,0.977796858549118,30,1d
+fno,Laptev Sea,ssim,0.910198563337326,30,1d
+fno,Laptev Sea,iou,0.8660234232743581,30,1d
+fno,Kara Sea,mae,0.0658495612442493,6,1m
+fno,Kara Sea,rmse,0.1605179943144321,6,1m
+fno,Kara Sea,psnr,15.923004865646362,6,1m
+fno,Kara Sea,bin_accuracy,0.9396061599254608,6,1m
+fno,Kara Sea,ssim,0.7629321217536926,6,1m
+fno,Kara Sea,iou,0.8344566226005554,6,1m
+fno,Barents Sea,mae,0.058832430280745,32,1w
+fno,Barents Sea,rmse,0.1517906536658605,32,1w
+fno,Barents Sea,psnr,16.45597020785014,32,1w
+fno,Barents Sea,bin_accuracy,0.9366924067338308,32,1w
+fno,Barents Sea,ssim,0.741457611322403,32,1w
+fno,Barents Sea,iou,0.7522351493438085,32,1w
+fno,Chukchi Sea,mae,0.0685886709640423,32,1w
+fno,Chukchi Sea,rmse,0.1630184892565012,32,1w
+fno,Chukchi Sea,psnr,15.955641587575276,32,1w
+fno,Chukchi Sea,bin_accuracy,0.9326565464337668,32,1w
+fno,Chukchi Sea,ssim,0.6784681578477224,32,1w
+fno,Chukchi Sea,iou,0.8457167943318685,32,1w
+fno,Kara Sea,mae,0.0564849361156423,32,1w
+fno,Kara Sea,rmse,0.1387420880297819,32,1w
+fno,Kara Sea,psnr,17.193502346674602,32,1w
+fno,Kara Sea,bin_accuracy,0.9475897500912348,32,1w
+fno,Kara Sea,ssim,0.7769111941258112,32,1w
+fno,Kara Sea,iou,0.8455834984779358,32,1w
+fno,Sea of Japan,mae,0.005167938885279,32,1w
+fno,Sea of Japan,rmse,0.0364426956512033,32,1w
+fno,Sea of Japan,psnr,29.128488222757976,32,1w
+fno,Sea of Japan,bin_accuracy,0.9916608929634094,32,1w
+fno,Sea of Japan,ssim,0.9540824641784031,32,1w
+fno,Sea of Japan,iou,0.5578353057305018,32,1w
+fno,Barents Sea,mae,0.0613408337036768,52,1w
+fno,Barents Sea,rmse,0.1532645771900812,52,1w
+fno,Barents Sea,psnr,16.334309366014267,52,1w
+fno,Barents Sea,bin_accuracy,0.9298245708147684,52,1w
+fno,Barents Sea,ssim,0.7333523564868503,52,1w
+fno,Barents Sea,iou,0.7463182939423455,52,1w
+fno,Chukchi Sea,mae,0.0605936013162136,52,1w
+fno,Chukchi Sea,rmse,0.1379482762681113,52,1w
+fno,Chukchi Sea,psnr,17.253316667344833,52,1w
+fno,Chukchi Sea,bin_accuracy,0.9404598275820414,52,1w
+fno,Chukchi Sea,ssim,0.7030145128568014,52,1w
+fno,Chukchi Sea,iou,0.8793410857518514,52,1w
+fno,Kara Sea,mae,0.0571424646510018,52,1w
+fno,Kara Sea,rmse,0.1431944287485546,52,1w
+fno,Kara Sea,psnr,16.892370012071396,52,1w
+fno,Kara Sea,bin_accuracy,0.951761609978146,52,1w
+fno,Kara Sea,ssim,0.7571952078077528,52,1w
+fno,Kara Sea,iou,0.8625066214137607,52,1w
+fno,Laptev Sea,mae,0.0330735722349749,52,1w
+fno,Laptev Sea,rmse,0.1014619030886226,52,1w
+fno,Laptev Sea,psnr,19.928136613633896,52,1w
+fno,Laptev Sea,bin_accuracy,0.9690343274010552,52,1w
+fno,Laptev Sea,ssim,0.8754984935124716,52,1w
+fno,Laptev Sea,iou,0.8955295218361748,52,1w
+fno,Sea of Japan,mae,0.0052438395925694,52,1w
+fno,Sea of Japan,rmse,0.0362959752480189,52,1w
+fno,Sea of Japan,psnr,28.811083687676323,52,1w
+fno,Sea of Japan,bin_accuracy,0.991972393459744,52,1w
+fno,Sea of Japan,ssim,0.9520001742574904,52,1w
+fno,Sea of Japan,iou,0.6362173424826728,52,1w
+fno,Barents Sea,mae,0.0628307130820023,90,1d
+fno,Barents Sea,rmse,0.1630119176222643,90,1d
+fno,Barents Sea,psnr,16.110062450443934,90,1d
+fno,Barents Sea,bin_accuracy,0.9358930516680446,90,1d
+fno,Barents Sea,ssim,0.7659822478206879,90,1d
+fno,Barents Sea,iou,0.7146209057317962,90,1d
+fno,Kara Sea,mae,0.0248290587095543,7,1d
+fno,Kara Sea,rmse,0.0703256426379084,7,1d
+fno,Kara Sea,psnr,23.6816328125,7,1d
+fno,Kara Sea,bin_accuracy,0.9821521492004396,7,1d
+fno,Kara Sea,ssim,0.91939715051651,7,1d
+fno,Kara Sea,iou,0.926835159778595,7,1d
+fno,Laptev Sea,mae,0.0121833625594154,7,1d
+fno,Laptev Sea,rmse,0.0365189930275082,7,1d
+fno,Laptev Sea,psnr,30.619035858154295,7,1d
+fno,Laptev Sea,bin_accuracy,0.9927845368385316,7,1d
+fno,Laptev Sea,ssim,0.9612990498542786,7,1d
+fno,Laptev Sea,iou,0.938726734638214,7,1d
+fno,Sea of Japan,mae,0.0042971911076771,30,1d
+fno,Sea of Japan,rmse,0.025847614900825,30,1d
+fno,Sea of Japan,psnr,28.417693,30,1d
+fno,Sea of Japan,bin_accuracy,0.9928558136026064,30,1d
+fno,Sea of Japan,ssim,0.9596355900168418,30,1d
+fno,Sea of Japan,iou,0.3624098243502279,30,1d
+fno,Laptev Sea,mae,0.0304987694447239,32,1w
+fno,Laptev Sea,rmse,0.0940752582003672,32,1w
+fno,Laptev Sea,psnr,20.81382592519124,32,1w
+fno,Laptev Sea,bin_accuracy,0.9748394042253494,32,1w
+fno,Laptev Sea,ssim,0.8821683128674825,32,1w
+fno,Laptev Sea,iou,0.9046176175276438,32,1w
+fno,Chukchi Sea,mae,0.0559100435209383,90,1d
+fno,Chukchi Sea,rmse,0.125258496834324,90,1d
+fno,Chukchi Sea,psnr,19.38959275691881,90,1d
+fno,Chukchi Sea,bin_accuracy,0.9469492178444467,90,1d
+fno,Chukchi Sea,ssim,0.7427855560538965,90,1d
+fno,Chukchi Sea,iou,0.7882583305376385,90,1d
+fno,Kara Sea,mae,0.0564712411766752,90,1d
+fno,Kara Sea,rmse,0.1404742127574912,90,1d
+fno,Kara Sea,psnr,17.374749227401313,90,1d
+fno,Kara Sea,bin_accuracy,0.9469237420537056,90,1d
+fno,Kara Sea,ssim,0.7861369257673211,90,1d
+fno,Kara Sea,iou,0.8116171338142605,90,1d
+fno,Laptev Sea,mae,0.03213369902736,90,1d
+fno,Laptev Sea,rmse,0.0925159696660457,90,1d
+fno,Laptev Sea,psnr,23.24553287576098,90,1d
+fno,Laptev Sea,bin_accuracy,0.9709855843027796,90,1d
+fno,Laptev Sea,ssim,0.8860597993255755,90,1d
+fno,Laptev Sea,iou,0.8538313018619468,90,1d
+fno,Sea of Japan,mae,0.0049291438074118,90,1d
+fno,Sea of Japan,rmse,0.0300293607133175,90,1d
+fno,Sea of Japan,psnr,31.77375177505913,90,1d
+fno,Sea of Japan,bin_accuracy,0.9920010014411508,90,1d
+fno,Sea of Japan,ssim,0.952604044468031,90,1d
+fno,Sea of Japan,iou,0.4555092565715313,90,1d

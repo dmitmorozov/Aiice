@@ -1,7 +1,7 @@
 # cache files
 **/__pycache__/
 **/.pytest_cache
-**/DS_Store
+**/.DS_Store
 **/.ipynb_checkpoints
 
 # idea files
@@ -13,6 +13,7 @@
 .tmp
 .coverage
 outputs
+site
 
 # uv venv
 .venv

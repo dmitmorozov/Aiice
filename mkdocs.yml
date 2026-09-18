@@ -1,0 +1,83 @@
+site_name: AIICE Benchmark
+site_description: A standardized benchmark for spatio-temporal forecasting of Arctic sea ice concentration
+site_url: https://itmo-nss-team.github.io/Aiice/
+repo_url: https://github.com/ITMO-NSS-team/Aiice
+repo_name: ITMO-NSS-team/Aiice
+edit_uri: ""
+
+theme:
+  name: material
+  palette:
+    scheme: default
+    primary: white
+    accent: teal
+  font:
+    text: Inter
+    code: JetBrains Mono
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.sections
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: google
+            show_source: true
+            show_root_heading: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            members_order: source
+            separate_signature: true
+            show_signature_annotations: true
+            unwrap_annotated: true
+
+nav:
+  - Home: index.md
+  - Leaderboard: leaderboard.md
+  - Contributing: contributing.md
+  - API Reference:
+    - Overview: api/index.md
+    - aiice:
+      - AIICE: api/aiice.md
+      - metrics: api/metrics.md
+      - loader: api/loader.md
+      - preprocess: api/preprocess.md
+    - aiice.core:
+        - huggingface: api/core/huggingface.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: false
+      linenums: false
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path: .
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.arithmatex:
+      generic: true
+  - attr_list
+  - md_in_html
+  - tables
+
+hooks:
+  - docs/hooks.py
+
+extra_javascript:
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - assets/leaderboard.js
+
+extra_css:
+  - assets/leaderboard.css

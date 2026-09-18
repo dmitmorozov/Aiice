@@ -1,0 +1,36 @@
+name: Publish Anonymized doc
+
+on:
+  push:
+    tags:
+      # Publish on any tag starting with a `v`, e.g., v0.1.0
+      - v*
+
+jobs:
+  deploy-netlify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv & Python
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: 0.9.21
+          python-version: "3.11"
+          enable-cache: true
+
+      - name: Run anonymization script
+        run: uv run python .github/scripts/anonymize.py .
+
+      - name: Build anon docs
+        run: uv run mkdocs build --site-dir site
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3
+        with:
+          publish-dir: site/
+          production-deploy: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_ANON_SITE_ID }}

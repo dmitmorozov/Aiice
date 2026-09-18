@@ -3,6 +3,18 @@
 We welcome bug reports, feature requests, and pull requests.
 This project uses [uv](https://github.com/astral-sh/uv) for Python version, dependency, and project management.
 
+## General tips
+
+- Prefer contributing via forks, especially for external contributors
+- Give only appropriate names to commits / issues / pull-requests
+
+## Release process
+
+Despite the fact that the framework is very small, we want to maintain its consistency. The release procedure looks like this:
+
+- pull-request is approved by maintainers and merged with squashing commits
+- a new tag is being released to the github repository and pypi with GitHub Actions
+
 ## Development
 
 We try to maintain good practices of readable open source code. Therefore, if you want to participate in the development and open your pool request, pay attention to the following points:
@@ -42,7 +54,7 @@ We try to maintain good practices of readable open source code. Therefore, if yo
 
 - To buid and run docs locally, run:
     ```shell
-    uv run pdoc --math -d google --no-include-undocumented -t .doc/ aiice
+    uv run --dev mkdocs serve
     ```
 
 - To run any debug scripts with the project env, run:
@@ -54,14 +66,3 @@ We try to maintain good practices of readable open source code. Therefore, if yo
     ```shell
     uv run --group=scripts --with jupyter jupyter lab    
     ```
- 
-## General tips
-- Prefer contributing via forks, especially for external contributors
-- Give only appropriate names to commits / issues / pull-requests
-
-## Release process
-
-Despite the fact that the framework is very small, we want to maintain its consistency. The release procedure looks like this:
-
-- pull-request is approved by maintainers and merged with squashing commits
-- a new tag is being released to the github repository and pypi with GitHub Actions
