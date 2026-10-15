@@ -12,6 +12,7 @@ aiice:
 
 run:
   model_name: unet
+  seed: 42
 
   experiments:
     - base_channels: 16

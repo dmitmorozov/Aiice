@@ -9,6 +9,7 @@ import torch.optim as optim
 import utils
 import yaml
 from config import Config
+from reproducibility import init_reproducibility
 from torch.utils.data import DataLoader
 from torchcnnbuilder.models import ForecasterBase
 from tqdm import tqdm
@@ -29,18 +30,24 @@ def run(
     best_iteration = 0
     best_model: nn.Module | None = None
 
-    first_batch = next(iter(train_dataloader))
-
     for i, experiment in enumerate(cfg.run.experiments):
 
         i_experiment_path = f"{experiment_path}/{i}"
         os.makedirs(i_experiment_path, exist_ok=True)
 
+        init_reproducibility(
+            seed=cfg.run.seed,
+            deterministic=cfg.run.deterministic,
+            logger=logger,
+        )
+        if cfg.run.seed is not None and train_dataloader.generator is not None:
+            train_dataloader.generator.manual_seed(cfg.run.seed)
+
         loss_value, model = train(
             logger=logger,
             train_dataloader=train_dataloader,
             experiment_path=i_experiment_path,
-            data_shape=first_batch[0].shape[-2:],
+            data_shape=train_dataloader.dataset[0][0].shape[-2:],
             in_time_points=cfg.aiice.pre_history_len,
             out_time_point=cfg.aiice.forecast_len,
             args=experiment,

@@ -12,7 +12,6 @@ import fno
 import torch
 import unet
 import yaml
-from reproducibility import init_reproducibility
 from torch.utils.data import DataLoader
 
 from aiice.loader import Loader
@@ -112,12 +111,6 @@ def main():
     logger = init_logger()
     cfg = init_config()
 
-    init_reproducibility(
-        seed=cfg.run.seed,
-        deterministic=cfg.run.deterministic,
-        logger=logger,
-    )
-
     if cfg.device is None:
         cfg.device = init_device()
 
@@ -136,16 +129,21 @@ def main():
                     cfg.aiice,
                     device=cfg.device,
                     sea=sea,
+                    seed=cfg.run.seed,
                 )
 
                 conv2d.run(
-                    logger=logger, cfg=cfg, sea=sea, train_dataloader=train_dataloader
+                    logger=logger,
+                    cfg=cfg,
+                    sea=sea,
+                    train_dataloader=train_dataloader,
                 )
             case "conv3d":
                 train_dataloader = init_dataloader(
                     cfg.aiice,
                     device=cfg.device,
                     sea=sea,
+                    seed=cfg.run.seed,
                 )
 
                 conv3d.run(
@@ -181,6 +179,7 @@ def main():
                     cfg.aiice,
                     device=cfg.device,
                     sea=sea,
+                    seed=cfg.run.seed,
                 )
 
                 unet.run(

@@ -12,6 +12,7 @@ aiice:
 
 run:
   model_name: convlstm
+  seed: 42
 
   experiments:
     - lr: 0.0001

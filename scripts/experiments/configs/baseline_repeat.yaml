@@ -14,3 +14,4 @@ aiice:
 
 run:
   model_name: baseline_repeat
+  seed: 42

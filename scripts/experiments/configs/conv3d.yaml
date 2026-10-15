@@ -13,6 +13,7 @@ aiice:
 
 run:
   model_name: conv3d
+  seed: 42
 
   experiments:
     - kernel_size: [3, 3, 3]

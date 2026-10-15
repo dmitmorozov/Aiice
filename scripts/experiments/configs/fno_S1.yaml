@@ -15,6 +15,7 @@ aiice:
   batch_size: 16
 run:
   model_name: fno
+  seed: 42
   experiments:
   - lr: 0.001
     weight_decay: 1.0e-05
@@ -26,4 +27,3 @@ run:
     target_modes: 16
     hidden_channels: 64
     n_layers: 4
-    seed: 42
