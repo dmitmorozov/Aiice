@@ -136,11 +136,13 @@ def _build_loaders(
         data=train_data,
         pre_history_len=cfg.aiice.pre_history_len,
         forecast_len=cfg.aiice.forecast_len,
+        device="cpu",
     )
     val_ds = SlidingWindowDataset(
         data=val_data,
         pre_history_len=cfg.aiice.pre_history_len,
         forecast_len=cfg.aiice.forecast_len,
+        device="cpu",
     )
 
     generator = None

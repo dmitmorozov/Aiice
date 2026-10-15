@@ -38,7 +38,6 @@ def init_config() -> config.Config:
 
 def init_dataloader(
     cfg: config.Aiice,
-    device: str,
     sea: str | None,
     start_date: str | None = None,
     end_date: str | None = None,
@@ -59,7 +58,7 @@ def init_dataloader(
         data=train_data,
         pre_history_len=cfg.pre_history_len,
         forecast_len=cfg.forecast_len,
-        device=device,
+        device="cpu",
     )
     generator = None
     if shuffle and seed is not None:
@@ -77,7 +76,6 @@ def init_dataloader(
 
 def init_train_val_dataloaders(
     cfg: config.Aiice,
-    device: str,
     sea: str | None,
     seed: int | None = None,
 ) -> tuple[DataLoader, DataLoader]:
@@ -85,13 +83,11 @@ def init_train_val_dataloaders(
     test_start = date.fromisoformat(cfg.test_start_date)
     train_dataloader = init_dataloader(
         cfg,
-        device=device,
         sea=sea,
         seed=seed,
     )
     val_dataloader = init_dataloader(
         cfg,
-        device=device,
         sea=sea,
         start_date=cfg.val_start_date,
         end_date=(test_start - timedelta(days=1)).isoformat(),
@@ -122,7 +118,6 @@ def main():
 
                 train_dataloader = init_dataloader(
                     cfg.aiice,
-                    device=cfg.device,
                     sea=sea,
                     seed=cfg.run.seed,
                 )
@@ -138,7 +133,6 @@ def main():
 
                 train_dataloader = init_dataloader(
                     cfg.aiice,
-                    device=cfg.device,
                     sea=sea,
                     seed=cfg.run.seed,
                 )
@@ -154,7 +148,6 @@ def main():
 
                 train_dataloader, val_dataloader = init_train_val_dataloaders(
                     cfg.aiice,
-                    device=cfg.device,
                     sea=sea,
                     seed=cfg.run.seed,
                 )
@@ -180,7 +173,6 @@ def main():
 
                 train_dataloader = init_dataloader(
                     cfg.aiice,
-                    device=cfg.device,
                     sea=sea,
                     seed=cfg.run.seed,
                 )
