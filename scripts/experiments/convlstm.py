@@ -3,6 +3,7 @@ import logging
 import math
 import os
 import time
+from typing import Any
 
 import torch
 import torch.nn as nn
@@ -14,6 +15,7 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 from aiice import AIICE
+
 
 class ConvLSTMCell(nn.Module):
     def __init__(self, input_channels, hidden_channels, kernel_size=3):
@@ -155,6 +157,7 @@ def run(
     cfg: Config,
     sea: str | None,
     train_dataloader: DataLoader,
+    val_dataloader: DataLoader,
 ):
     experiment_path = f"{cfg.output_path}/convlstm/{sea}"
     os.makedirs(experiment_path, exist_ok=True)
@@ -170,10 +173,13 @@ def run(
         loss_value, model = train(
             logger=logger,
             train_dataloader=train_dataloader,
+            val_dataloader=val_dataloader,
             experiment_path=i_experiment_path,
             out_time_point=cfg.aiice.forecast_len,
             args=experiment,
             device=cfg.device,
+            seed=cfg.run.seed,
+            deterministic=cfg.run.deterministic,
         )
 
         if loss_value < best_loss_value:
@@ -207,10 +213,13 @@ def run(
 def train(
     logger: logging.Logger,
     train_dataloader: DataLoader,
+    val_dataloader: DataLoader,
     experiment_path: str,
     out_time_point: int,
-    args: dict[str, any],
+    args: dict[str, Any],
     device: str,
+    seed: int | None,
+    deterministic: bool,
 ) -> tuple[float, nn.Module]:
 
     cuda_active = torch.cuda.is_available() and torch.device(device).type == "cuda"
@@ -218,8 +227,6 @@ def train(
         torch.cuda.reset_peak_memory_stats(device)
 
     model = ConvLSTMEncoderDecoder(num_prediction_steps=out_time_point).to(device)
-    model.train()
-
     optimizer = optim.AdamW(model.parameters(), lr=args["lr"])
     scheduler = optim.lr_scheduler.CyclicLR(
         optimizer,
@@ -231,10 +238,14 @@ def train(
     )
 
     criterion = nn.L1Loss()
-    loss_history = []
+    loss_history: list[float] = []
+    val_loss_history: list[float] = []
     epoch_seconds = []
-    best_loss_value = math.inf
-    best_state_dict = copy.deepcopy(model.state_dict())
+    best_val_loss = math.inf
+    early_stopping_val_loss = math.inf
+    best_train_loss = math.inf
+    best_epoch: int | None = None
+    best_state_dict: dict[str, Any] | None = None
     epochs_no_improve = 0
     accumulate_steps = int(args.get("accumulate_steps", 1))
     if accumulate_steps < 1:
@@ -247,6 +258,7 @@ def train(
     for epoch in range(args["max_epoch"]):
         epoch_started = time.perf_counter()
 
+        model.train()
         loss = 0
         num_batches = len(train_dataloader)
         optimizer.zero_grad(set_to_none=True)
@@ -276,22 +288,39 @@ def train(
         scheduler.step()
         loss_history.append(loss)
 
+        model.eval()
+        val_loss_sum = 0.0
+        val_samples = 0
+        with torch.no_grad():
+            for x, y in val_dataloader:
+                x = x.to(device)
+                y = y.to(device)
+                batch_size = x.size(0)
+                val_loss_sum += criterion(model(x), y).item() * batch_size
+                val_samples += batch_size
+
+        if val_samples == 0:
+            raise ValueError("validation dataloader must contain at least one sample")
+        val_loss = val_loss_sum / val_samples
+        val_loss_history.append(val_loss)
+
         current_lr = optimizer.param_groups[0]["lr"]
         logger.info(
-            f'-- epoch : {epoch + 1}/{args["max_epoch"]}, {loss=}, {current_lr=}'
+            f'-- epoch : {epoch + 1}/{args["max_epoch"]}, '
+            f"train_loss={loss:.6f}, val_loss={val_loss:.6f}, {current_lr=}"
         )
 
-        # early stopping if loss do not change
-        if loss < best_loss_value:
-            best_loss_value = loss
+        if val_loss < best_val_loss:
+            best_val_loss = val_loss
+            best_train_loss = loss
+            best_epoch = epoch + 1
             best_state_dict = copy.deepcopy(model.state_dict())
 
-        if epoch != 0:
-            relative_change = abs(loss_history[-2] - loss) / max(loss_history[-2], 1e-8)
-            if relative_change < args["min_delta"]:
-                epochs_no_improve += 1
-            else:
-                epochs_no_improve = 0
+        if val_loss < early_stopping_val_loss - args["min_delta"]:
+            early_stopping_val_loss = val_loss
+            epochs_no_improve = 0
+        else:
+            epochs_no_improve += 1
 
         should_stop = epochs_no_improve >= args["patience"]
         if should_stop:
@@ -316,11 +345,21 @@ def train(
             f"reserved={peak_reserved_gib:.2f} GiB"
         )
 
-    logger.info("- End of training")
+    if best_state_dict is None or best_epoch is None:
+        raise RuntimeError("training finished without a validation checkpoint")
 
     model.load_state_dict(best_state_dict)
     torch.save(model.state_dict(), f"{experiment_path}/model.pt")
-    utils.plot_history(loss_history, f"{experiment_path}/loss_history.png", logger)
+    utils.plot_loss_history(
+        train_history=loss_history,
+        val_history=val_loss_history,
+        save_path=f"{experiment_path}/loss_history.png",
+        best_epoch=best_epoch,
+    )
+    logger.info(
+        f"- End of training (best validation loss: {best_val_loss:.6f}, "
+        f"epoch: {best_epoch})"
+    )
 
     epochs_completed = len(epoch_seconds)
     training_summary = {
@@ -330,7 +369,12 @@ def train(
         if epochs_completed
         else None,
         "epoch_seconds": [round(seconds, 3) for seconds in epoch_seconds],
-        "best_train_loss": best_loss_value,
+        "best_epoch": best_epoch,
+        "best_val_loss": best_val_loss,
+        "train_loss_at_best_epoch": best_train_loss,
+        "stopped_early": epochs_completed < args["max_epoch"],
+        "seed": seed,
+        "deterministic": deterministic,
         "peak_gpu_allocated_gib": round(peak_allocated_gib, 2)
         if peak_allocated_gib is not None
         else None,
@@ -342,4 +386,4 @@ def train(
         yaml.safe_dump(training_summary, f, sort_keys=False)
 
     logger.info("- All savings are done!")
-    return best_loss_value, model
+    return best_val_loss, model

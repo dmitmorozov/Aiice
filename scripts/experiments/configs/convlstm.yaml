@@ -4,6 +4,8 @@ aiice:
   sea: ["Kara Sea", "Barents Sea", "Chukchi Sea", "Sea of Japan", "Laptev Sea"]
   start_date: "1980-01-01"
   end_date: "2020-01-01"
+  val_start_date: "2016-01-01"
+  val_end_date: "2020-01-01"
   pre_history_len: 104
   forecast_len: 52
   step: 7

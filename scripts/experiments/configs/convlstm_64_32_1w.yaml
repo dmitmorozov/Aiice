@@ -4,6 +4,8 @@ aiice:
   sea: null
   start_date: "1980-01-01"
   end_date: "2020-01-01"
+  val_start_date: "2016-01-01"
+  val_end_date: "2020-01-01"
   pre_history_len: 64
   forecast_len: 32
   step: 1w
