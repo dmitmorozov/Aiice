@@ -3,6 +3,7 @@ import logging
 import math
 import os
 import random
+from datetime import date, timedelta
 from typing import Any
 
 import numpy as np
@@ -122,36 +123,28 @@ def _make_loss(bound_weight: float):
 
 
 # ---------------------------------------------------------------------------
-# Data: train + val from a single Loader.get range with an internal split
+# Data: train and validation from non-overlapping date ranges
 # ---------------------------------------------------------------------------
 def _build_loaders(
     cfg: Config,
     sea: str | None,
-    val_years: int,
     batch_size: int,
 ) -> tuple[DataLoader, DataLoader, tuple[int, int]]:
-    """Build train and val dataloaders with a held-out tail of the train period.
-
-    The leaderboard convention has ``cfg.aiice.start_date .. end_date`` cover
-    only the training-eligible period (``end_date`` is the start of the
-    benchmark window). We carve the last ``val_years`` years off that period
-    for early-stopping validation. This keeps the public API of ``cli.py``
-    untouched while still giving the FNO a held-out signal for stopping.
-    """
+    """Build loaders for [train_start, val_start) and [val_start, test_start)."""
     loader = Loader()
-    val_start_year = int(cfg.aiice.end_date[:4]) - val_years
-    val_start = f"{val_start_year}-01-01"
+    val_start = date.fromisoformat(cfg.aiice.val_start_date)
+    test_start = date.fromisoformat(cfg.aiice.test_start_date)
 
     train_data = loader.get(
-        start=cfg.aiice.start_date,
-        end=val_start,
+        start=cfg.aiice.train_start_date,
+        end=(val_start - timedelta(days=1)).isoformat(),
         sea=sea,
         step=cfg.aiice.step,
         tensor_out=True,
     )
     val_data = loader.get(
-        start=val_start,
-        end=cfg.aiice.end_date,
+        start=cfg.aiice.val_start_date,
+        end=(test_start - timedelta(days=1)).isoformat(),
         sea=sea,
         step=cfg.aiice.step,
         tensor_out=True,
@@ -295,13 +288,7 @@ def run(
     cfg: Config,
     sea: str | None,
 ) -> None:
-    """Train FNO for one sea and write a benchmark report to disk.
-
-    Unlike the convolutional baselines, FNO uses an internal train/val split
-    on the configured ``start_date .. end_date`` range so it can perform
-    early stopping on a held-out signal. The benchmark window itself is
-    untouched: ``AIICE`` is still instantiated with ``start = end_date``.
-    """
+    """Train and validate FNO using explicit dates, then benchmark on test."""
     experiment_path = f"{cfg.output_path}/fno/{sea}"
     os.makedirs(experiment_path, exist_ok=True)
 
@@ -316,7 +303,6 @@ def run(
         train_loader, val_loader, spatial_shape = _build_loaders(
             cfg=cfg,
             sea=sea,
-            val_years=experiment["val_years"],
             batch_size=cfg.aiice.batch_size,
         )
 
@@ -343,7 +329,7 @@ def run(
         pre_history_len=cfg.aiice.pre_history_len,
         forecast_len=cfg.aiice.forecast_len,
         batch_size=cfg.aiice.batch_size,
-        start=cfg.aiice.end_date,
+        start=cfg.aiice.test_start_date,
         step=cfg.aiice.step,
         sea=sea,
         device=cfg.device,

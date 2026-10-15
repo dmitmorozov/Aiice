@@ -58,7 +58,7 @@ def run(
         pre_history_len=cfg.aiice.pre_history_len,
         forecast_len=cfg.aiice.forecast_len,
         batch_size=cfg.aiice.batch_size,
-        start=cfg.aiice.end_date,
+        start=cfg.aiice.test_start_date,
         step=cfg.aiice.step,
         sea=sea,
         device=cfg.device,

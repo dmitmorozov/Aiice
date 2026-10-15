@@ -2,10 +2,9 @@ output_path: ./outputs/convlstm_14_7_1d
 
 aiice:
   sea: null
-  start_date: "1980-01-01"
-  end_date: "2020-01-01"
+  train_start_date: "1980-01-01"
   val_start_date: "2016-01-01"
-  val_end_date: "2020-01-01"
+  test_start_date: "2020-01-01"
   pre_history_len: 14
   forecast_len: 7
   step: 1d

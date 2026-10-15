@@ -3,8 +3,9 @@ device: "mps"
 
 aiice:
   sea: ["Kara Sea", "Barents Sea", "Chukchi Sea", "Sea of Japan", "Laptev Sea"]
-  start_date: "1980-01-01"
-  end_date: "2020-01-01"
+  train_start_date: "1980-01-01"
+  val_start_date: "2016-01-01"
+  test_start_date: "2020-01-01"
   pre_history_len: 180
   forecast_len: 90
   step: 1d
