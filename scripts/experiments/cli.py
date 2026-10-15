@@ -2,15 +2,8 @@ import argparse
 import logging
 from datetime import date, timedelta
 
-import baseline_mean
-import baseline_repeat
 import config
-import conv2d
-import conv3d
-import convlstm
-import fno
 import torch
-import unet
 import yaml
 from torch.utils.data import DataLoader
 
@@ -125,6 +118,8 @@ def main():
 
         match cfg.run.model_name:
             case "conv2d":
+                import conv2d
+
                 train_dataloader = init_dataloader(
                     cfg.aiice,
                     device=cfg.device,
@@ -139,6 +134,8 @@ def main():
                     train_dataloader=train_dataloader,
                 )
             case "conv3d":
+                import conv3d
+
                 train_dataloader = init_dataloader(
                     cfg.aiice,
                     device=cfg.device,
@@ -153,6 +150,8 @@ def main():
                     train_dataloader=train_dataloader,
                 )
             case "convlstm":
+                import convlstm
+
                 train_dataloader, val_dataloader = init_train_val_dataloaders(
                     cfg.aiice,
                     device=cfg.device,
@@ -168,6 +167,8 @@ def main():
                     val_dataloader=val_dataloader,
                 )
             case "fno":
+                import fno
+
                 # FNO builds its loaders from the same explicit split dates.
                 fno.run(
                     logger=logger,
@@ -175,6 +176,8 @@ def main():
                     sea=sea,
                 )
             case "unet":
+                import unet
+
                 train_dataloader = init_dataloader(
                     cfg.aiice,
                     device=cfg.device,
@@ -189,12 +192,16 @@ def main():
                     train_dataloader=train_dataloader,
                 )
             case "baseline_mean":
+                import baseline_mean
+
                 baseline_mean.run(
                     logger=logger,
                     cfg=cfg,
                     sea=sea,
                 )
             case "baseline_repeat":
+                import baseline_repeat
+
                 baseline_repeat.run(
                     logger=logger,
                     cfg=cfg,
