@@ -116,7 +116,7 @@ def main():
             case "conv2d":
                 import conv2d
 
-                train_dataloader = init_dataloader(
+                train_dataloader, val_dataloader = init_train_val_dataloaders(
                     cfg.aiice,
                     sea=sea,
                     seed=cfg.run.seed,
@@ -127,11 +127,12 @@ def main():
                     cfg=cfg,
                     sea=sea,
                     train_dataloader=train_dataloader,
+                    val_dataloader=val_dataloader,
                 )
             case "conv3d":
                 import conv3d
 
-                train_dataloader = init_dataloader(
+                train_dataloader, val_dataloader = init_train_val_dataloaders(
                     cfg.aiice,
                     sea=sea,
                     seed=cfg.run.seed,
@@ -142,6 +143,7 @@ def main():
                     cfg=cfg,
                     sea=sea,
                     train_dataloader=train_dataloader,
+                    val_dataloader=val_dataloader,
                 )
             case "convlstm":
                 import convlstm

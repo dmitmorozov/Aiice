@@ -18,8 +18,6 @@ run:
   experiments:
     - kernel_size: [3, 3, 3]
       lr: 0.0001
-      max_epoch: 375
+      max_epoch: 200
       patience: 20
       min_delta: 0.001
-      initial_patience: 10
-      target_loss: 0.3
