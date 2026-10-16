@@ -20,6 +20,6 @@ run:
       norm_groups: 8
       lr: 0.0001
       weight_decay: 0.000001
-      max_epoch: 50
-      patience: 10
+      max_epoch: 200
+      patience: 20
       min_delta: 0.001

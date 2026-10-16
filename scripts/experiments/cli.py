@@ -171,7 +171,7 @@ def main():
             case "unet":
                 import unet
 
-                train_dataloader = init_dataloader(
+                train_dataloader, val_dataloader = init_train_val_dataloaders(
                     cfg.aiice,
                     sea=sea,
                     seed=cfg.run.seed,
@@ -182,6 +182,7 @@ def main():
                     cfg=cfg,
                     sea=sea,
                     train_dataloader=train_dataloader,
+                    val_dataloader=val_dataloader,
                 )
             case "baseline_mean":
                 import baseline_mean

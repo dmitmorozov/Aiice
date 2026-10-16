@@ -2,6 +2,7 @@ import copy
 import logging
 import math
 import os
+import time
 from typing import Any
 
 import torch
@@ -154,6 +155,7 @@ def run(
     cfg: Config,
     sea: str | None,
     train_dataloader: DataLoader,
+    val_dataloader: DataLoader,
 ):
     experiment_path = f"{cfg.output_path}/unet/{sea}"
     os.makedirs(experiment_path, exist_ok=True)
@@ -163,6 +165,7 @@ def run(
     best_model: nn.Module | None = None
 
     for i, experiment in enumerate(cfg.run.experiments):
+        
         i_experiment_path = f"{experiment_path}/{i}"
         os.makedirs(i_experiment_path, exist_ok=True)
 
@@ -177,11 +180,14 @@ def run(
         loss_value, model = train(
             logger=logger,
             train_dataloader=train_dataloader,
+            val_dataloader=val_dataloader,
             experiment_path=i_experiment_path,
             in_channels=cfg.aiice.pre_history_len,
             out_channels=cfg.aiice.forecast_len,
             args=experiment,
             device=cfg.device,
+            seed=cfg.run.seed,
+            deterministic=cfg.run.deterministic,
         )
 
         if loss_value < best_loss_value:
@@ -216,13 +222,18 @@ def run(
 def train(
     logger: logging.Logger,
     train_dataloader: DataLoader,
+    val_dataloader: DataLoader,
     experiment_path: str,
     in_channels: int,
     out_channels: int,
     args: dict[str, Any],
     device: str,
+    seed: int | None,
+    deterministic: bool,
 ) -> tuple[float, nn.Module]:
-    if torch.cuda.is_available():
+
+    cuda_active = torch.cuda.is_available() and torch.device(device).type == "cuda"
+    if cuda_active:
         torch.cuda.reset_peak_memory_stats(device)
 
     model = UNetForecast(
@@ -232,7 +243,6 @@ def train(
         depth=args.get("depth", 3),
         norm_groups=args.get("norm_groups", 8),
     ).to(device)
-    model.train()
 
     optimizer = optim.AdamW(
         model.parameters(), lr=args["lr"], weight_decay=args.get("weight_decay", 0.0)
@@ -247,13 +257,24 @@ def train(
     )
 
     criterion = nn.L1Loss()
-    loss_history = []
-    best_loss_value = math.inf
-    best_state_dict = copy.deepcopy(model.state_dict())
+    loss_history: list[float] = []
+    val_loss_history: list[float] = []
+    epoch_seconds = []
+    best_val_loss = math.inf
+    early_stopping_val_loss = math.inf
+    best_train_loss = math.inf
+    best_epoch: int | None = None
+    best_state_dict: dict[str, Any] | None = None
     epochs_no_improve = 0
 
-    for epoch in range(args["max_epoch"]):
+    if cuda_active:
+        torch.cuda.synchronize(device)
+    training_started = time.perf_counter()
 
+    for epoch in range(args["max_epoch"]):
+        epoch_started = time.perf_counter()
+
+        model.train()
         loss = 0
         for x, y in tqdm(train_dataloader):
             x = x.to(device)
@@ -271,29 +292,55 @@ def train(
         scheduler.step()
         loss_history.append(loss)
 
+        model.eval()
+        val_loss_sum = 0.0
+        val_samples = 0
+        with torch.no_grad():
+            for x, y in val_dataloader:
+                x = x.to(device)
+                y = y.to(device)
+                batch_size = x.size(0)
+                val_loss_sum += criterion(model(x), y).item() * batch_size
+                val_samples += batch_size
+
+        if val_samples == 0:
+            raise ValueError("validation dataloader must contain at least one sample")
+        val_loss = val_loss_sum / val_samples
+        val_loss_history.append(val_loss)
+
         current_lr = optimizer.param_groups[0]["lr"]
         logger.info(
-            f'-- epoch : {epoch + 1}/{args["max_epoch"]}, {loss=}, {current_lr=}'
+            f'-- epoch : {epoch + 1}/{args["max_epoch"]}, '
+            f"train_loss={loss:.6f}, val_loss={val_loss:.6f}, {current_lr=}"
         )
 
-        # early stopping if loss do not change
-        if loss < best_loss_value:
-            best_loss_value = loss
+        if val_loss < best_val_loss:
+            best_val_loss = val_loss
+            best_train_loss = loss
+            best_epoch = epoch + 1
             best_state_dict = copy.deepcopy(model.state_dict())
 
-        if epoch != 0:
-            relative_change = abs(loss_history[-2] - loss) / max(loss_history[-2], 1e-8)
-            if relative_change < args["min_delta"]:
-                epochs_no_improve += 1
-            else:
-                epochs_no_improve = 0
+        if val_loss < early_stopping_val_loss - args["min_delta"]:
+            early_stopping_val_loss = val_loss
+            epochs_no_improve = 0
+        else:
+            epochs_no_improve += 1
 
-        if epochs_no_improve >= args["patience"]:
+        should_stop = epochs_no_improve >= args["patience"]
+        if should_stop:
             logger.warning("EARLY STOPPING TRIGGERED")
+
+        if cuda_active:
+            torch.cuda.synchronize(device)
+        epoch_seconds.append(time.perf_counter() - epoch_started)
+
+        if should_stop:
             break
 
-    if torch.cuda.is_available():
-        torch.cuda.synchronize(device)
+    training_seconds = time.perf_counter() - training_started
+    peak_allocated_gib = None
+    peak_reserved_gib = None
+    if cuda_active:
         peak_allocated_gib = torch.cuda.max_memory_allocated(device) / 1024**3
         peak_reserved_gib = torch.cuda.max_memory_reserved(device) / 1024**3
         logger.info(
@@ -302,11 +349,45 @@ def train(
             f"reserved={peak_reserved_gib:.2f} GiB"
         )
 
-    logger.info("- End of training")
+    if best_state_dict is None or best_epoch is None:
+        raise RuntimeError("training finished without a validation checkpoint")
 
     model.load_state_dict(best_state_dict)
     torch.save(model.state_dict(), f"{experiment_path}/model.pt")
-    utils.plot_history(loss_history, f"{experiment_path}/loss_history.png", show=False)
+    utils.plot_loss_history(
+        train_history=loss_history,
+        val_history=val_loss_history,
+        save_path=f"{experiment_path}/loss_history.png",
+        best_epoch=best_epoch,
+    )
+    logger.info(
+        f"- End of training (best validation loss: {best_val_loss:.6f}, "
+        f"epoch: {best_epoch})"
+    )
+
+    epochs_completed = len(epoch_seconds)
+    training_summary = {
+        "epochs_completed": epochs_completed,
+        "training_seconds": round(training_seconds, 3),
+        "mean_epoch_seconds": round(training_seconds / epochs_completed, 3)
+        if epochs_completed
+        else None,
+        "epoch_seconds": [round(seconds, 3) for seconds in epoch_seconds],
+        "best_epoch": best_epoch,
+        "best_val_loss": best_val_loss,
+        "train_loss_at_best_epoch": best_train_loss,
+        "stopped_early": epochs_completed < args["max_epoch"],
+        "seed": seed,
+        "deterministic": deterministic,
+        "peak_gpu_allocated_gib": round(peak_allocated_gib, 2)
+        if peak_allocated_gib is not None
+        else None,
+        "peak_gpu_reserved_gib": round(peak_reserved_gib, 2)
+        if peak_reserved_gib is not None
+        else None,
+    }
+    with open(f"{experiment_path}/training-summary.yaml", "w", encoding="utf-8") as f:
+        yaml.safe_dump(training_summary, f, sort_keys=False)
 
     logger.info("- All savings are done!")
-    return best_loss_value, model
+    return best_val_loss, model
