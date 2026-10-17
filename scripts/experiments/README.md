@@ -65,6 +65,17 @@ through the day before the next period starts. Each input/target pair is built
 entirely inside its own period. With the dates above, training covers 1980–2015,
 validation covers 2016–2019, and testing starts in 2020.
 
+## Resuming CNN training
+
+U-Net, Conv2D, Conv3D, and ConvLSTM save a full `last.pt` after each completed
+epoch, beside the best-validation `model.pt` saved at normal completion. Set
+`run.resume_from` to its path and select one sea and one experiment to resume.
+Model, sea, dates/windows, batch size, seed, deterministic flag, CPU/CUDA type,
+and training parameters must match; the total `max_epoch` may be increased.
+Compatibility is checked from the configuration. Older `last.pt` formats are
+supported; GPU index/count and `pin_memory` may change. An interrupted epoch
+is repeated; a checkpoint stopped by patience is finalized without more training.
+
 ## Explanations
 
 Here you can find some models' setup explanations

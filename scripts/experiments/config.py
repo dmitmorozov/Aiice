@@ -32,6 +32,7 @@ class Run(BaseModel):
     model_name: str
     seed: int | None = None
     deterministic: bool = False
+    resume_from: str | None = None
     experiments: list[dict[str, Any]] = []
 
 
@@ -40,3 +41,13 @@ class Config(BaseModel):
     run: Run
     output_path: str
     device: str | None = None
+
+    @model_validator(mode="after")
+    def validate_resume(self) -> "Config":
+        if self.run.resume_from is None:
+            return self
+        if len(self.run.experiments) != 1:
+            raise ValueError("run.resume_from requires exactly one experiment")
+        if isinstance(self.aiice.sea, list) and len(self.aiice.sea) != 1:
+            raise ValueError("run.resume_from requires exactly one sea")
+        return self

@@ -10,6 +10,11 @@ import torch.nn as nn
 import torch.optim as optim
 import utils
 import yaml
+from checkpoints import (
+    checkpoint_config,
+    load_training_checkpoint,
+    save_training_checkpoint,
+)
 from config import Config
 from reproducibility import init_reproducibility
 from torch.utils.data import DataLoader
@@ -58,6 +63,8 @@ def run(
             device=cfg.device,
             seed=cfg.run.seed,
             deterministic=cfg.run.deterministic,
+            resume_from=cfg.run.resume_from,
+            checkpoint_metadata=checkpoint_config(cfg, sea, experiment),
         )
 
         if loss_value < best_loss_value:
@@ -101,6 +108,8 @@ def train(
     device: str,
     seed: int | None,
     deterministic: bool,
+    checkpoint_metadata: dict[str, Any],
+    resume_from: str | None = None,
 ) -> tuple[float, nn.Module]:
 
     cuda_active = torch.cuda.is_available() and torch.device(device).type == "cuda"
@@ -130,21 +139,45 @@ def train(
     )
 
     criterion = nn.L1Loss()
-    loss_history: list[float] = []
-    val_loss_history: list[float] = []
-    epoch_seconds = []
-    best_val_loss = math.inf
-    early_stopping_val_loss = math.inf
-    best_train_loss = math.inf
-    best_epoch: int | None = None
-    best_state_dict: dict[str, Any] | None = None
-    epochs_no_improve = 0
+    resume_state = (
+        load_training_checkpoint(
+            path=resume_from,
+            model=model,
+            optimizer=optimizer,
+            scheduler=scheduler,
+            config=checkpoint_metadata,
+            device=device,
+            train_dataloader=train_dataloader,
+            val_dataloader=val_dataloader,
+        )
+        if resume_from is not None
+        else {}
+    )
+    start_epoch = resume_state.get("epoch", 0)
+    training_seconds_before = resume_state.get("training_seconds", 0.0)
+    previous_peak_allocated_gib = resume_state.get("peak_gpu_allocated_gib")
+    previous_peak_reserved_gib = resume_state.get("peak_gpu_reserved_gib")
+    resume_stopped_early = resume_state.get("stopped_early", False)
+    loss_history: list[float] = resume_state.get("loss_history", [])
+    val_loss_history: list[float] = resume_state.get("val_loss_history", [])
+    epoch_seconds = resume_state.get("epoch_seconds", [])
+    best_val_loss = resume_state.get("best_val_loss", math.inf)
+    early_stopping_val_loss = resume_state.get("early_stopping_val_loss", math.inf)
+    best_train_loss = resume_state.get("best_train_loss", math.inf)
+    best_epoch: int | None = resume_state.get("best_epoch")
+    best_state_dict: dict[str, Any] | None = resume_state.get("best_state_dict")
+    epochs_no_improve = resume_state.get("epochs_no_improve", 0)
+    del resume_state
+    if resume_from is not None:
+        logger.info(f"Resumed training from {resume_from} after epoch {start_epoch}")
+
 
     if cuda_active:
         torch.cuda.synchronize(device)
     training_started = time.perf_counter()
 
-    for epoch in range(args["max_epoch"]):
+    end_epoch = start_epoch if resume_stopped_early else args["max_epoch"]
+    for epoch in range(start_epoch, end_epoch):
         epoch_started = time.perf_counter()
 
         model.train()
@@ -207,15 +240,64 @@ def train(
             torch.cuda.synchronize(device)
         epoch_seconds.append(time.perf_counter() - epoch_started)
 
+        save_training_checkpoint(
+            path=f"{experiment_path}/last.pt",
+            model=model,
+            optimizer=optimizer,
+            scheduler=scheduler,
+            training_state={
+                "epoch": epoch + 1,
+                "loss_history": loss_history,
+                "val_loss_history": val_loss_history,
+                "epoch_seconds": epoch_seconds,
+                "best_val_loss": best_val_loss,
+                "early_stopping_val_loss": early_stopping_val_loss,
+                "best_train_loss": best_train_loss,
+                "best_epoch": best_epoch,
+                "best_state_dict": best_state_dict,
+                "epochs_no_improve": epochs_no_improve,
+                "stopped_early": should_stop,
+                "training_seconds": (
+                    training_seconds_before + time.perf_counter() - training_started
+                ),
+                "peak_gpu_allocated_gib": (
+                    max(
+                        previous_peak_allocated_gib or 0.0,
+                        torch.cuda.max_memory_allocated(device) / 1024**3,
+                    )
+                    if cuda_active
+                    else None
+                ),
+                "peak_gpu_reserved_gib": (
+                    max(
+                        previous_peak_reserved_gib or 0.0,
+                        torch.cuda.max_memory_reserved(device) / 1024**3,
+                    )
+                    if cuda_active
+                    else None
+                ),
+            },
+            config=checkpoint_metadata,
+            device=device,
+            train_dataloader=train_dataloader,
+            val_dataloader=val_dataloader,
+        )
+
         if should_stop:
             break
 
-    training_seconds = time.perf_counter() - training_started
+    training_seconds = training_seconds_before + time.perf_counter() - training_started
     peak_allocated_gib = None
     peak_reserved_gib = None
     if cuda_active:
-        peak_allocated_gib = torch.cuda.max_memory_allocated(device) / 1024**3
-        peak_reserved_gib = torch.cuda.max_memory_reserved(device) / 1024**3
+        peak_allocated_gib = max(
+            previous_peak_allocated_gib or 0.0,
+            torch.cuda.max_memory_allocated(device) / 1024**3,
+        )
+        peak_reserved_gib = max(
+            previous_peak_reserved_gib or 0.0,
+            torch.cuda.max_memory_reserved(device) / 1024**3,
+        )
         logger.info(
             "-- peak GPU memory: "
             f"allocated={peak_allocated_gib:.2f} GiB, "
