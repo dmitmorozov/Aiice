@@ -2,8 +2,9 @@ output_path: ./outputs
 
 aiice:
   sea: ["Kara Sea", "Barents Sea", "Chukchi Sea", "Sea of Japan", "Laptev Sea"]
-  start_date: "1980-01-01"
-  end_date: "2020-01-01"
+  train_start_date: "1980-01-01"
+  val_start_date: "2016-01-01"
+  test_start_date: "2020-01-01"
   pre_history_len: 104
   forecast_len: 52
   step: 7
@@ -12,12 +13,11 @@ aiice:
 
 run:
   model_name: conv2d
+  seed: 42
 
   experiments:
     - kernel_size: [3, 3]
       lr: 0.0001
-      max_epoch: 400
-      patience: 50
+      max_epoch: 200
+      patience: 20
       min_delta: 0.001
-      initial_patience: 20
-      target_loss: 0.3

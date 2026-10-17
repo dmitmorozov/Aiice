@@ -41,7 +41,8 @@ class AIICE:
         threshold (`float`, optional): Threshold for binarizing the target Y. Values above threshold are set to 1, below or equal set to 0. Defaults to None.
         x_binarize (`bool`, optional): Whether to apply the same threshold binarization to input X. Defaults to False.
         threads (`int`, optional): Number of parallel download threads. You can reduce this value in case of rate limiting HuggingFace API errors. Defaults to 16.
-        device (`str`, optional): Device to place tensors on ("cpu", "cuda", etc.). If None, uses PyTorch default device.
+        device (`str`, optional): Target device for input/target batches during benchmarking
+            ("cpu", "cuda", etc.). The dataset stays on CPU. If None, batches remain on CPU.
 
     Example:
         ```python
@@ -88,7 +89,7 @@ class AIICE:
             forecast_len=forecast_len,
             threshold=threshold,
             x_binarize=x_binarize,
-            device=self._device,
+            device="cpu",
         )
 
         self._dataloader = DataLoader(

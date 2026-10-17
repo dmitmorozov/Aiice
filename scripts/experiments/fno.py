@@ -2,10 +2,9 @@ import copy
 import logging
 import math
 import os
-import random
+from datetime import date, timedelta
 from typing import Any
 
-import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -13,29 +12,13 @@ import utils
 import yaml
 from config import Config
 from neuralop.models import FNO
+from reproducibility import init_reproducibility
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 from aiice import AIICE
 from aiice.loader import Loader
 from aiice.preprocess import SlidingWindowDataset
-
-
-# ---------------------------------------------------------------------------
-# Reproducibility
-# ---------------------------------------------------------------------------
-def set_seed(seed: int) -> None:
-    """Fix every RNG that PyTorch and the data pipeline can touch.
-
-    We do not enable deterministic CuDNN globally because it makes some FNO
-    spectral operations significantly slower; the seeded weight init plus
-    fixed dataloader order is enough to reproduce the published numbers
-    within ~1e-4 on the same hardware.
-    """
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
 
 
 # ---------------------------------------------------------------------------
@@ -122,36 +105,28 @@ def _make_loss(bound_weight: float):
 
 
 # ---------------------------------------------------------------------------
-# Data: train + val from a single Loader.get range with an internal split
+# Data: train and validation from non-overlapping date ranges
 # ---------------------------------------------------------------------------
 def _build_loaders(
     cfg: Config,
     sea: str | None,
-    val_years: int,
     batch_size: int,
 ) -> tuple[DataLoader, DataLoader, tuple[int, int]]:
-    """Build train and val dataloaders with a held-out tail of the train period.
-
-    The leaderboard convention has ``cfg.aiice.start_date .. end_date`` cover
-    only the training-eligible period (``end_date`` is the start of the
-    benchmark window). We carve the last ``val_years`` years off that period
-    for early-stopping validation. This keeps the public API of ``cli.py``
-    untouched while still giving the FNO a held-out signal for stopping.
-    """
+    """Build loaders for [train_start, val_start) and [val_start, test_start)."""
     loader = Loader()
-    val_start_year = int(cfg.aiice.end_date[:4]) - val_years
-    val_start = f"{val_start_year}-01-01"
+    val_start = date.fromisoformat(cfg.aiice.val_start_date)
+    test_start = date.fromisoformat(cfg.aiice.test_start_date)
 
     train_data = loader.get(
-        start=cfg.aiice.start_date,
-        end=val_start,
+        start=cfg.aiice.train_start_date,
+        end=(val_start - timedelta(days=1)).isoformat(),
         sea=sea,
         step=cfg.aiice.step,
         tensor_out=True,
     )
     val_data = loader.get(
-        start=val_start,
-        end=cfg.aiice.end_date,
+        start=cfg.aiice.val_start_date,
+        end=(test_start - timedelta(days=1)).isoformat(),
         sea=sea,
         step=cfg.aiice.step,
         tensor_out=True,
@@ -161,15 +136,26 @@ def _build_loaders(
         data=train_data,
         pre_history_len=cfg.aiice.pre_history_len,
         forecast_len=cfg.aiice.forecast_len,
+        device="cpu",
     )
     val_ds = SlidingWindowDataset(
         data=val_data,
         pre_history_len=cfg.aiice.pre_history_len,
         forecast_len=cfg.aiice.forecast_len,
+        device="cpu",
     )
 
+    generator = None
+    if cfg.run.seed is not None:
+        generator = torch.Generator()
+        generator.manual_seed(cfg.run.seed)
+
     train_loader = DataLoader(
-        train_ds, batch_size=batch_size, shuffle=True, pin_memory=True
+        train_ds,
+        batch_size=batch_size,
+        shuffle=True,
+        pin_memory=True,
+        generator=generator,
     )
     val_loader = DataLoader(
         val_ds, batch_size=batch_size, shuffle=False, pin_memory=True
@@ -194,8 +180,6 @@ def train(
     device: str,
 ) -> tuple[float, nn.Module]:
     """Train one FNO with cosine LR, gradient clipping, and val early stopping."""
-    set_seed(args["seed"])
-
     h, w = spatial_shape
     n_modes = coerce_modes(h, w, target=args["target_modes"])
     if n_modes != (args["target_modes"], args["target_modes"]):
@@ -295,13 +279,7 @@ def run(
     cfg: Config,
     sea: str | None,
 ) -> None:
-    """Train FNO for one sea and write a benchmark report to disk.
-
-    Unlike the convolutional baselines, FNO uses an internal train/val split
-    on the configured ``start_date .. end_date`` range so it can perform
-    early stopping on a held-out signal. The benchmark window itself is
-    untouched: ``AIICE`` is still instantiated with ``start = end_date``.
-    """
+    """Train and validate FNO using explicit dates, then benchmark on test."""
     experiment_path = f"{cfg.output_path}/fno/{sea}"
     os.makedirs(experiment_path, exist_ok=True)
 
@@ -309,16 +287,23 @@ def run(
     best_iteration = 0
     best_model: nn.Module | None = None
 
+    train_loader, val_loader, spatial_shape = _build_loaders(
+        cfg=cfg,
+        sea=sea,
+        batch_size=cfg.aiice.batch_size,
+    )
+
     for i, experiment in enumerate(cfg.run.experiments):
         i_experiment_path = f"{experiment_path}/{i}"
         os.makedirs(i_experiment_path, exist_ok=True)
 
-        train_loader, val_loader, spatial_shape = _build_loaders(
-            cfg=cfg,
-            sea=sea,
-            val_years=experiment["val_years"],
-            batch_size=cfg.aiice.batch_size,
+        init_reproducibility(
+            seed=cfg.run.seed,
+            deterministic=cfg.run.deterministic,
+            logger=logger,
         )
+        if cfg.run.seed is not None and train_loader.generator is not None:
+            train_loader.generator.manual_seed(cfg.run.seed)
 
         loss_value, model = train(
             logger=logger,
@@ -343,7 +328,7 @@ def run(
         pre_history_len=cfg.aiice.pre_history_len,
         forecast_len=cfg.aiice.forecast_len,
         batch_size=cfg.aiice.batch_size,
-        start=cfg.aiice.end_date,
+        start=cfg.aiice.test_start_date,
         step=cfg.aiice.step,
         sea=sea,
         device=cfg.device,

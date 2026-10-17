@@ -45,6 +45,37 @@ This command:
 * associates the results with the given forecast length and step
 * updates (or creates) the central CSV leaderboard, deduplicating by model, sea, metric, forecast length, and step
 
+## Dataset split
+
+All experiment configs use three explicit start dates:
+
+```yaml
+aiice:
+  train_start_date: "1980-01-01"
+  val_start_date: "2016-01-01"
+  test_start_date: "2020-01-01"
+```
+
+The periods are `[train_start_date, val_start_date)`,
+`[val_start_date, test_start_date)`, and `[test_start_date, dataset_end]`.
+The first two upper bounds are excluded; `dataset_end` is included.
+The dates must satisfy `train_start_date < val_start_date < test_start_date`.
+Because `Loader.get()` includes both bounds, training and validation are loaded
+through the day before the next period starts. Each input/target pair is built
+entirely inside its own period. With the dates above, training covers 1980–2015,
+validation covers 2016–2019, and testing starts in 2020.
+
+## Resuming CNN training
+
+U-Net, Conv2D, Conv3D, and ConvLSTM save a full `last.pt` after each completed
+epoch, beside the best-validation `model.pt` saved at normal completion. Set
+`run.resume_from` to its path and select one sea and one experiment to resume.
+Model, sea, dates/windows, batch size, seed, deterministic flag, CPU/CUDA type,
+and training parameters must match; the total `max_epoch` may be increased.
+Compatibility is checked from the configuration. Older `last.pt` formats are
+supported; GPU index/count and `pin_memory` may change. An interrupted epoch
+is repeated; a checkpoint stopped by patience is finalized without more training.
+
 ## Explanations
 
 Here you can find some models' setup explanations
@@ -58,11 +89,8 @@ config per scenario from Table 1 of the AIICE paper. The model wraps
 `neuralop.models.FNO` as a "time-as-channel" forecaster
 (`(B, T_in, H, W) -> (B, T_out, H, W)`) and is trained per sea.
 
-Unlike the convolutional baselines, FNO uses an internal train/val split for
-early stopping. The last `val_years` of the configured `start_date .. end_date`
-window are held out for validation; the benchmark window itself
-(`end_date .. dataset_end`) is unchanged.
-
+FNO uses the explicit validation period described above for early stopping.
+Its test period starts at `test_start_date`.
 To run all seven paper scenarios on the five leaderboard seas:
 
 ```bash
@@ -72,8 +100,8 @@ for sc in L1 L2 L3 L4 S1 S2 S3; do
 done
 ```
 
-The reproducibility of the published numbers relies on three pinned settings
-inside each config: `seed: 42`, `target_modes: 16`, and `val_years: 4`. The
+The current configs pin `seed: 42`, `target_modes: 16`,
+`val_start_date: "2016-01-01"`, and `test_start_date: "2020-01-01"`. The
 spectral mode count is automatically clamped to the Nyquist limit
 `spatial_dim // 2` for narrow sea crops (Sea of Japan, Chukchi Sea).
 
