@@ -8,6 +8,7 @@ from typing import TypeAlias
 
 import numpy as np
 import torch
+from tqdm import tqdm
 
 from aiice.constants import (
     DATASET_SHAPE,
@@ -159,7 +160,17 @@ class Loader:
 
         filenames = self._hf.get_filenames(start=start, end=end, step=step)
         with ThreadPoolExecutor(max_workers=threads) as tpool:
-            raw_files = list(tpool.map(self._get_raw_file, filenames))
+            raw_files = list(
+                tqdm(
+                    tpool.map(self._get_raw_file, filenames),
+                    total=len(filenames),
+                    desc="Downloading",
+                    unit="file",
+                    mininterval=1.0,
+                    ncols=80,
+                    ascii=True,
+                )
+            )
 
         with ProcessPoolExecutor(max_workers=processes) as ppool:
             arrays = list(

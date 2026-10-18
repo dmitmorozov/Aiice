@@ -5,6 +5,7 @@ from datetime import date, timedelta
 import config
 import torch
 import yaml
+from huggingface_hub.utils import disable_progress_bars
 from torch.utils.data import DataLoader
 
 from aiice.loader import Loader
@@ -16,6 +17,8 @@ def init_logger() -> logging.Logger:
     logging.basicConfig(
         level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s"
     )
+    logging.getLogger("httpx").setLevel(logging.WARNING)
+    disable_progress_bars()
     return logger
 
 
