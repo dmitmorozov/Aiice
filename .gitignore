@@ -18,3 +18,8 @@ artifacts
 
 # uv venv
 .venv
+
+# local Docker setup
+/Dockerfile
+/.dockerignore
+/docker/run.sh

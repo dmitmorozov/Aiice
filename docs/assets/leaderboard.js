@@ -39,7 +39,7 @@ function renderLayout(seas, pairs) {
     <div id="summary"></div>
     <div class="lb-controls">
       <div class="lb-field">
-        <label for="sea-select">Sea</label>
+        <label for="sea-select">Region</label>
         <select id="sea-select">
           ${seas.map(s => `<option value="${s}">${s}</option>`).join("")}
         </select>
@@ -234,7 +234,7 @@ function renderAllTables(rows) {
 function renderSnippet(state) {
   const code = `\
 aiice = AIICE(
-    sea="${state.sea}",
+    sea=${state.sea === "Full Arctic" ? "None" : `"${state.sea}"`},
     forecast_len=${state.forecast_len},
     step="${state.step}",
     start="2020-01-01"

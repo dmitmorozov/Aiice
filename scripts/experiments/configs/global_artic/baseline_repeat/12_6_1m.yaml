@@ -1,0 +1,17 @@
+output_path: ./outputs/global_artic/12_6_1m
+device: "cuda"
+
+aiice:
+  sea: null
+  train_start_date: "1980-01-01"
+  val_start_date: "2016-01-01"
+  test_start_date: "2020-01-01"
+  pre_history_len: 12
+  forecast_len: 6
+  step: 1m
+  batch_size: 4
+  threads: 4
+
+run:
+  model_name: baseline_repeat
+  seed: 42
