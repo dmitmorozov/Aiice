@@ -1,0 +1,17 @@
+output_path: ./outputs/global_artic/180_90_1d
+device: "cuda"
+
+aiice:
+  sea: null
+  train_start_date: "1980-01-01"
+  val_start_date: "2016-01-01"
+  test_start_date: "2020-01-01"
+  pre_history_len: 180
+  forecast_len: 90
+  step: 1d
+  batch_size: 4
+  threads: 4
+
+run:
+  model_name: baseline_mean
+  seed: 42
