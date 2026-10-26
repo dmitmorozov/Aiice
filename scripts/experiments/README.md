@@ -65,9 +65,9 @@ through the day before the next period starts. Each input/target pair is built
 entirely inside its own period. With the dates above, training covers 1980–2015,
 validation covers 2016–2019, and testing starts in 2020.
 
-## Resuming CNN training
+## Resuming training
 
-U-Net, Conv2D, Conv3D, and ConvLSTM save a full `last.pt` after each completed
+U-Net, Conv2D, Conv3D, ConvLSTM, and FNO save a full `last.pt` after each completed
 epoch, beside the best-validation `model.pt` saved at normal completion. Set
 `run.resume_from` to its path and select one sea and one experiment to resume.
 Model, sea, dates/windows, batch size, seed, deterministic flag, CPU/CUDA type,
@@ -75,6 +75,8 @@ and training parameters must match; the total `max_epoch` may be increased.
 Compatibility is checked from the configuration. Older `last.pt` formats are
 supported; GPU index/count and `pin_memory` may change. An interrupted epoch
 is repeated; a checkpoint stopped by patience is finalized without more training.
+FNO restores its cosine scheduler, including the original `T_max`; increasing
+`max_epoch` extends training without rebuilding the saved learning-rate schedule.
 
 ## Explanations
 
@@ -89,8 +91,13 @@ config per scenario from Table 1 of the AIICE paper. The model wraps
 `neuralop.models.FNO` as a "time-as-channel" forecaster
 (`(B, T_in, H, W) -> (B, T_out, H, W)`) and is trained per sea.
 
-FNO uses the explicit validation period described above for early stopping.
-Its test period starts at `test_start_date`.
+FNO uses the shared CLI train/validation loaders and the explicit periods above.
+The best weights are selected by any decrease in validation loss; `min_delta`
+only controls the separate early-stopping counter. Training retains L1 plus
+the soft bounds penalty; validation uses clamped predictions.
+Its test period starts at `test_start_date`. Each experiment saves
+`training-summary.yaml`, a combined train/validation loss plot, `model.pt`,
+and the resumable `last.pt`.
 To run all seven paper scenarios on the five leaderboard seas:
 
 ```bash
@@ -104,6 +111,10 @@ The current configs pin `seed: 42`, `target_modes: 16`,
 `val_start_date: "2016-01-01"`, and `test_start_date: "2020-01-01"`. The
 spectral mode count is automatically clamped to the Nyquist limit
 `spatial_dim // 2` for narrow sea crops (Sea of Japan, Chukchi Sea).
+
+Full-Arctic configs are in `configs/global_artic/fno/`, one per scenario,
+with `sea: null`, `seed: 42`, and `deterministic: true`. They retain the
+64-channel, four-layer, 16-mode architecture and FP32 computation.
 
 --
 
