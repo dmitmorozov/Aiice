@@ -167,11 +167,18 @@ def main():
             case "fno":
                 import fno
 
-                # FNO builds its loaders from the same explicit split dates.
+                train_dataloader, val_dataloader = init_train_val_dataloaders(
+                    cfg.aiice,
+                    sea=sea,
+                    seed=cfg.run.seed,
+                )
+
                 fno.run(
                     logger=logger,
                     cfg=cfg,
                     sea=sea,
+                    train_dataloader=train_dataloader,
+                    val_dataloader=val_dataloader,
                 )
             case "unet":
                 import unet
