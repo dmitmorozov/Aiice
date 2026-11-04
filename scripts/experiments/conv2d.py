@@ -24,6 +24,16 @@ from tqdm import tqdm
 from aiice import AIICE
 
 
+class AdaptiveAvgPool2dIfNeeded(nn.AdaptiveAvgPool2d):
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        target = self.output_size
+        if isinstance(target, int):
+            target = (target, target)
+        if all(size is None or size == actual for size, actual in zip(target, x.shape[-2:])):
+            return x
+        return super().forward(x)
+
+
 def run(
     logger: logging.Logger,
     cfg: Config,
@@ -126,16 +136,14 @@ def train(
         "conv_dim": 2,
     }
     forecaster_model = ForecasterBase(**forecaster_params)
+    forecaster_model.decoder.resize = AdaptiveAvgPool2dIfNeeded(
+        forecaster_model.decoder.resize.output_size
+    )
     model = forecaster_model.to(device)
 
     optimizer = optim.AdamW(model.parameters(), lr=args["lr"])
-    scheduler = optim.lr_scheduler.CyclicLR(
-        optimizer,
-        base_lr=args["lr"],
-        max_lr=0.005,
-        step_size_up=30,
-        mode="triangular2",
-        cycle_momentum=False,
+    scheduler = optim.lr_scheduler.ConstantLR(
+        optimizer, factor=1.0, total_iters=args["max_epoch"]
     )
 
     criterion = nn.L1Loss()
